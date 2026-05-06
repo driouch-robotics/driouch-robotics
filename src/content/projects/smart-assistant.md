@@ -39,7 +39,7 @@ team: ["014", "023"]
 يمكنكم التفاعل مع المساعد الذكي وطرح استفساراتكم حول ثانوية الوحدة مباشرة عبر الرابط التالي:
 
 <div style="text-align: center; margin: 30px 0;">
-  <a href="/bot.html" style="background-color: #1a365d; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(26, 54, 93, 0.2); transition: all 0.3s ease;">
+  <a href="../../bot.html" style="background-color: #1a365d; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(26, 54, 93, 0.2); transition: all 0.3s ease;">
     <span>🤖</span> تحدث مع المساعد الذكي الآن
   </a>
 </div>

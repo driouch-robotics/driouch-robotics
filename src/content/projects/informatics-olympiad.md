@@ -38,7 +38,7 @@ team: []
 ندعو جميع التلاميذ للاستعداد وتجربة معارفهم من خلال الولوج إلى المنصة الرقمية الرسمية لأولمبياد المعرفة المعلوماتية عبر الرابط أسفله:
 
 <div style="text-align: center; margin: 30px 0;">
-  <a href="/olympiad-platform.html" style="background-color: #1a365d; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(26, 54, 93, 0.2); transition: all 0.3s ease;">
+  <a href="../../olympiad-platform.html" style="background-color: #1a365d; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(26, 54, 93, 0.2); transition: all 0.3s ease;">
     <span>🏆</span> الدخول إلى منصة الأولمبياد الرقمية
   </a>
 </div>

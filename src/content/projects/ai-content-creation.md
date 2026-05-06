@@ -41,7 +41,7 @@ team: ["025", "026"]
 لقد أثمر هذا المشروع عن إنتاج مجموعة من الفيديوهات والقصص المولدة بالكامل عبر الذكاء الاصطناعي. يمكنكم مشاهدة إبداعات التلميذتين واستكشاف قدرات الذكاء الاصطناعي التوليدي عبر زيارة معرضنا الرقمي:
 
 <div style="text-align: center; margin: 30px 0;">
-  <a href="/ai-gallery.html" style="background-color: #1a365d; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(26, 54, 93, 0.2); transition: all 0.3s ease;">
+  <a href="../../ai-gallery.html" style="background-color: #1a365d; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(26, 54, 93, 0.2); transition: all 0.3s ease;">
     <span>🎬</span> استكشف معرض الفيديوهات بالذكاء الاصطناعي
   </a>
 </div>

@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { SITE } from 'astrowind:config';
-import { getHomePermalink } from '~/utils/permalinks';
+import { getHomePermalink, getPermalink } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -27,6 +27,8 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
 
 const visibleSocialLinks = socialLinks.filter(({ icon, text }) => icon || text);
 const visibleSecondaryLinks = secondaryLinks.filter(({ text }) => text);
+const resolveHref = (href?: string) =>
+  href && !href.startsWith('mailto:') && !href.startsWith('tel:') ? getPermalink(href) : href;
 ---
 
 <footer
@@ -65,14 +67,14 @@ const visibleSecondaryLinks = secondaryLinks.filter(({ text }) => text);
 
             <div class="mt-5 flex flex-wrap gap-3">
               <a
-                href="/#about"
+                href={resolveHref('/#about')}
                 class="inline-flex items-center justify-center rounded-2xl bg-white text-[#0B1C4B] px-4 py-2.5 text-sm font-black hover:bg-slate-100 transition-colors"
               >
                 من نحن
               </a>
 
               <a
-                href="/#location"
+                href={resolveHref('/#location')}
                 class="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold hover:bg-white/15 transition-colors"
               >
                 زيارة الموقع
@@ -119,7 +121,7 @@ const visibleSecondaryLinks = secondaryLinks.filter(({ text }) => text);
                         <li>
                           <a
                             class="group inline-flex items-start gap-2 text-sm leading-6 text-slate-600 dark:text-slate-400 hover:text-[#0B1C4B] dark:hover:text-white transition-colors duration-200"
-                            href={href}
+                            href={resolveHref(href)}
                             aria-label={ariaLabel}
                           >
                             <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[#20A4F3] shrink-0 group-hover:scale-125 transition-transform"></span>
@@ -149,7 +151,7 @@ const visibleSecondaryLinks = secondaryLinks.filter(({ text }) => text);
               <div class="flex flex-wrap gap-2">
                 {visibleSecondaryLinks.map(({ text, href }) => (
                   <a
-                    href={href}
+                    href={resolveHref(href)}
                     class="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-[#20A4F3] hover:border-[#20A4F3]/40 transition-colors"
                     set:html={text}
                   />

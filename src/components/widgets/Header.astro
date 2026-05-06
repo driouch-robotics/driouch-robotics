@@ -5,8 +5,7 @@ import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import Button from '~/components/ui/Button.astro';
 
-import { getHomePermalink } from '~/utils/permalinks';
-import { trimSlash } from '~/utils/permalinks';
+import { getHomePermalink, getPermalink, trimSlash } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
 
 interface Link {
@@ -48,6 +47,8 @@ const hasGroupedDropdown = (items?: Array<MenuLink>) =>
   Array.isArray(items) && items.some((item) => Array.isArray(item.links) && item.links.length > 0);
 
 const getGroupCount = (item?: MenuLink) => item?.links?.length ?? 0;
+const resolveHref = (href?: string) =>
+  href && !href.startsWith('mailto:') && !href.startsWith('tel:') ? getPermalink(href) : href;
 ---
 
 <header
@@ -146,7 +147,7 @@ const getGroupCount = (item?: MenuLink) => item?.links?.length ?? 0;
                                     {group.links?.map((project) => (
                                       <li>
                                         <a
-                                          href={project.href}
+                                          href={resolveHref(project.href)}
                                           class="block rounded-xl px-3 py-2.5 text-sm text-right text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-[#20A4F3] transition-colors duration-200"
                                         >
                                           {project.text}
@@ -183,9 +184,9 @@ const getGroupCount = (item?: MenuLink) => item?.links?.length ?? 0;
                             <a
                               class:list={[
                                 'block rounded-xl px-4 py-2.5 text-sm text-right text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-[#20A4F3] transition-colors duration-200',
-                                { 'aw-link-active': href2 === currentPath },
+                                { 'aw-link-active': resolveHref(href2) === currentPath },
                               ]}
-                              href={href2}
+                              href={resolveHref(href2)}
                             >
                               {text2}
                             </a>
@@ -199,9 +200,9 @@ const getGroupCount = (item?: MenuLink) => item?.links?.length ?? 0;
                 <a
                   class:list={[
                     'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
-                    { 'aw-link-active': href === currentPath },
+                    { 'aw-link-active': resolveHref(href) === currentPath },
                   ]}
-                  href={href}
+                  href={resolveHref(href)}
                 >
                   {text}
                 </a>
