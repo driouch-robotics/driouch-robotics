@@ -1,7 +1,7 @@
 site:
   name: IA & Robotics Club - Driouch
-  site: 'http://localhost:4321'
-  base: '/'
+  site: 'https://driouch-robotics.github.io'
+  base: '/driouch-robotics'
   trailingSlash: false
 
   googleSiteVerificationId: null

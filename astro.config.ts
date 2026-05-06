@@ -28,6 +28,9 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  site: 'https://driouch-robotics.github.io',
+  base: '/driouch-robotics',
+
   devToolbar: {
     enabled: false,
   },
