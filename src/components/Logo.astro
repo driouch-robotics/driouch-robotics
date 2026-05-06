@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import logoDay from '~/assets/images/logo.png';
+import logoNight from '~/assets/images/logo night club.png';
+---
+
+<span class="self-center ml-2 rtl:ml-0 rtl:mr-2 flex items-center shrink-0">
+  <span class="club-logo-frame">
+    <!-- شعار النهار -->
+    <Image
+      src={logoDay}
+      alt="IA & Robotics Club Logo"
+      class="club-logo-img club-logo-day"
+    />
+
+    <!-- شعار الليل -->
+    <Image
+      src={logoNight}
+      alt="IA & Robotics Club Night Logo"
+      class="club-logo-img club-logo-night"
+    />
+  </span>
+</span>
+
+<style>
+  .club-logo-frame {
+    position: relative;
+    display: block;
+    width: 140px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .club-logo-frame {
+      width: 170px;
+      height: 80px;
+    }
+  }
+
+  .club-logo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    transform-origin: center center;
+  }
+
+  .club-logo-day {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .club-logo-night {
+    opacity: 0;
+    transform: scale(0.60);
+  }
+
+  :global(.dark) .club-logo-day {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  :global(.dark) .club-logo-night {
+    opacity: 1;
+    transform: scale(0.60);
+  }
+</style>

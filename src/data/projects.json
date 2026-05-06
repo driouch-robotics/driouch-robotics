@@ -1,0 +1,126 @@
+{
+    "categories": [
+        {
+            "id": "robotics",
+            "title": "الأنظمة المدمجة والروبوتيك",
+            "icon": "tabler:cpu",
+            "description": "مشاريع هندسية تدمج بين الذكاء الاصطناعي والأنظمة المدمجة لابتكار حلول واقعية.",
+            "items": [
+                {
+                    "name": "مشروع مدينة الدريوش الذكية",
+                    "description": "نظام مدمج لتسيير الأزمات وتدبير المجال الحضري، يشمل الإنذار المبكر للفيضانات، وتدبير حركة المرور باستخدام الذكاء الاصطناعي.",
+                    "image": "src/assets/images/projects/smart-driouch-cover.png",
+                    "tags": ["AI", "Arduino", "Smart City"],
+                    "link": "/projects/smart-driouch"
+                },
+                {
+                    "name": "مشروع الذراع الآلية والفرز الذكي",
+                    "description": "ذراع روبوتية قادرة على التعرف على الأشياء وفرزها بشكل دقيق باستخدام تقنيات الرؤية الحاسوبية والمنصة الدوارة.",
+                    "image": "src/assets/images/projects/robotic-arm-cover.png",
+                    "tags": ["Computer Vision", "Robotics"],
+                    "link": "/projects/robotic-arm"
+                },
+                {
+                    "name": "مشروع السيارة المستكشفة الذكية",
+                    "description": "سيارة مجهزة بهيكل متين وأنظمة حركة ورؤية متطورة لاستكشاف البيئة المحيطة وتجاوز العقبات بذكاء.",
+                    "image": "src/assets/images/projects/explorer-car-cover.png",
+                    "tags": ["Exploration", "Sensors"],
+                    "link": "/projects/explorer-car"
+                },
+                {
+                    "name": "مشروع المركبة ذاتية القيادة وتتبع المسار",
+                    "description": "مركبة رباعية الدفع (4WD) تعتمد على الذكاء الملاحي وحساسات الأشعة تحت الحمراء لتتبع مسارات محددة مسبقاً بدقة عالية.",
+                    "image": "src/assets/images/projects/autonomous-vehicle-cover.png",
+                    "tags": ["Navigation", "4WD", "Line Tracking"],
+                    "link": "/projects/autonomous-vehicle"
+                },
+                {
+                    "name": "مشروع جرس مؤسسة الوحدة الذكي وحارس السلامة",
+                    "description": "نظام جرس مدرسي ذكي ومؤتمت لضبط الحصص الدراسية بدقة عالية، مدمج مع مستشعرات وبروتوكولات إنذار لضمان سلامة المؤسسة.",
+                    "image": "src/assets/images/projects/smart-bell-cover.png",
+                    "tags": ["Automation", "Safety", "RTC"],
+                    "link": "/projects/smart-bell"
+                },
+                {
+                    "name": "مشروع المزرعة الذكية وحماية المحاصيل",
+                    "description": "نموذج مصغر لمزرعة المستقبل يعتمد على الري الآلي باستغلال مياه الأمطار، وأنظمة حماية ذكية ضد الطيور والحيوانات الدخيلة.",
+                    "image": "src/assets/images/projects/smart-farm-cover.png",
+                    "tags": ["Smart Farm", "Irrigation", "Security"],
+                    "link": "/projects/smart-farm"
+                },
+                {
+                    "name": "مشروع نظام الخوذة الذكية لحماية السائقين",
+                    "description": "نظام أمان مبتكر يمنع تشغيل الدراجة النارية إلا في حالة ارتداء الخوذة، مع نظام استشعار للحد من حوادث السير.",
+                    "image": "src/assets/images/projects/smart-helmet-cover.png",
+                    "tags": ["Safety", "Smart Helmet", "RF Connection"],
+                    "link": "/projects/smart-helmet"
+                }
+            ]
+        },
+        {
+            "id": "ai-digital",
+            "title": "الذكاء الاصطناعي والرقمنة",
+            "icon": "tabler:brain",
+            "description": "تطوير برمجيات وحلول رقمية لتسهيل الإدارة المدرسية ومواكبة التحول الرقمي.",
+            "items": [
+                {
+                    "name": "مشروع المساعد الذكي والمجيب الآلي",
+                    "description": "أول مساعد ذكي (Chatbot) بالمؤسسات العمومية يعتمد على منصة n8n للإجابة الفورية على استفسارات التلاميذ وأولياء الأمور.",
+                    "image": "src/assets/images/projects/smart-assistant-cover.png",
+                    "tags": ["AI Chatbot", "n8n", "Data"],
+                    "link": "/projects/smart-assistant"
+                },
+                {
+                    "name": "مشروع نظام الإدارة الرقمية للغياب والتواصل الذكي",
+                    "description": "تطبيق ويب متكامل يربط بين الحراسة العامة ولوحة قيادة المدير، مع نظام أوتوماتيكي لإشعار الآباء بالغياب عبر الواتساب.",
+                    "image": "src/assets/images/projects/absence-sys-cover.png",
+                    "tags": ["Web App", "Dashboard", "WhatsApp API"],
+                    "link": "/projects/digital-absence-management"
+                },
+                {
+                    "name": "مشروع المنصة التفاعلية ورقمنة الكتاب المدرسي",
+                    "description": "منصة تعليمية متكاملة تتضمن دروس مادة المعلوميات، وتوفر بيئة رقمية لإنجاز التمارين وتمرير الاختبارات بشكل تفاعلي.",
+                    "image": "src/assets/images/projects/digital-textbook-cover.png",
+                    "tags": ["E-Learning", "Interactive Tests", "Web App"],
+                    "link": "/projects/digital-textbook"
+                },
+                {
+                    "name": "مشروع صناعة المحتوى والأفلام بالذكاء الاصطناعي",
+                    "description": "استخدام أدوات الذكاء الاصطناعي التوليدي (LLMs, Text-to-Video) لابتكار وإنتاج أفلام وقصص توعوية قصيرة بالكامل.",
+                    "image": "src/assets/images/projects/ai-content-creation cover.png",
+                    "tags": ["Generative AI", "Prompt Engineering", "Video Production"],
+                    "link": "/projects/ai-content-creation"
+                }
+            ]
+        },
+        {
+            "id": "awareness",
+            "title": "التوعية والمسابقات التقنية",
+            "icon": "tabler:bulb",
+            "description": "مبادرات لرفع الوعي الرقمي وتحفيز روح المنافسة التقنية بين التلاميذ.",
+            "items": [
+                {
+                    "name": "الحلقة النقاشية: الوجه الخفي لألعاب الفيديو",
+                    "description": "عرض تفاعلي جريء يعتمد على قانون البطاقات والتحليل النقدي لمناقشة تأثير ألعاب الفيديو على المسار الدراسي بمشاركة الجمهور.",
+                    "image": "src/assets/images/projects/gaming-awareness-cover.jpg",
+                    "tags": ["Awareness", "Debate", "Mental Health"],
+                    "link": "/projects/video-games-awareness"
+                },
+                {
+                    "name": "مسابقة تحدي السرعة الرقمي",
+                    "description": "تحدي دوري لـ 24 تلميذاً (3 من كل قسم) يعتمد على برنامج RapidTyping لاختيار أسرع تلميذ في الكتابة على لوحة المفاتيح بالمؤسسة.",
+                    "image": "src/assets/images/projects/typing-challenge-cover.png",
+                    "tags": ["Competition", "RapidTyping", "Digital Skills"],
+                    "link": "/projects/typing-speed-challenge"
+                },
+                {
+                    "name": "أولمبياد المعرفة المعلوماتية",
+                    "description": "تحدي ثقافي تقني رقمي لاختبار وتطوير معارف جميع تلاميذ المؤسسة في مجالات البرمجة وتاريخ الذكاء الاصطناعي.",
+                    "image": "src/assets/images/projects/informatics-olympiad-cover.png",
+                    "tags": ["Competition", "Digital Culture", "AI"],
+                    "link": "/projects/informatics-olympiad"
+                }
+            ]
+        }
+    ]
+}

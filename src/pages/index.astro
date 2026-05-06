@@ -1,0 +1,1470 @@
+---
+import projectsData from '~/data/projects.json';
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { Image } from 'astro:assets';
+
+import schoolLogo from '~/assets/images/school-logo.png';
+// import provinceLogo from '~/assets/images/province-logo.png';
+
+import teamData from '~/data/team.json';
+
+const metadata = {
+  title: 'IA & Robotics Club - Driouch',
+  ignoreTitleTemplate: true,
+};
+
+const clubLocationQuery = encodeURIComponent(
+  'ثانوية الوحدة الإعدادية الرائدة جماعة امطالسة مديرية الدريوش جهة الشرق المغرب'
+);
+
+const mapsEmbedUrl = `https://www.google.com/maps?q=${clubLocationQuery}&output=embed`;
+const mapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${clubLocationQuery}`;
+const mapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${clubLocationQuery}`;
+
+const contactPhone = '+212677035415';
+const contactPhoneDisplay = '+212 677 035 415';
+const contactEmail = 'mohamed.elrhaouat@gmail.com';
+
+const institutionPhone = '0666364033';
+const institutionPhoneDisplay = '0666 364 033';
+const institutionEmail = 'najimammari794@gmail.com';
+const principalPhone = '0602651223';
+const principalPhoneDisplay = '0602 651 223';
+---
+
+<Layout metadata={metadata}>
+  <style is:global>
+    .animated-gradient-text {
+      background: linear-gradient(to right, #20A4F3, #0B1C4B, #20A4F3, #00d2ff);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: shine 4s linear infinite;
+    }
+
+    @keyframes shine {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    @keyframes neural-glow {
+      0%,
+      100% {
+        opacity: 0.15;
+        filter: brightness(1) drop-shadow(0 0 2px rgba(32, 164, 243, 0.1));
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        filter: brightness(1.2) drop-shadow(0 0 8px rgba(32, 164, 243, 0.4));
+        transform: scale(1.01);
+      }
+    }
+
+    .animate-neural-glow {
+      animation: neural-glow 6s ease-in-out infinite;
+    }
+
+    .club-accordion details {
+      overflow: hidden;
+      scroll-margin-top: 110px;
+    }
+
+    .club-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .club-accordion details[open] summary .accordion-plus {
+      transform: rotate(45deg);
+    }
+
+    .club-map-frame {
+      min-height: 420px;
+    }
+
+    .institution-logo-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem 0.9rem;
+      border-radius: 1.5rem;
+      border: 1px solid transparent;
+      background: transparent;
+      transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .institution-logo-trigger:hover {
+      transform: translateY(-2px);
+      border-color: rgba(32, 164, 243, 0.22);
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 18px 40px -28px rgba(11, 28, 75, 0.35);
+    }
+
+    .dark .institution-logo-trigger:hover {
+      background: rgba(15, 23, 42, 0.35);
+      border-color: rgba(32, 164, 243, 0.32);
+    }
+
+    .institution-dialog {
+      width: min(96vw, 1220px);
+      max-width: min(96vw, 1220px);
+      max-height: 92vh;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .institution-dialog::backdrop {
+      background: rgba(15, 23, 42, 0.58);
+      backdrop-filter: blur(7px);
+    }
+
+    .institution-dialog-panel {
+      animation: institution-pop 0.22s ease-out;
+      max-height: 92vh;
+      overflow: hidden;
+    }
+
+    .institution-dialog-body {
+      padding: 1rem;
+    }
+
+    .institution-top-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .institution-title {
+      font-size: 2.2rem;
+      line-height: 1.15;
+    }
+
+    .institution-desc {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .institution-logo-box {
+      min-height: 180px;
+    }
+
+    .institution-logo-box img,
+    .institution-logo-box picture,
+    .institution-logo-box :where(img) {
+      max-height: 130px;
+    }
+
+    .institution-stat-card {
+      min-height: 78px;
+    }
+
+    .institution-contact-card {
+      min-height: 78px;
+    }
+
+    .institution-mini-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      margin-top: 0.9rem;
+    }
+
+    @keyframes institution-pop {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 1279px) {
+      .institution-dialog {
+        width: min(96vw, 1080px);
+        max-width: min(96vw, 1080px);
+      }
+
+      .institution-title {
+        font-size: 2rem;
+      }
+
+      .institution-desc {
+        font-size: 0.96rem;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .institution-dialog {
+        width: min(96vw, 860px);
+        max-width: min(96vw, 860px);
+      }
+
+      .institution-dialog-panel {
+        max-height: 90vh;
+        overflow: auto;
+      }
+
+      .institution-top-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .institution-title {
+        font-size: 1.8rem;
+      }
+
+      .institution-logo-box {
+        min-height: 150px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .club-map-frame {
+        min-height: 340px;
+      }
+
+      .institution-dialog {
+        width: 96vw;
+        max-width: 96vw;
+      }
+
+      .institution-dialog-panel {
+        max-height: 90vh;
+        overflow: auto;
+      }
+
+      .institution-dialog-body {
+        padding: 0.9rem;
+      }
+
+      .institution-title {
+        font-size: 1.55rem;
+      }
+
+      .institution-desc {
+        font-size: 0.94rem;
+        line-height: 1.75;
+      }
+
+      .institution-stat-card,
+      .institution-contact-card {
+        min-height: auto;
+      }
+    }
+  </style>
+
+  <Hero
+    actions={[
+      { variant: 'primary', text: 'اكتشف مشاريعنا', href: '#projects', icon: 'tabler:rocket' },
+      { text: 'لائحة المهندسين', href: '#team', icon: 'tabler:users' },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <img
+          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+          alt="AI Background Light"
+          class="absolute inset-0 w-full h-full object-cover opacity-20 block dark:hidden invert grayscale"
+        />
+
+        <img
+          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+          alt="Neural Network Glow"
+          class="absolute inset-0 w-full h-full object-cover hidden dark:block mix-blend-screen animate-neural-glow"
+        />
+
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-slate-900 dark:via-slate-900/80"></div>
+      </div>
+    </Fragment>
+
+    <Fragment slot="title">
+      <div class="flex flex-col gap-2 md:gap-3 mb-2 relative z-10 mt-[-1rem] md:mt-[-2rem]">
+        <span class="text-gray-900 dark:text-white leading-tight text-3xl md:text-5xl">
+          نادي الروبوتيك والذكاء الاصطناعي
+        </span>
+        <span class="animated-gradient-text text-4xl md:text-6xl font-extrabold tracking-wide">
+          IA & Robotics Club
+        </span>
+      </div>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <p
+        class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-4 leading-relaxed relative z-10"
+        dir="rtl"
+      >
+        نحن جيل المستقبل! نبتكر حلولاً ذكية ومستدامة من خلال مشاريع رائدة تدمج بين التكنولوجيا
+        المتقدمة والهوية المحلية.
+      </p>
+
+      <div
+        class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center justify-center gap-4 relative z-10"
+      >
+        <span class="text-base md:text-lg lg:text-xl text-[#20A4F3] dark:text-[#20A4F3] tracking-tight font-extrabold">
+          تحت إشراف
+        </span>
+
+        <div class="flex flex-wrap items-center justify-center gap-6 md:gap-12">
+          <div class="flex flex-col items-center gap-3 group">
+            <button
+              type="button"
+              class="institution-logo-trigger"
+              aria-haspopup="dialog"
+              aria-controls="institution-info-dialog"
+              data-open-institution-dialog
+            >
+              <Image
+                src={schoolLogo}
+                alt="ثانوية الوحدة الإعدادية الرائدة"
+                class="h-16 md:h-20 lg:h-24 xl:h-28 w-auto object-contain transition-all duration-300 ease-out group-hover:scale-110 group-hover:-translate-y-1 drop-shadow-md group-hover:drop-shadow-xl"
+              />
+            </button>
+
+            
+          </div>
+
+          <!-- <div class="flex flex-col items-center gap-2 group">
+            <img
+              src="https://placehold.co/150x80/transparent/20A4F3?text=Driouch+Province+Logo"
+              alt="عمالة إقليم الدريوش"
+              class="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-sm"
+            />-->
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  </Hero>
+
+  <dialog id="institution-info-dialog" class="institution-dialog rounded-[28px] text-right">
+    <div
+      class="institution-dialog-panel relative rounded-[28px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.45)]"
+    >
+      <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(32,164,243,0.14),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(11,28,75,0.08),transparent_28%)]"></div>
+
+      <button
+        type="button"
+        data-close-institution-dialog
+        class="absolute top-4 left-4 z-20 inline-flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-red-50 hover:text-red-500 dark:hover:bg-slate-700 transition-colors"
+        aria-label="إغلاق"
+      >
+        ✕
+      </button>
+
+      <div class="institution-dialog-body relative">
+        <div class="institution-top-grid">
+          <div class="flex flex-col justify-center">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <span
+                class="inline-flex w-fit items-center px-3 py-1 rounded-full bg-blue-50 dark:bg-slate-800 text-[#20A4F3] text-xs font-black border border-blue-100 dark:border-slate-700"
+              >
+                معلومات المؤسسة
+              </span>
+
+              <div class="hidden xl:flex items-center gap-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold">
+                  جماعة امطالسة
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold">
+                  إقليم الدريوش
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold">
+                  جهة الشرق
+                </span>
+              </div>
+            </div>
+
+            <h3 class="institution-title mt-3 font-extrabold text-gray-900 dark:text-white">
+              ثانوية الوحدة الإعدادية الرائدة
+            </h3>
+
+            <p class="institution-desc mt-3 text-gray-600 dark:text-slate-400">
+              مؤسسة تربوية تعليمية للتعليم العمومي، تأسست سنة 2023، وتقع بجماعة امطالسة التابعة
+              لإقليم الدريوش بجهة الشرق، وتندرج ضمن المديرية الإقليمية للدريوش، ويشرف على إدارتها
+              السيد نجيب العماري.
+            </p>
+
+            <div class="mt-3 flex flex-wrap items-center gap-2 xl:hidden">
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold">
+                جماعة امطالسة
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold">
+                إقليم الدريوش
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold">
+                جهة الشرق
+              </span>
+            </div>
+
+            <div class="institution-mini-actions">
+              <a
+                href="#location"
+                data-close-institution-dialog
+                class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-[#20A4F3] text-[#0B1C4B] font-black hover:bg-[#0B1C4B] hover:text-white transition-colors text-sm"
+              >
+                الموقع الجغرافي
+              </a>
+
+              <button
+                type="button"
+                data-close-institution-dialog
+                class="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white font-bold hover:border-[#20A4F3] hover:text-[#20A4F3] transition-colors text-sm"
+              >
+                إغلاق
+              </button>
+            </div>
+          </div>
+
+          <div class="institution-logo-box rounded-[22px] border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm p-4 flex items-center justify-center">
+            <Image
+              src={schoolLogo}
+              alt="ثانوية الوحدة الإعدادية الرائدة"
+              class="w-auto object-contain"
+            />
+          </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 lg:grid-cols-6 gap-3">
+          <div class="institution-stat-card rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 flex flex-col justify-between">
+            <span class="text-xs font-black text-[#20A4F3]">سنة التأسيس</span>
+            <p class="mt-1 text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white">2023</p>
+          </div>
+
+          <div class="institution-stat-card rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 flex flex-col justify-between">
+            <span class="text-xs font-black text-[#20A4F3]">المدير</span>
+            <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white">نجيب العماري</p>
+          </div>
+
+          <div class="institution-stat-card rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 flex flex-col justify-between">
+            <span class="text-xs font-black text-[#20A4F3]">النوع</span>
+            <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white">تعليم عمومي</p>
+          </div>
+
+          <div class="institution-stat-card rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 flex flex-col justify-between">
+            <span class="text-xs font-black text-[#20A4F3]">الجماعة</span>
+            <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white">امطالسة</p>
+          </div>
+
+          <div class="institution-stat-card rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 flex flex-col justify-between">
+            <span class="text-xs font-black text-[#20A4F3]">الإقليم</span>
+            <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white">الدريوش</p>
+          </div>
+
+          <div class="institution-stat-card rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 flex flex-col justify-between">
+            <span class="text-xs font-black text-[#20A4F3]">الجهة</span>
+            <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white">الشرق</p>
+          </div>
+        </div>
+
+        <div class="mt-4 rounded-3xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 mb-3">
+            <div>
+              <h4 class="text-lg md:text-xl font-extrabold text-gray-900 dark:text-white">
+                معلومات التواصل
+              </h4>
+              <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
+                وسائل التواصل الخاصة بالمؤسسة وإدارة المؤسسة
+              </p>
+            </div>
+
+            <div class="text-sm font-bold text-[#20A4F3]">
+              المديرية الإقليمية للدريوش
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <a
+              href={`tel:${institutionPhone}`}
+              class="institution-contact-card rounded-2xl bg-white dark:bg-slate-900 border border-blue-100 dark:border-slate-700 p-3 hover:border-[#20A4F3] transition-colors"
+            >
+              <span class="text-xs font-black text-[#20A4F3]">رقم المؤسسة</span>
+              <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white" dir="ltr">
+                {institutionPhoneDisplay}
+              </p>
+            </a>
+
+            <a
+              href={`mailto:${institutionEmail}`}
+              class="institution-contact-card rounded-2xl bg-white dark:bg-slate-900 border border-blue-100 dark:border-slate-700 p-3 hover:border-[#20A4F3] transition-colors"
+            >
+              <span class="text-xs font-black text-[#20A4F3]">البريد الإلكتروني</span>
+              <p class="mt-1 text-sm md:text-base font-extrabold text-gray-900 dark:text-white break-all" dir="ltr">
+                {institutionEmail}
+              </p>
+            </a>
+
+            <a
+              href={`tel:${principalPhone}`}
+              class="institution-contact-card rounded-2xl bg-white dark:bg-slate-900 border border-blue-100 dark:border-slate-700 p-3 hover:border-[#20A4F3] transition-colors"
+            >
+              <span class="text-xs font-black text-[#20A4F3]">رقم المدير</span>
+              <p class="mt-1 text-base md:text-lg font-extrabold text-gray-900 dark:text-white" dir="ltr">
+                {principalPhoneDisplay}
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <section
+    class="py-12 bg-slate-50/50 dark:bg-slate-900/30 border-y border-gray-100 dark:border-slate-800 relative z-10"
+  >
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center" dir="rtl">
+        <div
+          class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-yellow-400/30 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+        >
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-300 to-yellow-500"></div>
+          <h3
+            class="text-xl font-black text-yellow-600 dark:text-yellow-500 mb-1 uppercase tracking-wider font-sans"
+            dir="ltr"
+          >
+            Gold Sponsors
+          </h3>
+          <span class="text-xs font-bold text-gray-400 dark:text-gray-500 mb-6">الرعاة الذهبيون</span>
+          <div class="flex-grow flex flex-wrap items-center justify-center gap-4 w-full"></div>
+        </div>
+
+        <div
+          class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-300 dark:border-slate-600 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+        >
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-300 to-slate-400"></div>
+          <h3
+            class="text-xl font-black text-slate-600 dark:text-slate-400 mb-1 uppercase tracking-wider font-sans"
+            dir="ltr"
+          >
+            Silver Sponsors
+          </h3>
+          <span class="text-xs font-bold text-gray-400 dark:text-gray-500 mb-6">الرعاة الفضيون</span>
+          <div class="flex-grow flex flex-wrap items-center justify-center gap-4 w-full"></div>
+        </div>
+
+        <div
+          class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-[#20A4F3]/30 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+        >
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0B1C4B] to-[#20A4F3]"></div>
+          <h3
+            class="text-xl font-black text-[#20A4F3] mb-1 uppercase tracking-wider font-sans"
+            dir="ltr"
+          >
+            Our Partners
+          </h3>
+          <span class="text-xs font-bold text-gray-400 dark:text-gray-500 mb-6">شركاء النجاح</span>
+
+          <div class="flex-grow flex flex-col items-center justify-center gap-4 w-full">
+            <div class="flex flex-col items-center gap-2 group">
+              <img
+                src="/src/assets/images/kart-future-logo.png"
+                alt="جمعية كرت المستقبل"
+                class="h-14 w-auto object-contain rounded-full shadow-sm group-hover:scale-110 transition-transform bg-white"
+              />
+              
+            </div>
+
+            <div class="flex flex-col items-center gap-2 mt-2 group"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="about"
+    class="py-16 md:py-24 bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 scroll-mt-24 relative z-10"
+  >
+    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <span class="text-[#20A4F3] font-extrabold tracking-tight text-lg md:text-xl lg:text-2xl mb-3 block">
+          من نحن
+        </span>
+
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">
+          نادي تربوي يصنع <span class="text-[#20A4F3]">مهارات المستقبل</span>
+        </h2>
+
+        <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed">
+          فضاء مدرسي للإبداع، البحث، البرمجة، الروبوتيك، والذكاء الاصطناعي، يجمع بين التعلم
+          التطبيقي وخدمة المؤسسة والمجتمع المحلي.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-1">
+          <div class="sticky top-24 bg-[#0B1C4B] text-white rounded-3xl p-8 overflow-hidden shadow-xl relative">
+            <div class="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-[#20A4F3]/30 blur-3xl"></div>
+            <div
+              class="absolute -bottom-16 -right-16 w-40 h-40 rounded-full bg-purple-500/20 blur-3xl"
+            ></div>
+
+            <div class="relative z-10">
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-bold mb-5"
+              >
+                Since September 2024
+              </span>
+
+              <h3 class="text-2xl font-extrabold mb-4">IA & Robotics Club</h3>
+
+              <p class="text-blue-100/80 text-sm leading-relaxed mb-6">
+                تأسس النادي في شتنبر 2024 بثانوية الوحدة الإعدادية الرائدة، بمبادرة من الأستاذ محمد
+                الغوات، أستاذ مادة المعلوميات.
+              </p>
+
+              <div class="grid grid-cols-2 gap-3 text-center">
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <div class="text-2xl font-black text-[#20A4F3]">2024</div>
+                  <div class="text-xs text-blue-100/70 mt-1">تاريخ التأسيس</div>
+                </div>
+
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <div class="text-2xl font-black text-[#20A4F3]">AI</div>
+                  <div class="text-xs text-blue-100/70 mt-1">مجال الإبداع</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 club-accordion space-y-4">
+          <details open class="group bg-slate-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
+            <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-slate-700 flex items-center justify-center text-[#20A4F3] shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 6v6l4 2" />
+                    <path d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0 -18" />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    المعلومات العامة حول التأسيس
+                  </h3>
+                  <p class="text-sm text-gray-500 dark:text-slate-400">النشأة، السياق، والمؤسس</p>
+                </div>
+              </div>
+
+              <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
+                +
+              </span>
+            </summary>
+
+            <div class="px-6 pb-6">
+              <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-700"
+              >
+                <p class="text-gray-600 dark:text-slate-400 leading-relaxed">
+                  تأسس نادي الروبوتيك والذكاء الاصطناعي في شتنبر 2024 بثانوية الوحدة الإعدادية
+                  الرائدة بجماعة امطالسة، التابعة للمديرية الإقليمية للدريوش بجهة الشرق، من طرف
+                  الأستاذ محمد الغوات، أستاذ مادة المعلوميات.
+                </p>
+
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="p-4 rounded-xl bg-blue-50 dark:bg-slate-800">
+                    <span class="text-xs font-bold text-[#20A4F3]">المؤسسة</span>
+                    <p class="font-bold text-gray-900 dark:text-white mt-1">
+                      ثانوية الوحدة الإعدادية الرائدة
+                    </p>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-blue-50 dark:bg-slate-800">
+                    <span class="text-xs font-bold text-[#20A4F3]">الجماعة</span>
+                    <p class="font-bold text-gray-900 dark:text-white mt-1">امطالسة، إقليم الدريوش</p>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-blue-50 dark:bg-slate-800">
+                    <span class="text-xs font-bold text-[#20A4F3]">المؤسس</span>
+                    <p class="font-bold text-gray-900 dark:text-white mt-1">الأستاذ محمد الغوات</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="group bg-slate-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
+            <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-slate-700 flex items-center justify-center text-[#20A4F3] shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 21l18 0" />
+                    <path d="M5 21v-14l8 -4v18" />
+                    <path d="M19 21v-10l-6 -4" />
+                    <path d="M9 9l0 .01" />
+                    <path d="M9 12l0 .01" />
+                    <path d="M9 15l0 .01" />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">هدف النادي</h3>
+                  <p class="text-sm text-gray-500 dark:text-slate-400">
+                    الرؤية التربوية والتكنولوجية
+                  </p>
+                </div>
+              </div>
+
+              <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
+                +
+              </span>
+            </summary>
+
+            <div class="px-6 pb-6">
+              <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-700"
+              >
+                <p class="text-gray-600 dark:text-slate-400 leading-relaxed mb-6">
+                  يهدف النادي إلى تمكين التلميذات والتلاميذ من مهارات البرمجة، التفكير الحاسوبي،
+                  الروبوتيك، الذكاء الاصطناعي، والعمل الجماعي، عبر مشاريع تطبيقية ومسابقات وأنشطة
+                  توعوية مرتبطة بحاجيات المؤسسة والمحيط المحلي.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div
+                    class="p-5 rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
+                  >
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">التعلم بالممارسة</h4>
+                    <p class="text-sm text-gray-600 dark:text-slate-400">
+                      تحويل المفاهيم الرقمية إلى مشاريع حقيقية قابلة للتجريب والتطوير.
+                    </p>
+                  </div>
+
+                  <div
+                    class="p-5 rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
+                  >
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">الابتكار المحلي</h4>
+                    <p class="text-sm text-gray-600 dark:text-slate-400">
+                      ربط التكنولوجيا بحاجيات المؤسسة والمجتمع المحلي في إقليم الدريوش.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details
+            id="contact-info"
+            class="group bg-slate-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm"
+          >
+            <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-slate-700 flex items-center justify-center text-[#20A4F3] shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 5h18" />
+                    <path d="M3 12h18" />
+                    <path d="M3 19h18" />
+                    <path d="M7 5v14" />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">معلومات التواصل</h3>
+                  <p class="text-sm text-gray-500 dark:text-slate-400">
+                    الهاتف والبريد الإلكتروني
+                  </p>
+                </div>
+              </div>
+
+              <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
+                +
+              </span>
+            </summary>
+
+            <div class="px-6 pb-6">
+              <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-700"
+              >
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <a
+                    href={`tel:${contactPhone}`}
+                    class="p-5 rounded-2xl bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700 hover:border-[#20A4F3] transition-colors"
+                  >
+                    <span class="text-xs font-bold text-[#20A4F3]">الهاتف</span>
+                    <p class="mt-2 text-lg font-black text-gray-900 dark:text-white" dir="ltr">
+                      {contactPhoneDisplay}
+                    </p>
+                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">رئيس النادي</p>
+                  </a>
+
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    class="p-5 rounded-2xl bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700 hover:border-[#20A4F3] transition-colors"
+                  >
+                    <span class="text-xs font-bold text-[#20A4F3]">البريد الإلكتروني</span>
+                    <p
+                      class="mt-2 text-lg font-black text-gray-900 dark:text-white break-all"
+                      dir="ltr"
+                    >
+                      {contactEmail}
+                    </p>
+                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
+                      للتواصل والشراكات
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details
+            id="faq"
+            class="group bg-slate-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm"
+          >
+            <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-slate-700 flex items-center justify-center text-[#20A4F3] shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 9a4 4 0 1 1 8 0c0 3 -4 3 -4 6" />
+                    <path d="M12 17l0 .01" />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">الأسئلة الشائعة</h3>
+                  <p class="text-sm text-gray-500 dark:text-slate-400">
+                    أجوبة سريعة للزوار والتلاميذ
+                  </p>
+                </div>
+              </div>
+
+              <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
+                +
+              </span>
+            </summary>
+
+            <div class="px-6 pb-6">
+              <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 space-y-4"
+              >
+                <div>
+                  <h4 class="font-bold text-gray-900 dark:text-white">من يمكنه الانضمام إلى النادي؟</h4>
+                  <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">
+                    النادي مفتوح لتلاميذ المؤسسة المهتمين بالبرمجة، الروبوتيك، التصميم، الذكاء
+                    الاصطناعي، والعمل الجماعي.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-gray-900 dark:text-white">
+                    هل أحتاج معرفة مسبقة بالبرمجة؟
+                  </h4>
+                  <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">
+                    لا. النادي يعتمد التدرج والتعلم بالممارسة، من الأساسيات إلى إنجاز مشاريع حقيقية.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-gray-900 dark:text-white">
+                    ما نوع المشاريع التي ينجزها النادي؟
+                  </h4>
+                  <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">
+                    مشاريع روبوتيك، تطبيقات رقمية، أنظمة ذكية، مسابقات، وعروض توعوية حول التكنولوجيا
+                    والاستخدام المسؤول لها.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-gray-900 dark:text-white">كيف يمكن دعم النادي؟</h4>
+                  <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">
+                    يمكن دعم النادي عبر الشراكات، توفير أدوات تقنية، مواكبة المشاريع، أو المساهمة في
+                    أنشطة التأطير والتوجيه.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details
+            id="iaday-2026"
+            class="group bg-gradient-to-br from-[#0B1C4B] to-[#123979] text-white rounded-2xl border border-[#20A4F3]/30 shadow-xl overflow-hidden"
+          >
+            <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-11 h-11 rounded-xl bg-[#20A4F3]/20 border border-[#20A4F3]/30 flex items-center justify-center text-[#20A4F3] shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 21h8" />
+                    <path d="M12 17v4" />
+                    <path d="M7 4h10" />
+                    <path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold">IA Day 2026 Edition 2</h3>
+                  <p class="text-sm text-blue-100/70">إعلان نسخة يوم الذكاء الاصطناعي لهذا الموسم</p>
+                </div>
+              </div>
+
+              <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
+                +
+              </span>
+            </summary>
+
+            <div class="px-6 pb-6">
+              <div class="rounded-2xl p-6 border border-white/10 bg-white/10 backdrop-blur-md">
+                <span
+                  class="inline-flex items-center px-3 py-1 rounded-full bg-[#20A4F3] text-[#0B1C4B] text-xs font-black mb-4"
+                >
+                  Coming Soon
+                </span>
+
+                <h4 class="text-2xl font-black mb-3">النسخة الثانية من يوم الذكاء الاصطناعي</h4>
+
+                <p class="text-blue-100/80 leading-relaxed mb-6">
+                  يستعد نادي الروبوتيك والذكاء الاصطناعي لتنظيم النسخة الثانية من يوم الذكاء الاصطناعي
+                  IA Day 2026، في صيغة تربوية تفاعلية تجمع بين العروض، الورشات، المشاريع، والمسابقات.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="rounded-xl bg-white/10 border border-white/10 p-4">
+                    <span class="text-xs text-[#20A4F3] font-bold">الموسم</span>
+                    <p class="font-black mt-1">2026</p>
+                  </div>
+
+                  <div class="rounded-xl bg-white/10 border border-white/10 p-4">
+                    <span class="text-xs text-[#20A4F3] font-bold">النسخة</span>
+                    <p class="font-black mt-1">Edition 2</p>
+                  </div>
+
+                  <div class="rounded-xl bg-white/10 border border-white/10 p-4">
+                    <span class="text-xs text-[#20A4F3] font-bold">المجال</span>
+                    <p class="font-black mt-1">AI & Robotics</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="location"
+    class="py-16 md:py-24 bg-slate-50 dark:bg-slate-950 scroll-mt-24 relative z-10"
+  >
+    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <span class="text-[#20A4F3] font-extrabold tracking-tight text-lg md:text-xl lg:text-2xl mb-3 block">
+          الموقع الجغرافي
+        </span>
+
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">
+          كيف تصل إلى <span class="text-[#20A4F3]">النادي؟</span>
+        </h2>
+
+        <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed">
+          يوجد النادي بثانوية الوحدة الإعدادية الرائدة، جماعة امطالسة، التابعة للمديرية الإقليمية
+          للدريوش بجهة الشرق.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
+        <div
+          class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-3xl p-8 border border-gray-100 dark:border-slate-800 shadow-sm"
+        >
+          <div
+            class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-slate-800 flex items-center justify-center text-[#20A4F3] mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8"
+              viewBox="0 0 24 24"
+              stroke-width="1.6"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 18l-6 3v-15l6 -3l6 3l6 -3v15l-6 3l-6 -3z" />
+              <path d="M9 3v15" />
+              <path d="M15 6v15" />
+            </svg>
+          </div>
+
+          <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-4">عنوان النادي</h3>
+
+          <div class="space-y-4 text-gray-600 dark:text-slate-400">
+            <p class="leading-relaxed">
+              <strong class="text-gray-900 dark:text-white">المؤسسة:</strong>
+              ثانوية الوحدة الإعدادية الرائدة
+            </p>
+
+            <p class="leading-relaxed">
+              <strong class="text-gray-900 dark:text-white">الجماعة:</strong>
+              امطالسة
+            </p>
+
+            <p class="leading-relaxed">
+              <strong class="text-gray-900 dark:text-white">المديرية:</strong>
+              الدريوش
+            </p>
+
+            <p class="leading-relaxed">
+              <strong class="text-gray-900 dark:text-white">الجهة:</strong>
+              الشرق، المغرب
+            </p>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-3">
+            <a
+              href={mapsDirectionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-[#20A4F3] text-[#0B1C4B] font-black hover:bg-[#0B1C4B] hover:text-white transition-colors"
+            >
+              الحصول على الاتجاهات
+            </a>
+
+            <a
+              href={mapsSearchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white font-bold hover:border-[#20A4F3] hover:text-[#20A4F3] transition-colors"
+            >
+              فتح الخريطة في Google Maps
+            </a>
+          </div>
+
+          <p class="mt-5 text-xs text-gray-400 dark:text-slate-500 leading-relaxed"></p>
+        </div>
+
+        <div
+          class="lg:col-span-3 rounded-3xl overflow-hidden border border-gray-100 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900 relative"
+        >
+          <iframe
+            src={mapsEmbedUrl}
+            class="w-full h-full club-map-frame border-0"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="خريطة موقع نادي الروبوتيك والذكاء الاصطناعي"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="projects"
+    class="py-16 md:py-20 lg:py-24 bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 scroll-mt-24 relative z-10"
+  >
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="mb-12 md:mb-20 max-w-3xl mx-auto text-center">
+        <span class="text-[#20A4F3] font-extrabold tracking-tight text-lg md:text-xl lg:text-2xl mb-3 block">
+          إنجازاتنا ومشاريعنا
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">
+          تكنولوجيا <span class="text-[#0B1C4B] dark:text-[#20A4F3]">تصنع الفارق</span>
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-slate-400">
+          من الأنظمة المدمجة والروبوتات إلى الحلول الرقمية وبرامج التوعية، نبتكر أدوات تخدم مؤسستنا
+          وتطور مهارات مجتمعنا.
+        </p>
+      </div>
+
+      <div class="space-y-20">
+        {
+          projectsData.categories.map((category) => (
+            <div class="category-section" dir="rtl">
+              <div class="flex items-center gap-4 mb-8 pb-4 border-b border-gray-200 dark:border-slate-700">
+                <div
+                  class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-slate-800 flex items-center justify-center text-[#20A4F3] shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+                    <path d="M12 12l8 -4.5" />
+                    <path d="M12 12l0 9" />
+                    <path d="M12 12l-8 -4.5" />
+                  </svg>
+                </div>
+
+                <div class="text-right">
+                  <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{category.title}</h3>
+                  <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">
+                    {category.description}
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {category.items.map((project) => (
+                  <div
+                    class="group relative bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+                  >
+                    <div class="h-48 w-full bg-gradient-to-br from-[#0B1C4B] to-[#20A4F3] relative overflow-hidden">
+                      <img
+                        src={`/${project.image}`}
+                        alt={project.name}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 mix-blend-overlay"
+                        onerror="this.style.display='none';"
+                      />
+                      <div
+                        class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300"
+                      ></div>
+
+                      <div class="absolute top-4 right-4 flex flex-wrap gap-2">
+                        {project.tags.slice(0, 2).map((tag) => (
+                          <span
+                            class="px-2 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-xs font-bold text-[#0B1C4B] dark:text-[#20A4F3] rounded-md shadow-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div class="p-6 flex flex-col flex-grow text-right">
+                      <h4
+                        class="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 leading-tight"
+                      >
+                        {project.name}
+                      </h4>
+                      <p
+                        class="text-sm text-gray-600 dark:text-slate-400 flex-grow line-clamp-4 leading-relaxed mb-6"
+                      >
+                        {project.description}
+                      </p>
+
+                      <a
+                        href={project.link}
+                        target={project.link !== '#' ? '_blank' : '_self'}
+                        class="mt-auto inline-flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-[#0B1C4B] dark:text-white border border-gray-200 dark:border-slate-600 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-[#20A4F3] transition-colors duration-300"
+                      >
+                        البطاقة التقنية والتفاصيل
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="awareness"
+    class="py-16 md:py-24 bg-[#0B1C4B] text-white relative overflow-hidden scroll-mt-24 z-10"
+  >
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
+      <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-[#20A4F3] blur-[120px]"></div>
+      <div class="absolute -bottom-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-purple-500 blur-[120px]"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10" dir="rtl">
+      <div class="mb-12 md:mb-16 max-w-3xl mx-auto text-center">
+        <span class="text-[#20A4F3] font-extrabold tracking-tight text-lg md:text-xl lg:text-2xl mb-3 block">
+          بناء العقول الرقمية
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">
+          التوعية <span class="text-[#20A4F3]">والمسابقات</span>
+        </h2>
+        <p class="text-lg text-blue-100/80">
+          نسعى لتطوير ثقافة رقمية واعية من خلال منافسات وندوات تدمج بين التحدي، التعلم، والتحليل
+          النفسي العميق للتكنولوجيا.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/10 transition-colors duration-300 flex flex-col group"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8 text-white"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M8 21l8 0" />
+              <path d="M12 17l0 4" />
+              <path d="M7 4l10 0" />
+              <path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
+            </svg>
+          </div>
+
+          <h3 class="text-2xl font-bold mb-3">أولمبياد المعرفة</h3>
+          <p class="text-blue-100/70 text-sm leading-relaxed mb-8 flex-grow">
+            تحدي رقمي متكامل لاختبار قدرات تلاميذ المؤسسة في مجالات البرمجة، وتاريخ الذكاء الاصطناعي
+            عبر منصة رقمية تفاعلية.
+          </p>
+          <a
+            href="/olympiad-platform.html"
+            class="mt-auto inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-[#0B1C4B] bg-[#20A4F3] hover:bg-white rounded-lg transition-colors duration-300"
+          >
+            دخول المنصة <span class="ml-2">🏆</span>
+          </a>
+        </div>
+
+        <div
+          class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/10 transition-colors duration-300 flex flex-col group"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8 text-white"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z" />
+              <path d="M6 12h4m-2 -2v4" />
+              <path d="M15 11l0 .01" />
+              <path d="M18 13l0 .01" />
+            </svg>
+          </div>
+
+          <h3 class="text-2xl font-bold mb-3">الوجه الخفي للألعاب</h3>
+          <p class="text-blue-100/70 text-sm leading-relaxed mb-8 flex-grow">
+            حلقة نقاشية تفاعلية تعتمد على بطاقات الحقيقة لتحليل التأثير النفسي لألعاب الفيديو على
+            التحصيل الدراسي.
+          </p>
+          <a
+            href="https://elrhaouat.github.io/u/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-auto inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white border border-[#20A4F3] hover:bg-[#20A4F3] rounded-lg transition-colors duration-300"
+          >
+            العرض التفاعلي <span class="ml-2">🎮</span>
+          </a>
+        </div>
+
+        <div
+          class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/10 transition-colors duration-300 flex flex-col group"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8 text-white"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+            </svg>
+          </div>
+
+          <h3 class="text-2xl font-bold mb-3">تحدي السرعة الرقمي</h3>
+          <p class="text-blue-100/70 text-sm leading-relaxed mb-8 flex-grow">
+            مسابقة دورية باستخدام برنامج RapidTyping يتنافس فيها نخبة من تلاميذ الأقسام لتحديد أسرع
+            تلميذ.
+          </p>
+          <a
+            href="/projects/typing-speed-challenge"
+            class="mt-auto inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white border border-[#20A4F3] hover:bg-[#20A4F3] rounded-lg transition-colors duration-300"
+          >
+            تفاصيل التحدي <span class="ml-2">⌨️</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="team"
+    class="py-16 md:py-20 lg:py-24 bg-blue-50/50 dark:bg-slate-900 scroll-mt-24 relative z-10"
+  >
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="mb-10 md:mb-16 max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          مهندسو <span class="text-[#20A4F3]">المستقبل</span>
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-slate-400">
+          تعرف على العقول المبدعة والطاقات الشابة التي تقود مشاريع نادي الروبوتيك والذكاء الاصطناعي
+          للموسم الحالي.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" dir="rtl">
+        {
+          teamData.students.map((student) => (
+            <div
+              class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700 flex flex-col group overflow-hidden"
+            >
+              <div class="h-2 w-full bg-[#20A4F3] group-hover:bg-[#0B1C4B] transition-colors duration-300"></div>
+
+              <div class="p-6 flex-grow flex flex-col">
+                <div class="flex items-center gap-4 mb-5">
+                  <div
+                    class="w-14 h-14 rounded-full bg-blue-100 dark:bg-slate-700 flex items-center justify-center text-xl font-bold text-[#0B1C4B] dark:text-[#20A4F3] shrink-0 border-2 border-transparent group-hover:border-[#20A4F3] transition-all duration-300 overflow-hidden relative"
+                  >
+                    <img
+                      src={`/${student.profile_pic}`}
+                      alt={student.name.ar}
+                      class="w-full h-full object-cover z-10"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />
+                    <span class="absolute inset-0 flex items-center justify-center hidden z-0">
+                      {student.name.ar.charAt(0)}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white leading-tight mb-1">
+                      {student.name.ar}
+                    </h3>
+                    <p class="text-sm font-semibold text-[#20A4F3]">{student.role.ar}</p>
+                  </div>
+                </div>
+
+                <div
+                  class="mb-4 inline-block px-3 py-1.5 bg-gray-50 dark:bg-slate-700/50 rounded-lg text-xs font-bold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-600 self-start"
+                >
+                  <span class="mr-1">🤖</span> {student.project.ar}
+                </div>
+
+                <p class="text-sm text-gray-600 dark:text-slate-400 leading-relaxed flex-grow">
+                  {student.description.ar}
+                </p>
+
+                <div class="mt-6 pt-5 border-t border-gray-100 dark:border-slate-700/50">
+                  <a
+                    href={`https://elrhaouat.github.io/robotics-badges/badge.html?id=${student.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-bold text-[#0B1C4B] dark:text-[#20A4F3] bg-blue-50 hover:bg-[#20A4F3] hover:text-white dark:bg-slate-800 dark:hover:bg-[#20A4F3] dark:hover:text-white rounded-lg transition-all duration-300 group/btn border border-blue-100 dark:border-slate-700 hover:border-transparent"
+                  >
+                    عرض الشارة الرقمية
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const dialog = document.getElementById('institution-info-dialog');
+
+      if (!(dialog instanceof HTMLDialogElement)) return;
+
+      const openDialog = () => {
+        if (!dialog.open) dialog.showModal();
+      };
+
+      const closeDialog = () => {
+        if (dialog.open) dialog.close();
+      };
+
+      document.querySelectorAll('[data-open-institution-dialog]').forEach((button) => {
+        button.onclick = openDialog;
+      });
+
+      document.querySelectorAll('[data-close-institution-dialog]').forEach((button) => {
+        button.onclick = closeDialog;
+      });
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) closeDialog();
+      });
+    });
+  </script>
+</Layout>
