@@ -22,6 +22,7 @@ const coverImage = {
 };
 const featuredImages = images.slice(0, 6);
 const facebookReportUrl = iaDayEdition1.facebookReportUrl;
+const documentationImageCount = images.length;
 ---
 
 <Layout metadata={metadata}>
@@ -57,7 +58,7 @@ const facebookReportUrl = iaDayEdition1.facebookReportUrl;
           </span>
           <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md">
             <Icon name="tabler:photo" class="h-4 w-4 text-[#20A4F3]" />
-            30 صورة توثيقية
+            {documentationImageCount} صورة توثيقية
           </span>
         </div>
 
@@ -107,7 +108,7 @@ const facebookReportUrl = iaDayEdition1.facebookReportUrl;
 
           <div class="mt-8 grid grid-cols-3 gap-3">
             <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
-              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">30</div>
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">{documentationImageCount}</div>
               <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">صورة موثقة</div>
             </div>
             <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
