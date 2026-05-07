@@ -19,10 +19,27 @@ interface MenuLink extends Link {
   links?: Array<MenuLink>;
 }
 
+interface LanguageLink {
+  locale: string;
+  label: string;
+  shortLabel: string;
+  href: string;
+  active?: boolean;
+}
+
 export interface Props {
   id?: string;
   links?: Array<MenuLink>;
   actions?: Array<CallToAction>;
+  homeHref?: string;
+  locale?: string;
+  languageLinks?: Array<LanguageLink>;
+  labels?: {
+    languageSwitcher?: string;
+    mainSection?: string;
+    projectsLabel?: string;
+    sectionProjects?: string;
+  };
   isSticky?: boolean;
   isDark?: boolean;
   isFullWidth?: boolean;
@@ -34,6 +51,10 @@ const {
   id = 'header',
   links = [],
   actions = [],
+  homeHref = getHomePermalink(),
+  locale = 'ar',
+  languageLinks = [],
+  labels = {},
   isSticky = false,
   isDark = false,
   isFullWidth = false,
@@ -47,6 +68,13 @@ const hasGroupedDropdown = (items?: Array<MenuLink>) =>
   Array.isArray(items) && items.some((item) => Array.isArray(item.links) && item.links.length > 0);
 
 const getGroupCount = (item?: MenuLink) => item?.links?.length ?? 0;
+const currentLanguage =
+  languageLinks.find(({ active }) => active) || languageLinks.find(({ locale: itemLocale }) => itemLocale === locale);
+const hasLanguageLinks = languageLinks.length > 1;
+const languageSwitcherLabel = labels.languageSwitcher || 'Change language';
+const mainSectionLabel = labels.mainSection || 'Main section';
+const projectsLabel = labels.projectsLabel || 'projects';
+const sectionProjectsLabel = labels.sectionProjects || 'Projects in this section';
 const resolveHref = (href?: string) =>
   href && !href.startsWith('mailto:') && !href.startsWith('tel:') ? getPermalink(href) : href;
 const getHeaderActionClass = (className?: string) =>
@@ -86,7 +114,7 @@ const getHeaderActionClass = (className?: string) =>
       { 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' },
       'flex justify-between items-center w-full xl:w-auto',
     ]}>
-      <a class="flex items-center shrink-0" href={getHomePermalink()}>
+      <a class="flex items-center shrink-0" href={resolveHref(homeHref)}>
         <Logo />
       </a>
 
@@ -131,7 +159,7 @@ const getHeaderActionClass = (className?: string) =>
                                     {group.text}
                                   </div>
                                   <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                                    قسم رئيسي • {getGroupCount(group)} مشاريع
+                                    {mainSectionLabel} • {getGroupCount(group)} {projectsLabel}
                                   </div>
                                 </div>
 
@@ -149,7 +177,7 @@ const getHeaderActionClass = (className?: string) =>
                                       {group.text}
                                     </div>
                                     <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                                      المشاريع التابعة لهذا القسم
+                                      {sectionProjectsLabel}
                                     </div>
                                   </div>
 
@@ -231,6 +259,57 @@ const getHeaderActionClass = (className?: string) =>
       ]}
     >
       <div class="items-center flex justify-end gap-2 w-full md:w-auto">
+        {
+          hasLanguageLinks ? (
+            <div class="relative group/lang">
+              <button
+                type="button"
+                class="inline-flex h-[42px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/85 px-3 text-[0.86rem] font-black text-[#0B1C4B] shadow-none transition-all hover:border-[#20A4F3]/55 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-[#7DD3FC] dark:hover:bg-slate-800"
+                aria-label={languageSwitcherLabel}
+              >
+                <Icon name="tabler:world" class="h-5 w-5 text-[#20A4F3]" />
+                <span>{currentLanguage?.shortLabel || locale.toUpperCase()}</span>
+                <Icon name="tabler:chevron-down" class="h-3.5 w-3.5 opacity-70" />
+              </button>
+
+              <div class="absolute top-full left-0 z-[90] pt-2 opacity-0 invisible translate-y-1 pointer-events-none transition-all duration-200 ease-out group-hover/lang:opacity-100 group-hover/lang:visible group-hover/lang:translate-y-0 group-hover/lang:pointer-events-auto group-focus-within/lang:opacity-100 group-focus-within/lang:visible group-focus-within/lang:translate-y-0 group-focus-within/lang:pointer-events-auto">
+                <div class="w-44 rounded-2xl border border-slate-200/80 bg-white/95 p-2 shadow-2xl backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/95">
+                  <div class="px-3 pb-2 pt-1 text-[11px] font-black uppercase tracking-[0.16em] text-slate-400">
+                    {languageSwitcherLabel}
+                  </div>
+                  <ul class="space-y-1">
+                    {languageLinks.map((language) => (
+                      <li>
+                        <a
+                          href={resolveHref(language.href)}
+                          class:list={[
+                            'flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm font-bold transition-colors',
+                            language.active
+                              ? 'bg-[#20A4F3]/12 text-[#0B1C4B] dark:text-[#7DD3FC]'
+                              : 'text-slate-600 hover:bg-blue-50 hover:text-[#20A4F3] dark:text-slate-300 dark:hover:bg-slate-800',
+                          ]}
+                        >
+                          <span>{language.label}</span>
+                          <span
+                            class:list={[
+                              'rounded-full px-2 py-0.5 text-[11px] font-black',
+                              language.active ? 'bg-[#20A4F3] text-white' : 'bg-slate-100 text-slate-500 dark:bg-slate-800',
+                            ]}
+                          >
+                            {language.shortLabel}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ) : (
+            ''
+          )
+        }
+
         {
           actions?.length ? (
             <span class="flex items-center gap-2">

@@ -19,10 +19,14 @@ import type { MetaData as MetaDataType } from '~/types';
 
 export interface Props {
   metadata?: MetaDataType;
+  language?: string;
+  textDirection?: 'ltr' | 'rtl';
 }
 
-const { metadata = {} } = Astro.props;
-const { language, textDirection } = I18N;
+const { metadata = {}, language: languageProp, textDirection: textDirectionProp } = Astro.props;
+const { language: defaultLanguage, textDirection: defaultTextDirection } = I18N;
+const language = languageProp || defaultLanguage;
+const textDirection = textDirectionProp || defaultTextDirection;
 ---
 
 <!doctype html>

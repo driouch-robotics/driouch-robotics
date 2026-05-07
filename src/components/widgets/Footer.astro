@@ -15,24 +15,53 @@ interface Links {
   links: Array<Link>;
 }
 
+interface BrandPanel {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  aboutText?: string;
+  aboutHref?: string;
+  visitText?: string;
+  visitHref?: string;
+  locationText?: string;
+  locationHref?: string;
+  phoneText?: string;
+  phoneHref?: string;
+  emailText?: string;
+  emailHref?: string;
+  homeHref?: string;
+}
+
 export interface Props {
   links: Array<Links>;
   secondaryLinks: Array<Link>;
   socialLinks: Array<Link>;
+  brandPanel?: BrandPanel;
+  dir?: 'rtl' | 'ltr';
   footNote?: string;
   theme?: string;
 }
 
-const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme = 'light' } = Astro.props;
+const {
+  socialLinks = [],
+  secondaryLinks = [],
+  links = [],
+  brandPanel = {},
+  dir = 'rtl',
+  footNote = '',
+  theme = 'light',
+} = Astro.props;
 
 const visibleSocialLinks = socialLinks.filter(({ icon, text }) => icon || text);
 const visibleSecondaryLinks = secondaryLinks.filter(({ text }) => text);
+const isRtl = dir === 'rtl';
+const textAlign = isRtl ? 'text-right' : 'text-left';
 const resolveHref = (href?: string) =>
   href && !href.startsWith('mailto:') && !href.startsWith('tel:') ? getPermalink(href) : href;
 ---
 
 <footer
-  dir="rtl"
+  dir={dir}
   class:list={[
     { dark: theme === 'dark' },
     'relative border-t border-slate-200/80 dark:border-slate-800 not-prose overflow-hidden',
@@ -50,57 +79,59 @@ const resolveHref = (href?: string) =>
 
           <div class="relative z-10">
             <span class="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-bold tracking-wide mb-2">
-              Future Builders • Since 2024
+              {brandPanel.eyebrow || 'Future Builders • Since 2024'}
             </span>
 
             <a
-              href={getHomePermalink()}
+              href={resolveHref(brandPanel.homeHref || getHomePermalink())}
               class="block text-xl md:text-2xl font-black tracking-tight leading-tight hover:opacity-90 transition"
             >
-              {SITE?.name}
+              {brandPanel.title || SITE?.name}
             </a>
 
             <p class="mt-2 text-sm leading-6 text-blue-50/85">
-              نادي تربوي تقني يهدف إلى تمكين المتعلمين من مهارات الروبوتيك، البرمجة، والذكاء الاصطناعي
-              عبر مشاريع تطبيقية وأنشطة تنافسية مرتبطة بالمؤسسة والمحيط المحلي.
+              {brandPanel.description}
             </p>
 
             <div class="mt-4 flex flex-wrap gap-2">
               <a
-                href={resolveHref('/#about')}
+                href={resolveHref(brandPanel.aboutHref || '/#about')}
                 class="inline-flex items-center justify-center rounded-xl bg-white text-[#0B1C4B] px-3.5 py-2 text-sm font-black hover:bg-slate-100 transition-colors"
               >
-                من نحن
+                {brandPanel.aboutText}
               </a>
 
               <a
-                href={resolveHref('/#location')}
+                href={resolveHref(brandPanel.visitHref || '/#location')}
                 class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-3.5 py-2 text-sm font-bold hover:bg-white/15 transition-colors"
               >
-                زيارة الموقع
+                {brandPanel.visitText}
               </a>
             </div>
 
             <div class="mt-4 grid gap-2 text-[13px] md:grid-cols-2">
-              <div class="flex items-start gap-2 rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-blue-50/90 md:col-span-2">
-                <span>📍</span>
-                <span>ثانوية الوحدة الإعدادية الرائدة، امطالسة، الدريوش، جهة الشرق</span>
-              </div>
-
               <a
-                href="tel:+212677035415"
-                class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-blue-50/90 hover:bg-white/15 transition-colors"
+                href={resolveHref(brandPanel.locationHref || '/#location')}
+                class="flex items-start gap-2 rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-blue-50/90 transition-colors hover:bg-white/15 md:col-span-2"
               >
-                <span>📞</span>
-                <span dir="ltr">+212 677 035 415</span>
+                <Icon name="tabler:map-pin-filled" class="mt-0.5 h-4 w-4 shrink-0 text-[#7DD3FC]" />
+                <span>{brandPanel.locationText}</span>
               </a>
 
               <a
-                href="mailto:mohamed.elrhaouat@gmail.com"
+                href={brandPanel.phoneHref}
+                class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-blue-50/90 hover:bg-white/15 transition-colors"
+              >
+                <Icon name="tabler:phone-call" class="h-4 w-4 shrink-0 text-[#7DD3FC]" />
+                <span dir="ltr">{brandPanel.phoneText}</span>
+              </a>
+
+              <a
+                href={brandPanel.emailHref}
                 class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-blue-50/90 hover:bg-white/15 transition-colors break-all"
               >
-                <span>✉️</span>
-                <span dir="ltr">mohamed.elrhaouat@gmail.com</span>
+                <Icon name="tabler:mail" class="h-4 w-4 shrink-0 text-[#7DD3FC]" />
+                <span dir="ltr">{brandPanel.emailText}</span>
               </a>
             </div>
           </div>
@@ -108,7 +139,12 @@ const resolveHref = (href?: string) =>
       </div>
 
       <div class="lg:col-span-7 self-start">
-        <div class="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 backdrop-blur-sm p-4 md:p-5 shadow-sm">
+        <div
+          class:list={[
+            'rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 backdrop-blur-sm p-4 md:p-5 shadow-sm',
+            textAlign,
+          ]}
+        >
           <div class="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-4">
             {
               links.map(({ title, links }) => (
