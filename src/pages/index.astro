@@ -36,6 +36,13 @@ const institutionEmail = 'najimammari794@gmail.com';
 const principalPhone = '0602651223';
 const principalPhoneDisplay = '0602 651 223';
 
+const iaDay2026TargetDate = '2026-06-08T09:00:00+01:00';
+const iaDay2026TargetLabel = '8 يونيو 2026';
+const iaDay2026RemainingMs = Math.max(0, new Date(iaDay2026TargetDate).getTime() - Date.now());
+const iaDay2026InitialDays = Math.floor(iaDay2026RemainingMs / 86400000);
+const iaDay2026InitialHours = Math.floor((iaDay2026RemainingMs % 86400000) / 3600000);
+const iaDay2026InitialMinutes = Math.floor((iaDay2026RemainingMs % 3600000) / 60000);
+
 const projectImageModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/projects/*', {
   eager: true,
 });
@@ -89,6 +96,52 @@ const resolveSiteHref = (href = '') =>
 
     .animate-neural-glow {
       animation: neural-glow 6s ease-in-out infinite;
+    }
+
+    @keyframes countdown-signal {
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 0 0 0 rgba(32, 164, 243, 0.28);
+      }
+
+      50% {
+        transform: translateY(-1px) scale(1.03);
+        box-shadow: 0 0 0 10px rgba(32, 164, 243, 0);
+      }
+    }
+
+    .ia-day-countdown-shell {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .ia-day-countdown-shell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(135deg, rgba(32, 164, 243, 0.18), rgba(255, 255, 255, 0.06)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.08) 0,
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px,
+          transparent 28px
+        );
+      opacity: 0.72;
+    }
+
+    .ia-day-countdown-icon {
+      animation: countdown-signal 2.8s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ia-day-countdown-icon {
+        animation: none;
+      }
     }
 
     .club-accordion details {
@@ -990,9 +1043,19 @@ const resolveSiteHref = (href = '') =>
                 </div>
               </div>
 
-              <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
-                +
-              </span>
+              <div class="flex items-center gap-3">
+                <div
+                  class="hidden sm:flex items-center gap-2 rounded-full border border-[#20A4F3]/30 bg-[#20A4F3]/10 px-3 py-1.5 text-xs font-black text-[#7DD3FC]"
+                  aria-label="عدد الأيام المتبقية ليوم الذكاء الاصطناعي 2026"
+                >
+                  <span data-countdown-mini-days>{iaDay2026InitialDays}</span>
+                  <span>يوم</span>
+                </div>
+
+                <span class="accordion-plus text-3xl text-[#20A4F3] transition-transform duration-300">
+                  +
+                </span>
+              </div>
             </summary>
 
             <div class="px-6 pb-6">
@@ -1009,6 +1072,92 @@ const resolveSiteHref = (href = '') =>
                   يستعد نادي الروبوتيك والذكاء الاصطناعي لتنظيم النسخة الثانية من يوم الذكاء الاصطناعي
                   IA Day 2026، في صيغة تربوية تفاعلية تجمع بين العروض، الورشات، المشاريع، والمسابقات.
                 </p>
+
+                <div
+                  data-ia-day-countdown
+                  data-target={iaDay2026TargetDate}
+                  data-finished-label="وصل موعد IA Day 2026"
+                  class="ia-day-countdown-shell mb-6 rounded-2xl border border-[#20A4F3]/25 bg-[#07173f]/70 p-5 shadow-[0_20px_55px_-32px_rgba(32,164,243,0.55)]"
+                >
+                  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="ia-day-countdown-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-[#20A4F3]/35 bg-[#20A4F3]/15 text-[#7DD3FC]"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-8 w-8"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                          <path d="M16 3v4" />
+                          <path d="M8 3v4" />
+                          <path d="M4 11h16" />
+                          <path d="M11 15h1" />
+                          <path d="M12 15v3" />
+                        </svg>
+                      </div>
+
+                      <div>
+                        <span class="text-xs font-black uppercase tracking-[0.18em] text-[#7DD3FC]">
+                          Official Countdown
+                        </span>
+                        <h5 class="mt-1 text-xl font-black text-white md:text-2xl">
+                          العد التنازلي ليوم الذكاء الاصطناعي
+                        </h5>
+                        <p data-countdown-label class="mt-1 text-sm leading-6 text-blue-100/75">
+                          باقي على النسخة الثانية إلى غاية {iaDay2026TargetLabel}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-right">
+                      <span class="block text-xs font-bold text-blue-100/70">التاريخ الرسمي</span>
+                      <span class="mt-1 block text-lg font-black text-[#7DD3FC]">{iaDay2026TargetLabel}</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+                    <div class="rounded-2xl border border-white/10 bg-white/10 p-4">
+                      <span
+                        data-countdown-days
+                        class="block text-4xl font-black leading-none text-white tabular-nums md:text-5xl"
+                        dir="ltr"
+                      >
+                        {iaDay2026InitialDays}
+                      </span>
+                      <span class="mt-2 block text-xs font-bold text-blue-100/70">الأيام</span>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-white/10 p-4">
+                      <span
+                        data-countdown-hours
+                        class="block text-4xl font-black leading-none text-white tabular-nums md:text-5xl"
+                        dir="ltr"
+                      >
+                        {String(iaDay2026InitialHours).padStart(2, '0')}
+                      </span>
+                      <span class="mt-2 block text-xs font-bold text-blue-100/70">الساعات</span>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-white/10 p-4">
+                      <span
+                        data-countdown-minutes
+                        class="block text-4xl font-black leading-none text-white tabular-nums md:text-5xl"
+                        dir="ltr"
+                      >
+                        {String(iaDay2026InitialMinutes).padStart(2, '0')}
+                      </span>
+                      <span class="mt-2 block text-xs font-bold text-blue-100/70">الدقائق</span>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div class="rounded-xl bg-white/10 border border-white/10 p-4">
@@ -1557,6 +1706,49 @@ const resolveSiteHref = (href = '') =>
 
   <script>
     document.addEventListener('astro:page-load', () => {
+      const countdownCards = document.querySelectorAll('[data-ia-day-countdown]');
+      const miniDayBadges = document.querySelectorAll('[data-countdown-mini-days]');
+      const dayMs = 86400000;
+      const hourMs = 3600000;
+      const minuteMs = 60000;
+      const formatTwo = (value) => String(Math.max(0, value)).padStart(2, '0');
+
+      countdownCards.forEach((card) => {
+        if (card.dataset.countdownReady === 'true') return;
+
+        const targetTime = new Date(card.dataset.target || '').getTime();
+        if (Number.isNaN(targetTime)) return;
+
+        card.dataset.countdownReady = 'true';
+
+        const dayValue = card.querySelector('[data-countdown-days]');
+        const hourValue = card.querySelector('[data-countdown-hours]');
+        const minuteValue = card.querySelector('[data-countdown-minutes]');
+        const label = card.querySelector('[data-countdown-label]');
+        const finishedLabel = card.dataset.finishedLabel || 'وصل موعد IA Day 2026';
+
+        const updateCountdown = () => {
+          const remaining = Math.max(0, targetTime - Date.now());
+          const days = remaining > 0 ? Math.floor(remaining / dayMs) : 0;
+          const hours = Math.floor((remaining % dayMs) / hourMs);
+          const minutes = Math.floor((remaining % hourMs) / minuteMs);
+
+          if (dayValue) dayValue.textContent = String(days);
+          if (hourValue) hourValue.textContent = formatTwo(hours);
+          if (minuteValue) minuteValue.textContent = formatTwo(minutes);
+          miniDayBadges.forEach((badge) => {
+            badge.textContent = String(days);
+          });
+
+          if (label && remaining === 0) {
+            label.textContent = finishedLabel;
+          }
+        };
+
+        updateCountdown();
+        window.setInterval(updateCountdown, minuteMs);
+      });
+
       const dialog = document.getElementById('institution-info-dialog');
 
       if (!(dialog instanceof HTMLDialogElement)) return;
