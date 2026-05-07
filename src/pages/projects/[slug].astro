@@ -147,25 +147,63 @@ const metadata = {
   </article>
 
   <!-- سكربت لتشغيل الديابوراما -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sliders = document.querySelectorAll('.diaporama-container');
-      
-      sliders.forEach(slider => {
-        const slides = slider.querySelectorAll('.slide-img');
-        if(slides.length <= 1) return; 
-        
-        let currentIdx = 0;
-        setInterval(() => {
-          slides[currentIdx].classList.remove('opacity-100');
-          slides[currentIdx].classList.add('opacity-0');
-          
-          currentIdx = (currentIdx + 1) % slides.length;
-          
-          slides[currentIdx].classList.remove('opacity-0');
-          slides[currentIdx].classList.add('opacity-100');
-        }, 3500); 
-      });
-    });
+  <script is:inline data-astro-rerun>
+    (() => {
+      const controllerKey = '__projectDiaporamaController';
+      const existingController = window[controllerKey];
+
+      if (existingController) {
+        existingController.init();
+        return;
+      }
+
+      const intervals = new Set();
+
+      const stop = () => {
+        intervals.forEach((intervalId) => window.clearInterval(intervalId));
+        intervals.clear();
+      };
+
+      const showSlide = (slides, currentIndex, nextIndex) => {
+        slides[currentIndex]?.classList.remove('opacity-100');
+        slides[currentIndex]?.classList.add('opacity-0');
+        slides[nextIndex]?.classList.remove('opacity-0');
+        slides[nextIndex]?.classList.add('opacity-100');
+      };
+
+      const init = () => {
+        stop();
+
+        document.querySelectorAll('.diaporama-container').forEach((slider) => {
+          const slides = Array.from(slider.querySelectorAll('.slide-img'));
+          if (slides.length <= 1) return;
+
+          slides.forEach((slide, index) => {
+            slide.classList.toggle('opacity-100', index === 0);
+            slide.classList.toggle('opacity-0', index !== 0);
+          });
+
+          let currentIdx = 0;
+          const intervalId = window.setInterval(() => {
+            const nextIdx = (currentIdx + 1) % slides.length;
+            showSlide(slides, currentIdx, nextIdx);
+            currentIdx = nextIdx;
+          }, 3500);
+
+          intervals.add(intervalId);
+        });
+      };
+
+      window[controllerKey] = { init, stop };
+
+      document.addEventListener('astro:page-load', init);
+      document.addEventListener('astro:before-swap', stop);
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
+    })();
   </script>
 </Layout>
