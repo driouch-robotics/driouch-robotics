@@ -62,8 +62,12 @@ export const headerData = {
           href: '/#faq',
         },
         {
-          text: 'IA Day Edition 1',
+          text: 'IA Day 2025 Edition 1',
           href: '/ia-day-edition-1',
+        },
+        {
+          text: 'الموقع الجغرافي',
+          href: '/#location',
         },
         {
           text: 'IA Day 2026 Edition 2',
@@ -71,14 +75,10 @@ export const headerData = {
         },
       ],
     },
-    {
-      text: 'الموقع الجغرافي',
-      href: '/#location',
-    },
   ],
   actions: [
     {
-      text: 'ذاكرة IA Day',
+      text: 'IA 2025',
       href: '/ia-day-edition-1',
       variant: 'secondary',
       icon: 'tabler:photo-spark',
@@ -109,7 +109,7 @@ export const footerData = {
       links: [
         { text: 'المشاريع التقنية', href: '/#projects' },
         { text: 'التوعية والمسابقات', href: '/#awareness' },
-        { text: 'IA Day Edition 1', href: '/ia-day-edition-1' },
+        { text: 'IA Day 2025 Edition 1', href: '/ia-day-edition-1' },
         { text: 'IA Day 2026', href: '/#iaday-2026' },
       ],
     },
@@ -141,7 +141,7 @@ export const footerData = {
   ],
   socialLinks: [
     { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
+    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/ia.robotics.club/' },
     { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
     { ariaLabel: 'Github', icon: 'tabler:brand-github', href: '#' },
     { ariaLabel: 'YouTube', icon: 'tabler:brand-youtube', href: '#' },
