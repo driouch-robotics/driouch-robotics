@@ -110,7 +110,7 @@ export const footerData = {
         { text: 'المشاريع التقنية', href: '/#projects' },
         { text: 'التوعية والمسابقات', href: '/#awareness' },
         { text: 'IA Day 2025 Edition 1', href: '/ia-day-edition-1' },
-        { text: 'IA Day 2026', href: '/#iaday-2026' },
+        { text: 'IA Day 2026 Edition 2', href: '/#iaday-2026' },
       ],
     },
     {
