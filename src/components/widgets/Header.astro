@@ -49,6 +49,13 @@ const hasGroupedDropdown = (items?: Array<MenuLink>) =>
 const getGroupCount = (item?: MenuLink) => item?.links?.length ?? 0;
 const resolveHref = (href?: string) =>
   href && !href.startsWith('mailto:') && !href.startsWith('tel:') ? getPermalink(href) : href;
+const getHeaderActionClass = (className?: string) =>
+  [
+    'ml-2 py-2 px-3.5 md:px-4 font-semibold shadow-none text-[0.92rem] rounded-xl w-auto whitespace-nowrap',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 ---
 
 <header
@@ -230,7 +237,7 @@ const resolveHref = (href?: string) =>
               {actions.map((btnProps) => (
                 <Button
                   {...btnProps}
-                  class="ml-2 py-2 px-3.5 md:px-4 font-semibold shadow-none text-[0.92rem] rounded-xl w-auto whitespace-nowrap"
+                  class={getHeaderActionClass(btnProps.class)}
                 />
               ))}
             </span>

@@ -62,6 +62,10 @@ export const headerData = {
           href: '/#faq',
         },
         {
+          text: 'IA Day Edition 1',
+          href: '/ia-day-edition-1',
+        },
+        {
           text: 'IA Day 2026 Edition 2',
           href: '/#iaday-2026',
         },
@@ -72,7 +76,22 @@ export const headerData = {
       href: '/#location',
     },
   ],
-  actions: [{ text: 'الأولمبياد 🏆', href: 'https://driouch-robotics.github.io/ia-robotics-olympiad/', variant: 'primary' }],
+  actions: [
+    {
+      text: 'ذاكرة IA Day',
+      href: '/ia-day-edition-1',
+      variant: 'secondary',
+      icon: 'tabler:photo-spark',
+      class:
+        'border-[#20A4F3]/45 bg-white/85 text-[#0B1C4B] hover:bg-[#20A4F3] hover:border-[#20A4F3] hover:text-[#0B1C4B] dark:bg-slate-900/80 dark:text-[#7DD3FC] dark:border-[#20A4F3]/45 dark:hover:bg-[#20A4F3] dark:hover:text-[#0B1C4B]',
+    },
+    {
+      text: 'الأولمبياد',
+      href: 'https://driouch-robotics.github.io/ia-robotics-olympiad/',
+      variant: 'primary',
+      icon: 'tabler:trophy',
+    },
+  ],
 };
 
 export const footerData = {
@@ -90,6 +109,7 @@ export const footerData = {
       links: [
         { text: 'المشاريع التقنية', href: '/#projects' },
         { text: 'التوعية والمسابقات', href: '/#awareness' },
+        { text: 'IA Day Edition 1', href: '/ia-day-edition-1' },
         { text: 'IA Day 2026', href: '/#iaday-2026' },
       ],
     },

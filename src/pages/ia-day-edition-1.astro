@@ -1,0 +1,181 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '~/layouts/PageLayout.astro';
+import { iaDayEdition1 } from '~/data/iaDayEdition1';
+import { getAsset, getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'IA Day Edition 1 | IA & Robotics Club - Driouch',
+  description:
+    'Documentation gallery for the first edition of IA Day by IA & Robotics Club Driouch.',
+};
+
+const images = iaDayEdition1.images.map((image, index) => ({
+  ...image,
+  url: getAsset(image.src),
+  number: String(index + 1).padStart(2, '0'),
+}));
+
+const coverImage = {
+  ...iaDayEdition1.coverImage,
+  url: getAsset(iaDayEdition1.coverImage.src),
+};
+const featuredImages = images.slice(0, 6);
+const facebookReportUrl = iaDayEdition1.facebookReportUrl;
+---
+
+<Layout metadata={metadata}>
+  <section class="relative min-h-[680px] overflow-hidden bg-slate-950 text-white">
+    <img
+      src={coverImage.url}
+      alt={coverImage.alt}
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-l from-slate-950/88 via-slate-950/58 to-slate-950/28"></div>
+    <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
+
+    <div class="container relative z-10 mx-auto flex min-h-[680px] items-end px-4 py-20 sm:px-6" dir="rtl">
+      <div class="max-w-4xl rounded-none">
+        <span class="inline-flex items-center gap-2 rounded-full border border-[#20A4F3]/50 bg-[#20A4F3]/15 px-4 py-2 text-sm font-black text-[#7DD3FC]">
+          <Icon name="tabler:sparkles" class="h-4 w-4" />
+          ذاكرة التأسيس
+        </span>
+
+        <h1 class="mt-6 text-4xl font-black leading-tight md:text-6xl">
+          النسخة الأولى من <span class="text-[#20A4F3]">يوم الذكاء الاصطناعي</span>
+        </h1>
+
+        <p class="mt-6 max-w-3xl text-lg leading-9 text-blue-50/85 md:text-xl">
+          محطة توثيقية من تاريخ نادي الروبوتيك والذكاء الاصطناعي بالدريوش، تجمع صورا من العروض، الورشات، لحظات التفاعل، وبدايات بناء ثقافة مدرسية مرتبطة بالذكاء الاصطناعي والابتكار.
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-3 text-sm font-bold text-blue-50/85">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md">
+            <Icon name="tabler:users-group" class="h-4 w-4 text-[#20A4F3]" />
+            صورة جماعية للطاقم والمشرفين
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md">
+            <Icon name="tabler:photo" class="h-4 w-4 text-[#20A4F3]" />
+            30 صورة توثيقية
+          </span>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href="#gallery"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#20A4F3] px-5 py-3 text-sm font-black text-[#0B1C4B] transition-colors hover:bg-white"
+          >
+            <Icon name="tabler:photo-spark" class="h-5 w-5" />
+            عرض الصور التوثيقية
+          </a>
+
+          {
+            facebookReportUrl ? (
+              <a
+                href={facebookReportUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 px-5 py-3 text-sm font-bold text-white transition-colors hover:border-[#20A4F3] hover:text-[#20A4F3]"
+              >
+                <Icon name="tabler:brand-facebook" class="h-5 w-5" />
+                تقرير الحدث على Facebook
+              </a>
+            ) : (
+              <span class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3 text-sm font-bold text-white/65">
+                <Icon name="tabler:brand-facebook" class="h-5 w-5" />
+                تقرير Facebook سيضاف قريبا
+              </span>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 dark:bg-slate-900">
+    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:items-center">
+        <div class="lg:col-span-2">
+          <span class="text-lg font-extrabold text-[#20A4F3]">IA Day Edition 1</span>
+          <h2 class="mt-3 text-3xl font-black text-gray-900 dark:text-white md:text-4xl">
+            أرشيف بصري يحفظ البداية
+          </h2>
+          <p class="mt-5 text-lg leading-9 text-gray-600 dark:text-slate-400">
+            هذه الصفحة مخصصة لتوثيق النسخة الأولى من يوم الذكاء الاصطناعي كجزء من ذاكرة النادي. الهدف منها أن يجد الزوار، التلاميذ، الشركاء، وأطر المؤسسة أثرا واضحا للانطلاقة الأولى وما صنعته من قيمة تربوية داخل المؤسسة.
+          </p>
+
+          <div class="mt-8 grid grid-cols-3 gap-3">
+            <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">30</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">صورة موثقة</div>
+            </div>
+            <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">01</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">النسخة الأولى</div>
+            </div>
+            <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">AI</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">ثقافة رقمية</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 lg:col-span-3 md:grid-cols-3">
+          {
+            featuredImages.map((image) => (
+              <figure class="group overflow-hidden rounded-2xl border border-gray-100 bg-slate-100 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+                <img
+                  src={image.url}
+                  alt={image.alt}
+                  class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="bg-slate-50 py-16 dark:bg-slate-950 scroll-mt-24">
+    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+      <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <span class="text-lg font-extrabold text-[#20A4F3]">المعرض التوثيقي</span>
+          <h2 class="mt-2 text-3xl font-black text-gray-900 dark:text-white md:text-4xl">
+            صور من يوم الذكاء الاصطناعي
+          </h2>
+        </div>
+        <a
+          href={getPermalink('/')}
+          class="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3 text-sm font-bold text-gray-900 transition-colors hover:border-[#20A4F3] hover:text-[#20A4F3] dark:border-slate-700 dark:text-white"
+        >
+          <Icon name="tabler:arrow-right" class="h-5 w-5" />
+          الرجوع إلى الرئيسية
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          images.map((image) => (
+            <figure class="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-xl dark:border-slate-700 dark:bg-slate-900">
+              <div class="relative">
+                <img
+                  src={image.url}
+                  alt={image.alt}
+                  class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <figcaption class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-[#0B1C4B] shadow-sm dark:bg-slate-900/90 dark:text-[#20A4F3]">
+                  صورة {image.number}
+                </figcaption>
+              </div>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

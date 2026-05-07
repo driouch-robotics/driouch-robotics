@@ -11,6 +11,7 @@ import kartFutureLogo from '~/assets/images/kart-future-logo.png';
 // import provinceLogo from '~/assets/images/province-logo.png';
 
 import teamData from '~/data/team.json';
+import { iaDayEdition1 } from '~/data/iaDayEdition1';
 
 const metadata = {
   title: 'IA & Robotics Club - Driouch',
@@ -41,6 +42,11 @@ const projectImageModules = import.meta.glob<{ default: ImageMetadata }>('/src/a
 
 const resolveProjectImage = (imagePath = '') =>
   projectImageModules[`/${imagePath.replace(/^\//, '')}`]?.default;
+
+const iaDayEdition1PreviewImages = iaDayEdition1.images.slice(0, 6).map((image) => ({
+  ...image,
+  url: getAsset(image.src),
+}));
 
 const isExternalUrl = (href = '') => href.startsWith('http://') || href.startsWith('https://');
 const resolveSiteHref = (href = '') =>
@@ -1023,6 +1029,85 @@ const resolveSiteHref = (href = '') =>
               </div>
             </div>
           </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="ia-day-edition-1"
+    class="py-16 md:py-24 bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 scroll-mt-24 relative z-10"
+  >
+    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+        <div class="lg:col-span-2">
+          <span class="text-[#20A4F3] font-extrabold tracking-tight text-lg md:text-xl lg:text-2xl mb-3 block">
+            ذاكرة النادي
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-5 text-gray-900 dark:text-white">
+            النسخة الأولى من <span class="text-[#20A4F3]">يوم الذكاء الاصطناعي</span>
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed">
+            أرشيف بصري يوثق محطة مهمة من تاريخ النادي: لحظات التعلم، العروض، الورشات، والتفاعل الذي جعل يوم الذكاء الاصطناعي بداية حقيقية لمسار تربوي مرتبط بالابتكار والروبوتيك.
+          </p>
+
+          <div class="mt-8 grid grid-cols-3 gap-3">
+            <div class="rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 text-center">
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">30</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">صورة</div>
+            </div>
+
+            <div class="rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 text-center">
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">01</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">النسخة</div>
+            </div>
+
+            <div class="rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 text-center">
+              <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">AI</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">المجال</div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a
+              href={getPermalink(iaDayEdition1.href)}
+              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-[#20A4F3] text-[#0B1C4B] font-black hover:bg-[#0B1C4B] hover:text-white transition-colors"
+            >
+              فتح أرشيف النسخة الأولى
+            </a>
+
+            {
+              iaDayEdition1.facebookReportUrl ? (
+                <a
+                  href={iaDayEdition1.facebookReportUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white font-bold hover:border-[#20A4F3] hover:text-[#20A4F3] transition-colors"
+                >
+                  تقرير الحدث على Facebook
+                </a>
+              ) : (
+                <span class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-gray-200 dark:border-slate-700 text-gray-500 dark:text-slate-400 font-bold">
+                  تقرير Facebook سيضاف قريبا
+                </span>
+              )
+            }
+          </div>
+        </div>
+
+        <div class="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-3">
+          {
+            iaDayEdition1PreviewImages.map((image) => (
+              <figure class="group overflow-hidden rounded-2xl border border-gray-100 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 shadow-sm">
+                <img
+                  src={image.url}
+                  alt={image.alt}
+                  class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </figure>
+            ))
+          }
         </div>
       </div>
     </div>
