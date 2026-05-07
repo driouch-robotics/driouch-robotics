@@ -66,12 +66,12 @@ export const headerData = {
           href: '/ia-day-edition-1',
         },
         {
-          text: 'الموقع الجغرافي',
-          href: '/#location',
-        },
-        {
           text: 'IA Day 2026 Edition 2',
           href: '/#iaday-2026',
+        },
+        {
+          text: 'الموقع الجغرافي',
+          href: '/#location',
         },
       ],
     },
