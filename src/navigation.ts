@@ -13,22 +13,22 @@ export const headerData = {
         {
           text: 'الأنظمة المدمجة والروبوتيك',
           links: [
-            { text: 'مدينة ذكية', href: '/projects/smart-driouch' },
-            { text: 'الذراع الآلية', href: '/projects/robotic-arm' },
-            { text: 'السيارة المستكشفة', href: '/projects/explorer-car' },
-            { text: 'المركبة الذاتية', href: '/projects/autonomous-vehicle' },
-            { text: 'الجرس الذكي', href: '/projects/smart-bell' },
-            { text: 'المزرعة الذكية', href: '/projects/smart-farm' },
-            { text: 'الخوذة الذكية', href: '/projects/smart-helmet' },
+            { text: 'مشروع مدينة الدريوش الذكية', href: '/projects/smart-driouch' },
+            { text: 'مشروع الذراع الروبوتية التعليمية', href: '/projects/robotic-arm' },
+            { text: 'السيارة الذكية المستكشفة', href: '/projects/explorer-car' },
+            { text: 'المركبة الذاتية متتبعة المسار', href: '/projects/autonomous-vehicle' },
+            { text: 'الجرس المدرسي الذكي', href: '/projects/smart-bell' },
+            { text: 'المزرعة الذكية المستدامة', href: '/projects/smart-farm' },
+            { text: 'الخوذة الذكية للسلامة الطرقية', href: '/projects/smart-helmet' },
           ],
         },
         {
           text: 'الذكاء الاصطناعي والرقمنة',
           links: [
-            { text: 'المساعد الذكي', href: '/projects/smart-assistant' },
-            { text: 'إدارة الغياب', href: '/projects/digital-absence-management' },
-            { text: 'الكتاب الرقمي', href: '/projects/digital-textbook' },
-            { text: 'صناعة المحتوى', href: '/projects/ai-content-creation' },
+            { text: 'المساعد الذكي التفاعلي', href: '/projects/smart-assistant' },
+            { text: 'نظام تدبير الغياب الرقمي', href: '/projects/digital-absence-management' },
+            { text: 'الكتاب الرقمي التفاعلي', href: '/projects/digital-textbook' },
+            { text: 'صناعة المحتوى بالذكاء الاصطناعي', href: '/projects/ai-content-creation' },
           ],
         },
       ],
@@ -147,8 +147,18 @@ export const footerData = {
     { ariaLabel: 'YouTube', icon: 'tabler:brand-youtube', href: '#' },
   ],
   footNote: `
-    <span class="font-semibold text-slate-800 dark:text-slate-200">© 2024 - ${currentYear} نادي الروبوتيك والذكاء الاصطناعي - الدريوش</span>
-    <span class="mx-1">•</span>
-    <span>جميع الحقوق محفوظة</span>
+    <div class="flex flex-col gap-1.5">
+      <div>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">© 2024 - ${currentYear} نادي الروبوتيك والذكاء الاصطناعي - الدريوش</span>
+        <span class="mx-1">•</span>
+        <span>جميع الحقوق محفوظة</span>
+      </div>
+      <div class="inline-flex w-fit flex-wrap items-center gap-2 rounded-full border border-[#20A4F3]/25 bg-[#20A4F3]/10 px-3 py-1.5 text-[12px] text-slate-600 shadow-sm dark:border-[#20A4F3]/35 dark:bg-[#20A4F3]/10 dark:text-slate-300">
+        <span class="font-semibold">تصميم وتطوير</span>
+        <a class="font-black tracking-wide text-[#0B1C4B] transition-colors hover:text-[#20A4F3] dark:text-[#7DD3FC]" href="mailto:mohamed.elrhaouat@gmail.com">Mohamed ELRHAOUAT</a>
+        <span class="h-1.5 w-1.5 rounded-full bg-[#20A4F3]"></span>
+        <span>بروح الذكاء الاصطناعي والروبوتيك</span>
+      </div>
+    </div>
   `,
 };
