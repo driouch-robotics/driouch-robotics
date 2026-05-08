@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 
 import PageLayout from '~/layouts/PageLayout.astro';
 import teamData from '~/data/team.json';
+import { getProjectBodyTranslation } from '~/i18n/projectBodies';
 import { getProjectLabels, getProjectLocaleText } from '~/i18n/projects';
 import type { Locale } from '~/i18n/config';
 import { getAsset } from '~/utils/permalinks';
@@ -17,6 +18,7 @@ export interface Props {
 const { entry, locale = 'ar' } = Astro.props;
 const { Content } = await entry.render();
 const labels = getProjectLabels(locale);
+const translatedBody = getProjectBodyTranslation(entry.slug, locale);
 const localized = getProjectLocaleText(entry.slug, locale, {
   title: entry.data.title,
   category: entry.data.category,
@@ -90,7 +92,7 @@ const metadata = {
     <div
       class="prose prose-lg prose-blue dark:prose-invert max-w-none prose-headings:text-[#0B1C4B] dark:prose-headings:text-[#20A4F3] prose-headings:font-bold prose-p:text-gray-700 dark:prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-gray-700 dark:prose-li:text-slate-300"
     >
-      <Content />
+      {translatedBody ? <Fragment set:html={translatedBody} /> : <Content />}
     </div>
 
     {
