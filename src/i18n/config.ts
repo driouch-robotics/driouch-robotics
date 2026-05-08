@@ -61,29 +61,50 @@ export const getLocaleFromPathname = (pathname = '/') => {
 export const getLocalizedHomePath = (locale: Locale = defaultLocale) =>
   locale === defaultLocale ? '/' : `/${locale}`;
 
-export const localizeHomeHref = (href = '/', locale: Locale = defaultLocale) => {
+export const stripLocaleFromPath = (pathname = '/') => {
+  const pathnameWithoutBase = stripBasePath(pathname);
+  const parts = trimSlash(pathnameWithoutBase).split('/').filter(Boolean);
+
+  if (isLocale(parts[0])) {
+    parts.shift();
+  }
+
+  return parts.length ? `/${parts.join('/')}` : '/';
+};
+
+export const localizePath = (path = '/', locale: Locale = defaultLocale) => {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const pathWithoutLocale = stripLocaleFromPath(normalizedPath);
+
+  if (locale === defaultLocale) {
+    return pathWithoutLocale;
+  }
+
+  return pathWithoutLocale === '/' ? `/${locale}` : `/${locale}${pathWithoutLocale}`;
+};
+
+export const localizeHref = (href = '/', locale: Locale = defaultLocale) => {
   if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')) {
     return href;
   }
 
-  const homePath = getLocalizedHomePath(locale);
+  if (href.startsWith('#')) return `${getLocalizedHomePath(locale)}${href}`;
+  if (href === '/') return getLocalizedHomePath(locale);
+  if (href.startsWith('/#')) return `${getLocalizedHomePath(locale)}${href.slice(1)}`;
 
-  if (href === '/') return homePath;
-  if (href.startsWith('/#')) return `${homePath}${href.slice(1)}`;
-  if (href.startsWith('#')) return `${homePath}${href}`;
-
-  return href;
+  return localizePath(href, locale);
 };
 
 export const getLanguageLinks = (pathname = '/') => {
   const currentLocale = getLocaleFromPathname(pathname);
+  const pathWithoutLocale = stripLocaleFromPath(pathname);
 
   return locales.map((locale) => ({
     locale,
     label: localeMeta[locale].label,
     shortLabel: localeMeta[locale].shortLabel,
     dir: localeMeta[locale].dir,
-    href: getLocalizedHomePath(locale),
+    href: localizePath(pathWithoutLocale, locale),
     active: locale === currentLocale,
   }));
 };

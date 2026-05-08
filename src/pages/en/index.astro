@@ -1,15 +1,5 @@
 ---
-import LocalizedHome from '~/components/LocalizedHome.astro';
-import PageLayout from '~/layouts/PageLayout.astro';
-import { localizedHome } from '~/i18n/home';
-
-const metadata = {
-  title: localizedHome.en.metadata.title,
-  description: localizedHome.en.metadata.description,
-  ignoreTitleTemplate: true,
-};
+import HomePage from '../index.astro';
 ---
 
-<PageLayout metadata={metadata}>
-  <LocalizedHome locale="en" />
-</PageLayout>
+<HomePage />

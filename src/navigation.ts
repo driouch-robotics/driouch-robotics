@@ -1,4 +1,4 @@
-import { localizeHomeHref, type Locale } from '~/i18n/config';
+import { localizeHref, type Locale } from '~/i18n/config';
 
 const currentYear = new Date().getFullYear();
 
@@ -227,7 +227,7 @@ const text = {
   },
 } as const;
 
-const sectionHref = (locale: Locale, href: string) => localizeHomeHref(href, locale);
+const sectionHref = (locale: Locale, href: string) => localizeHref(href, locale);
 
 const projectMenuItems = (
   locale: Locale,
@@ -235,7 +235,7 @@ const projectMenuItems = (
 ) =>
   links.map(({ key, href }) => ({
     text: text[locale].projectNames[key],
-    href,
+    href: sectionHref(locale, href),
   }));
 
 export const getHeaderData = (locale: Locale = 'ar') => {
@@ -278,7 +278,7 @@ export const getHeaderData = (locale: Locale = 'ar') => {
           { text: t.nav.overview, href: sectionHref(locale, '/#about') },
           { text: t.nav.contact, href: sectionHref(locale, '/#contact') },
           { text: t.nav.faq, href: sectionHref(locale, '/#faq') },
-          { text: t.nav.iaDay2025, href: '/ia-day-edition-1' },
+          { text: t.nav.iaDay2025, href: sectionHref(locale, '/ia-day-edition-1') },
           { text: t.nav.iaDay2026, href: sectionHref(locale, '/#iaday-2026') },
           { text: t.nav.location, href: sectionHref(locale, '/#location') },
         ],
@@ -287,7 +287,7 @@ export const getHeaderData = (locale: Locale = 'ar') => {
     actions: [
       {
         text: t.actions.iaMemory,
-        href: '/ia-day-edition-1',
+        href: sectionHref(locale, '/ia-day-edition-1'),
         variant: 'secondary',
         icon: 'tabler:photo-spark',
         class:
@@ -338,7 +338,7 @@ export const getFooterData = (locale: Locale = 'ar') => {
         links: [
           { text: t.nav.technicalProjects, href: sectionHref(locale, '/#projects') },
           { text: t.nav.awareness, href: sectionHref(locale, '/#awareness') },
-          { text: t.nav.iaDay2025, href: '/ia-day-edition-1' },
+          { text: t.nav.iaDay2025, href: sectionHref(locale, '/ia-day-edition-1') },
           { text: t.nav.iaDay2026, href: sectionHref(locale, '/#iaday-2026') },
         ],
       },

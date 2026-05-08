@@ -1,0 +1,105 @@
+---
+import { SITE } from 'astrowind:config';
+import { locales } from '~/i18n/config';
+import { runtimeTranslations } from '~/i18n/runtimeTranslations';
+
+const basePathname = SITE.base || '';
+const supportedLocales = locales;
+const translations = runtimeTranslations;
+---
+
+<script is:inline define:vars={{ basePathname, supportedLocales, translations }}>
+  (() => {
+    const storageKey = 'driouch-robotics-locale';
+    const cleanBase = `/${String(basePathname || '').replace(/^\/|\/$/g, '')}`.replace(/\/$/, '');
+    const base = cleanBase === '/' ? '' : cleanBase;
+    const supported = new Set(supportedLocales);
+
+    const getPathWithoutBase = () => {
+      const path = window.location.pathname;
+      if (base && (path === base || path.startsWith(`${base}/`))) {
+        return path.slice(base.length) || '/';
+      }
+      return path || '/';
+    };
+
+    const getPathLocale = () => {
+      const [firstSegment] = getPathWithoutBase().replace(/^\/+/, '').split('/');
+      return supported.has(firstSegment) ? firstSegment : 'ar';
+    };
+
+    const stripLocale = (path) => {
+      const parts = path.replace(/^\/+/, '').split('/').filter(Boolean);
+      if (supported.has(parts[0])) parts.shift();
+      return parts.length ? `/${parts.join('/')}` : '/';
+    };
+
+    const localizePath = (path, locale) => {
+      const cleanPath = stripLocale(path || '/');
+      if (locale === 'ar') return cleanPath;
+      return cleanPath === '/' ? `/${locale}` : `/${locale}${cleanPath}`;
+    };
+
+    const rememberExplicitChoice = () => {
+      document.querySelectorAll('[data-site-locale]').forEach((link) => {
+        if (link.dataset.localeReady === 'true') return;
+        link.dataset.localeReady = 'true';
+        link.addEventListener('click', () => {
+          const locale = link.getAttribute('data-site-locale');
+          if (locale) localStorage.setItem(storageKey, locale);
+        });
+      });
+    };
+
+    const translateTextNodes = (locale) => {
+      const dictionary = translations[locale];
+      if (!dictionary) return;
+
+      const ignoredTags = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'TEXTAREA', 'INPUT']);
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const parent = node.parentElement;
+          if (!parent || ignoredTags.has(parent.tagName)) return NodeFilter.FILTER_REJECT;
+          return node.nodeValue && node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        },
+      });
+
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach((node) => {
+        const value = node.nodeValue || '';
+        const trimmed = value.trim().replace(/\s+/g, ' ');
+        const translated = dictionary[trimmed];
+        if (!translated) return;
+
+        const startSpace = value.match(/^\s*/)?.[0] || '';
+        const endSpace = value.match(/\s*$/)?.[0] || '';
+        node.nodeValue = `${startSpace}${translated}${endSpace}`;
+      });
+    };
+
+    const localeFromPath = getPathLocale();
+    const storedLocale = localStorage.getItem(storageKey);
+
+    if (localeFromPath !== 'ar') {
+      localStorage.setItem(storageKey, localeFromPath);
+      translateTextNodes(localeFromPath);
+    } else if (storedLocale && storedLocale !== 'ar') {
+      const nextPath = localizePath(getPathWithoutBase(), storedLocale);
+      const nextUrl = `${base}${nextPath}${window.location.search}${window.location.hash}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      if (nextUrl !== currentUrl) {
+        window.location.replace(nextUrl);
+        return;
+      }
+    }
+
+    rememberExplicitChoice();
+    document.addEventListener('astro:page-load', () => {
+      rememberExplicitChoice();
+      const activeLocale = getPathLocale();
+      if (activeLocale !== 'ar') translateTextNodes(activeLocale);
+    });
+  })();
+</script>

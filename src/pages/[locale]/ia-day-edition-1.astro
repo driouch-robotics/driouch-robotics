@@ -1,0 +1,14 @@
+---
+import IaDayEdition1Page from '../ia-day-edition-1.astro';
+import { locales } from '~/i18n/config';
+
+export function getStaticPaths() {
+  return locales
+    .filter((locale) => locale !== 'ar')
+    .map((locale) => ({
+      params: { locale },
+    }));
+}
+---
+
+<IaDayEdition1Page />
