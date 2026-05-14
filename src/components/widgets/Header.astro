@@ -75,6 +75,12 @@ const languageSwitcherLabel = labels.languageSwitcher || 'Change language';
 const mainSectionLabel = labels.mainSection || 'Main section';
 const projectsLabel = labels.projectsLabel || 'projects';
 const sectionProjectsLabel = labels.sectionProjects || 'Projects in this section';
+const isRtl = locale === 'ar';
+const menuTextAlignClass = isRtl ? 'text-right' : 'text-left';
+const topDropdownPositionClass = isRtl ? 'xl:right-0' : 'xl:left-0';
+const nestedDropdownPositionClass = isRtl ? 'xl:right-full xl:pr-3' : 'xl:left-full xl:pl-3';
+const nestedChevronIcon = isRtl ? 'tabler:chevron-left' : 'tabler:chevron-right';
+const languageDropdownPositionClass = isRtl ? 'right-0' : 'left-0';
 const resolveHref = (href?: string) =>
   href && !href.startsWith('mailto:') && !href.startsWith('tel:') ? getPermalink(href) : href;
 const getHeaderActionClass = (className?: string) =>
@@ -132,29 +138,44 @@ const getHeaderActionClass = (className?: string) =>
       >
         {
           links.map(({ text, href, links }) => (
-            <li class:list={[links?.length ? 'relative group/top' : '', 'overflow-visible']}>
+            <li
+              class:list={[links?.length ? 'relative group/top mobile-submenu w-full xl:w-auto' : '', 'overflow-visible']}
+              {...links?.length ? { 'data-mobile-submenu': true } : {}}
+            >
               {links?.length ? (
                 hasGroupedDropdown(links) ? (
                   <>
                     <button
                       type="button"
-                      class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap"
+                      class="hover:text-link dark:hover:text-white px-4 py-3 flex w-full items-center justify-center gap-1 whitespace-nowrap xl:w-auto"
+                      aria-expanded="false"
+                      data-mobile-submenu-trigger
                     >
                       {text}
                       <Icon
                         name="tabler:chevron-down"
-                      class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden xl:inline"
+                        class="w-3.5 h-3.5 transition-transform duration-200 mobile-submenu-chevron"
                       />
                     </button>
 
                     <!-- المستوى الأول -->
-                    <div class="absolute top-full right-0 z-[80] pt-2 opacity-0 invisible translate-y-1 pointer-events-none transition-all duration-200 ease-out group-hover/top:opacity-100 group-hover/top:visible group-hover/top:translate-y-0 group-hover/top:pointer-events-auto group-focus-within/top:opacity-100 group-focus-within/top:visible group-focus-within/top:translate-y-0 group-focus-within/top:pointer-events-auto">
-                      <div class="w-[320px] rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 shadow-2xl backdrop-blur-xl p-3">
+                    <div
+                      class:list={[
+                        'mobile-menu-panel hidden w-full px-4 pb-2 xl:block xl:w-auto xl:px-0 xl:pb-0 xl:absolute xl:top-full xl:z-[80] xl:pt-2 xl:opacity-0 xl:invisible xl:translate-y-1 xl:pointer-events-none xl:transition-all xl:duration-200 xl:ease-out xl:group-hover/top:opacity-100 xl:group-hover/top:visible xl:group-hover/top:translate-y-0 xl:group-hover/top:pointer-events-auto xl:group-focus-within/top:opacity-100 xl:group-focus-within/top:visible xl:group-focus-within/top:translate-y-0 xl:group-focus-within/top:pointer-events-auto',
+                        topDropdownPositionClass,
+                      ]}
+                    >
+                      <div class="w-full xl:w-[320px] rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 shadow-lg xl:shadow-2xl backdrop-blur-xl p-3">
                         <ul class="space-y-2">
                           {links.map((group) => (
-                            <li class="relative group/submenu">
-                              <div class="flex items-center justify-between gap-4 rounded-xl px-4 py-3 bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors">
-                                <div class="min-w-0 text-right">
+                            <li class="relative group/submenu mobile-submenu" data-mobile-submenu>
+                              <button
+                                type="button"
+                                class="flex w-full items-center justify-between gap-4 rounded-xl px-4 py-3 bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors"
+                                aria-expanded="false"
+                                data-mobile-submenu-trigger
+                              >
+                                <div class:list={['min-w-0', menuTextAlignClass]}>
                                   <div class="text-[0.95rem] font-extrabold text-[#20A4F3] dark:text-[#38BDF8] leading-tight">
                                     {group.text}
                                   </div>
@@ -164,15 +185,24 @@ const getHeaderActionClass = (className?: string) =>
                                 </div>
 
                                 <Icon
-                                  name="tabler:chevron-left"
-                                  class="w-4 h-4 text-[#20A4F3] shrink-0"
+                                  name="tabler:chevron-down"
+                                  class="w-4 h-4 text-[#20A4F3] shrink-0 transition-transform duration-200 mobile-submenu-chevron xl:hidden"
                                 />
-                              </div>
+                                <Icon
+                                  name={nestedChevronIcon}
+                                  class="hidden w-4 h-4 text-[#20A4F3] shrink-0 xl:block"
+                                />
+                              </button>
 
                               <!-- المستوى الثاني -->
-                              <div class="absolute top-0 right-full z-[90] pr-3 opacity-0 invisible translate-x-1 pointer-events-none transition-all duration-200 ease-out group-hover/submenu:opacity-100 group-hover/submenu:visible group-hover/submenu:translate-x-0 group-hover/submenu:pointer-events-auto group-focus-within/submenu:opacity-100 group-focus-within/submenu:visible group-focus-within/submenu:translate-x-0 group-focus-within/submenu:pointer-events-auto">
-                                <div class="w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 shadow-2xl backdrop-blur-xl p-3">
-                                  <div class="mb-3 px-3 py-2 border-b border-slate-100 dark:border-slate-700 text-right">
+                              <div
+                                class:list={[
+                                  'mobile-menu-panel hidden w-full pt-2 xl:block xl:w-auto xl:pt-0 xl:absolute xl:top-0 xl:z-[90] xl:opacity-0 xl:invisible xl:translate-x-1 xl:pointer-events-none xl:transition-all xl:duration-200 xl:ease-out xl:group-hover/submenu:opacity-100 xl:group-hover/submenu:visible xl:group-hover/submenu:translate-x-0 xl:group-hover/submenu:pointer-events-auto xl:group-focus-within/submenu:opacity-100 xl:group-focus-within/submenu:visible xl:group-focus-within/submenu:translate-x-0 xl:group-focus-within/submenu:pointer-events-auto',
+                                  nestedDropdownPositionClass,
+                                ]}
+                              >
+                                <div class="w-full xl:w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 shadow-lg xl:shadow-2xl backdrop-blur-xl p-3">
+                                  <div class:list={['mb-3 px-3 py-2 border-b border-slate-100 dark:border-slate-700', menuTextAlignClass]}>
                                     <div class="text-[0.95rem] font-extrabold text-[#20A4F3] dark:text-[#38BDF8] leading-tight">
                                       {group.text}
                                     </div>
@@ -186,7 +216,10 @@ const getHeaderActionClass = (className?: string) =>
                                       <li>
                                         <a
                                           href={resolveHref(project.href)}
-                                          class="group/project flex items-start justify-between gap-3 rounded-xl px-3.5 py-2.5 text-right text-[13px] leading-6 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-[#20A4F3] transition-colors duration-200"
+                                          class:list={[
+                                            'group/project flex items-start justify-between gap-3 rounded-xl px-3.5 py-2.5 text-[13px] leading-6 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-[#20A4F3] transition-colors duration-200',
+                                            menuTextAlignClass,
+                                          ]}
                                         >
                                           <span>{project.text}</span>
                                           <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#20A4F3]/70 transition-transform group-hover/project:scale-125"></span>
@@ -206,23 +239,31 @@ const getHeaderActionClass = (className?: string) =>
                   <>
                     <button
                       type="button"
-                      class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap"
+                      class="hover:text-link dark:hover:text-white px-4 py-3 flex w-full items-center justify-center gap-1 whitespace-nowrap xl:w-auto"
+                      aria-expanded="false"
+                      data-mobile-submenu-trigger
                     >
                       {text}
                       <Icon
                         name="tabler:chevron-down"
-                        class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden xl:inline"
+                        class="w-3.5 h-3.5 transition-transform duration-200 mobile-submenu-chevron"
                       />
                     </button>
 
                     <!-- Dropdown عادي -->
-                    <div class="absolute top-full right-0 z-[80] pt-2 opacity-0 invisible translate-y-1 pointer-events-none transition-all duration-200 ease-out group-hover/top:opacity-100 group-hover/top:visible group-hover/top:translate-y-0 group-hover/top:pointer-events-auto group-focus-within/top:opacity-100 group-focus-within/top:visible group-focus-within/top:translate-y-0 group-focus-within/top:pointer-events-auto">
-                      <ul class="rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 shadow-2xl backdrop-blur-xl min-w-[250px] p-2">
+                    <div
+                      class:list={[
+                        'mobile-menu-panel hidden w-full px-4 pb-2 xl:block xl:w-auto xl:px-0 xl:pb-0 xl:absolute xl:top-full xl:z-[80] xl:pt-2 xl:opacity-0 xl:invisible xl:translate-y-1 xl:pointer-events-none xl:transition-all xl:duration-200 xl:ease-out xl:group-hover/top:opacity-100 xl:group-hover/top:visible xl:group-hover/top:translate-y-0 xl:group-hover/top:pointer-events-auto xl:group-focus-within/top:opacity-100 xl:group-focus-within/top:visible xl:group-focus-within/top:translate-y-0 xl:group-focus-within/top:pointer-events-auto',
+                        topDropdownPositionClass,
+                      ]}
+                    >
+                      <ul class="rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 shadow-lg xl:shadow-2xl backdrop-blur-xl min-w-[250px] p-2">
                         {links.map(({ text: text2, href: href2 }) => (
                           <li>
                             <a
                               class:list={[
-                                'block rounded-xl px-4 py-2.5 text-sm text-right text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-[#20A4F3] transition-colors duration-200',
+                                'block rounded-xl px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-[#20A4F3] transition-colors duration-200',
+                                menuTextAlignClass,
                                 { 'aw-link-active': resolveHref(href2) === currentPath },
                               ]}
                               href={resolveHref(href2)}
@@ -272,7 +313,12 @@ const getHeaderActionClass = (className?: string) =>
                 <Icon name="tabler:chevron-down" class="h-3.5 w-3.5 opacity-70" />
               </button>
 
-              <div class="absolute top-full left-0 z-[90] pt-2 opacity-0 invisible translate-y-1 pointer-events-none transition-all duration-200 ease-out group-hover/lang:opacity-100 group-hover/lang:visible group-hover/lang:translate-y-0 group-hover/lang:pointer-events-auto group-focus-within/lang:opacity-100 group-focus-within/lang:visible group-focus-within/lang:translate-y-0 group-focus-within/lang:pointer-events-auto">
+              <div
+                class:list={[
+                  'absolute top-full z-[90] pt-2 opacity-0 invisible translate-y-1 pointer-events-none transition-all duration-200 ease-out group-hover/lang:opacity-100 group-hover/lang:visible group-hover/lang:translate-y-0 group-hover/lang:pointer-events-auto group-focus-within/lang:opacity-100 group-focus-within/lang:visible group-focus-within/lang:translate-y-0 group-focus-within/lang:pointer-events-auto',
+                  languageDropdownPositionClass,
+                ]}
+              >
                 <div class="w-44 rounded-2xl border border-slate-200/80 bg-white/95 p-2 shadow-2xl backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/95">
                   <div class="px-3 pb-2 pt-1 text-[11px] font-black uppercase tracking-[0.16em] text-slate-400">
                     {languageSwitcherLabel}
@@ -333,3 +379,33 @@ const getHeaderActionClass = (className?: string) =>
     </div>
   </div>
 </header>
+
+<style is:inline>
+  @media (max-width: 1279px) {
+    #header.expanded {
+      overflow: hidden;
+    }
+
+    #header.expanded nav {
+      max-height: calc(100vh - 7rem);
+      overflow-y: auto;
+      padding-bottom: 5.25rem;
+    }
+
+    #header .mobile-submenu-open > .mobile-menu-panel {
+      display: block;
+    }
+
+    #header .mobile-submenu-open > [data-mobile-submenu-trigger] > .mobile-submenu-chevron {
+      transform: rotate(180deg);
+    }
+
+    #header nav {
+      align-items: stretch;
+    }
+
+    #header nav > ul {
+      gap: 0.15rem;
+    }
+  }
+</style>

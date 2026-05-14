@@ -18,6 +18,8 @@ const metadata = {
   ignoreTitleTemplate: true,
 };
 
+const routeLocale = Astro.params.locale === 'fr' || Astro.params.locale === 'en' ? Astro.params.locale : 'ar';
+
 const clubLocationQuery = encodeURIComponent(
   'ثانوية الوحدة الإعدادية الرائدة جماعة امطالسة مديرية الدريوش جهة الشرق المغرب'
 );
@@ -56,10 +58,18 @@ const iaDayEdition1PreviewImages = iaDayEdition1.images.slice(0, 6).map((image) 
 }));
 
 const isExternalUrl = (href = '') => href.startsWith('http://') || href.startsWith('https://');
+const localizeSitePath = (href = '') => {
+  const normalizedHref = href.startsWith('/') ? href : `/${href}`;
+  if (routeLocale === 'ar' || normalizedHref === `/${routeLocale}` || normalizedHref.startsWith(`/${routeLocale}/`)) {
+    return normalizedHref;
+  }
+
+  return `/${routeLocale}${normalizedHref}`;
+};
 const resolveSiteHref = (href = '') =>
   isExternalUrl(href) || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')
     ? href
-    : getPermalink(href);
+    : getPermalink(localizeSitePath(href));
 ---
 
 <Layout metadata={metadata}>
@@ -1305,7 +1315,7 @@ const resolveSiteHref = (href = '') =>
 
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
             <a
-              href={getPermalink(iaDayEdition1.href)}
+              href={resolveSiteHref(iaDayEdition1.href)}
               class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-[#20A4F3] text-[#0B1C4B] font-black hover:bg-[#0B1C4B] hover:text-white transition-colors"
             >
               فتح أرشيف النسخة الأولى
@@ -1632,7 +1642,7 @@ const resolveSiteHref = (href = '') =>
             عبر منصة رقمية تفاعلية.
           </p>
           <a
-            href={getPermalink('/olympiad-platform.html')}
+            href={resolveSiteHref('/olympiad-platform.html')}
             class="mt-auto inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-[#0B1C4B] bg-[#20A4F3] hover:bg-white rounded-lg transition-colors duration-300"
           >
             دخول المنصة <span class="ml-2">🏆</span>
@@ -1705,7 +1715,7 @@ const resolveSiteHref = (href = '') =>
             تلميذ.
           </p>
           <a
-            href={getPermalink('/projects/typing-speed-challenge')}
+            href={resolveSiteHref('/projects/typing-speed-challenge')}
             class="mt-auto inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white border border-[#20A4F3] hover:bg-[#20A4F3] rounded-lg transition-colors duration-300"
           >
             تفاصيل التحدي <span class="ml-2">⌨️</span>

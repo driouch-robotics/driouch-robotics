@@ -51,6 +51,67 @@ const translations = runtimeTranslations;
       });
     };
 
+    const translateValue = (value, dictionary) => {
+      const trimmed = String(value || '').trim().replace(/\s+/g, ' ');
+      if (!trimmed) return value;
+
+      const translated = dictionary[trimmed];
+      if (translated) return translated;
+
+      let nextValue = trimmed;
+      Object.entries(dictionary).forEach(([source, target]) => {
+        if (source.length < 12 || !nextValue.includes(source)) return;
+        nextValue = nextValue.split(source).join(target);
+      });
+      nextValue = nextValue.replace(/،/g, ',').replace(/؛/g, ';').replace(/؟/g, '?');
+
+      return nextValue !== trimmed ? nextValue : value;
+    };
+
+    const localizeInternalLinks = (locale) => {
+      if (locale === 'ar') return;
+
+      document.querySelectorAll('a[href]').forEach((link) => {
+        const href = link.getAttribute('href');
+        if (
+          !href ||
+          href.startsWith('#') ||
+          href.startsWith('mailto:') ||
+          href.startsWith('tel:') ||
+          href.startsWith('javascript:') ||
+          href.startsWith('http://') ||
+          href.startsWith('https://')
+        ) {
+          return;
+        }
+
+        const url = new URL(href, window.location.origin);
+        if (url.origin !== window.location.origin) return;
+        if (base && url.pathname !== base && !url.pathname.startsWith(`${base}/`)) return;
+
+        const pathWithoutBase = base ? url.pathname.slice(base.length) || '/' : url.pathname || '/';
+        const nextPath = localizePath(pathWithoutBase, locale);
+        const nextHref = `${base}${nextPath}${url.search}${url.hash}`;
+        link.setAttribute('href', nextHref);
+      });
+    };
+
+    const translateAttributes = (locale) => {
+      const dictionary = translations[locale];
+      if (!dictionary) return;
+
+      const attributes = ['aria-label', 'title', 'alt', 'placeholder', 'data-finished-label'];
+      document.querySelectorAll('*').forEach((element) => {
+        attributes.forEach((attribute) => {
+          const value = element.getAttribute(attribute);
+          if (!value) return;
+
+          const translated = translateValue(value, dictionary);
+          if (translated !== value) element.setAttribute(attribute, translated);
+        });
+      });
+    };
+
     const translateTextNodes = (locale) => {
       const dictionary = translations[locale];
       if (!dictionary) return;
@@ -70,13 +131,20 @@ const translations = runtimeTranslations;
       nodes.forEach((node) => {
         const value = node.nodeValue || '';
         const trimmed = value.trim().replace(/\s+/g, ' ');
-        const translated = dictionary[trimmed];
-        if (!translated) return;
-
         const startSpace = value.match(/^\s*/)?.[0] || '';
         const endSpace = value.match(/\s*$/)?.[0] || '';
-        node.nodeValue = `${startSpace}${translated}${endSpace}`;
+        const translated = translateValue(trimmed, dictionary);
+
+        if (translated !== trimmed) {
+          node.nodeValue = `${startSpace}${translated}${endSpace}`;
+        }
       });
+    };
+
+    const applyLocaleEnhancements = (locale) => {
+      localizeInternalLinks(locale);
+      translateAttributes(locale);
+      translateTextNodes(locale);
     };
 
     const localeFromPath = getPathLocale();
@@ -84,7 +152,7 @@ const translations = runtimeTranslations;
 
     if (localeFromPath !== 'ar') {
       localStorage.setItem(storageKey, localeFromPath);
-      translateTextNodes(localeFromPath);
+      applyLocaleEnhancements(localeFromPath);
     } else if (storedLocale && storedLocale !== 'ar') {
       const nextPath = localizePath(getPathWithoutBase(), storedLocale);
       const nextUrl = `${base}${nextPath}${window.location.search}${window.location.hash}`;
@@ -99,7 +167,7 @@ const translations = runtimeTranslations;
     document.addEventListener('astro:page-load', () => {
       rememberExplicitChoice();
       const activeLocale = getPathLocale();
-      if (activeLocale !== 'ar') translateTextNodes(activeLocale);
+      if (activeLocale !== 'ar') applyLocaleEnhancements(activeLocale);
     });
   })();
 </script>
