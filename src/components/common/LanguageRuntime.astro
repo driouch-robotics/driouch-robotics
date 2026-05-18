@@ -59,10 +59,12 @@ const translations = runtimeTranslations;
       if (translated) return translated;
 
       let nextValue = trimmed;
-      Object.entries(dictionary).forEach(([source, target]) => {
-        if (source.length < 12 || !nextValue.includes(source)) return;
-        nextValue = nextValue.split(source).join(target);
-      });
+      Object.entries(dictionary)
+        .sort(([sourceA], [sourceB]) => sourceB.length - sourceA.length)
+        .forEach(([source, target]) => {
+          if (source.length < 12 || !nextValue.includes(source)) return;
+          nextValue = nextValue.split(source).join(target);
+        });
       nextValue = nextValue.replace(/،/g, ',').replace(/؛/g, ';').replace(/؟/g, '?');
 
       return nextValue !== trimmed ? nextValue : value;

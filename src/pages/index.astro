@@ -40,8 +40,13 @@ const institutionEmail = 'najimammari794@gmail.com';
 const principalPhone = '0602651223';
 const principalPhoneDisplay = '0602 651 223';
 
-const iaDay2026TargetDate = '2026-06-08T09:00:00+01:00';
-const iaDay2026TargetLabel = '8 يونيو 2026';
+const iaDay2026PreviousDateLabel = '8 يونيو 2026';
+const iaDay2026TargetDate = '2026-06-12T16:00:00+01:00';
+const iaDay2026TargetLabel = '12 يونيو 2026';
+const iaDay2026TimeLabel = 'من 16:00 إلى 19:00';
+const iaDay2026InvitationFormUrl = '';
+const iaDay2026InvitationHref = iaDay2026InvitationFormUrl || '#iaday-2026-invitation';
+const iaDay2026InvitationIsReady = Boolean(iaDay2026InvitationFormUrl);
 const iaDay2026RemainingMs = Math.max(0, new Date(iaDay2026TargetDate).getTime() - Date.now());
 const iaDay2026InitialDays = Math.floor(iaDay2026RemainingMs / 86400000);
 const iaDay2026InitialHours = Math.floor((iaDay2026RemainingMs % 86400000) / 3600000);
@@ -454,7 +459,13 @@ const resolveSiteHref = (href = '') =>
               العد التنازلي للنسخة الثانية من يوم الذكاء الاصطناعي
             </span>
             <span data-countdown-label class="mt-1 block text-xs font-semibold text-gray-500 dark:text-slate-400">
-              الموعد الرسمي: {iaDay2026TargetLabel}
+              <span class="block">
+                التاريخ السابق:
+                <span class="line-through decoration-red-500 decoration-2">{iaDay2026PreviousDateLabel}</span>
+              </span>
+              <span class="mt-0.5 block font-black text-gray-800 dark:text-white">
+                التاريخ الجديد: {iaDay2026TargetLabel} • {iaDay2026TimeLabel}
+              </span>
             </span>
           </span>
         </div>
@@ -1197,6 +1208,22 @@ const resolveSiteHref = (href = '') =>
                   IA Day 2026 Edition 2، في صيغة تربوية تفاعلية تجمع بين العروض، الورشات، المشاريع، والمسابقات.
                 </p>
 
+                <div class="mb-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+                  <div class="rounded-2xl border border-red-300/25 bg-red-500/10 p-4">
+                    <span class="text-xs font-black uppercase tracking-[0.14em] text-red-200">Previous Date</span>
+                    <p class="mt-2 text-lg font-black text-white">
+                      <span class="line-through decoration-red-400 decoration-[3px]">{iaDay2026PreviousDateLabel}</span>
+                    </p>
+                    <p class="mt-1 text-xs font-bold text-red-100/75">تم إلغاء هذا التاريخ واعتماد الموعد الجديد أسفله.</p>
+                  </div>
+
+                  <div class="rounded-2xl border border-[#20A4F3]/35 bg-[#20A4F3]/15 p-4">
+                    <span class="text-xs font-black uppercase tracking-[0.14em] text-[#7DD3FC]">New Official Date</span>
+                    <p class="mt-2 text-xl font-black text-white">{iaDay2026TargetLabel}</p>
+                    <p class="mt-1 text-sm font-bold text-blue-100/80">{iaDay2026TimeLabel}</p>
+                  </div>
+                </div>
+
                 <div
                   data-ia-day-countdown
                   data-target={iaDay2026TargetDate}
@@ -1242,8 +1269,9 @@ const resolveSiteHref = (href = '') =>
                     </div>
 
                     <div class="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-right">
-                      <span class="block text-xs font-bold text-blue-100/70">التاريخ الرسمي</span>
+                      <span class="block text-xs font-bold text-blue-100/70">التاريخ الرسمي الجديد</span>
                       <span class="mt-1 block text-lg font-black text-[#7DD3FC]">{iaDay2026TargetLabel}</span>
+                      <span class="mt-1 block text-xs font-bold text-blue-100/70">{iaDay2026TimeLabel}</span>
                     </div>
                   </div>
 
@@ -1279,6 +1307,51 @@ const resolveSiteHref = (href = '') =>
                         {String(iaDay2026InitialMinutes).padStart(2, '0')}
                       </span>
                       <span class="mt-2 block text-xs font-bold text-blue-100/70">الدقائق</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="iaday-2026-invitation"
+                  class="mb-6 rounded-2xl border border-[#20A4F3]/25 bg-white/10 p-5 shadow-[0_18px_55px_-36px_rgba(32,164,243,0.65)]"
+                >
+                  <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                    <div class="max-w-2xl">
+                      <span class="inline-flex rounded-full border border-[#20A4F3]/35 bg-[#20A4F3]/15 px-3 py-1 text-xs font-black text-[#7DD3FC]">
+                        إطلاق الدعوات
+                      </span>
+                      <h5 class="mt-3 text-2xl font-black text-white">طلب الدعوة لحضور IA Day 2026 Edition 2</h5>
+                      <p class="mt-3 leading-7 text-blue-100/80">
+                        بدأ النادي باستقبال طلبات الدعوة لحضور النسخة الثانية من يوم الذكاء الاصطناعي. سيتم التعامل مع الطلبات حسب عدد المقاعد المتوفرة، ولا يعتبر إرسال الطلب تأكيدا نهائيا للحضور.
+                      </p>
+                      <p class="mt-3 leading-7 text-blue-100/80">
+                        ينتظر أن يعرف الحدث حضور أساتذة جامعيين من داخل المغرب وخارجه، باحثين، وشخصيات بارزة في مجال الذكاء الاصطناعي، بما يمنح هذه النسخة قيمة علمية وتربوية خاصة.
+                      </p>
+                    </div>
+
+                    <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-[#061235]/65 p-4">
+                      {
+                        iaDay2026InvitationIsReady ? (
+                          <a
+                            href={iaDay2026InvitationHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex w-full items-center justify-center rounded-xl bg-[#20A4F3] px-5 py-3 text-center text-sm font-black text-[#0B1C4B] transition-colors hover:bg-white"
+                          >
+                            طلب الدعوة للحضور
+                          </a>
+                        ) : (
+                          <span
+                            class="flex w-full cursor-not-allowed items-center justify-center rounded-xl border border-[#20A4F3]/35 bg-[#20A4F3]/10 px-5 py-3 text-center text-sm font-black text-[#7DD3FC]"
+                            aria-disabled="true"
+                          >
+                            طلب الدعوة للحضور
+                          </span>
+                        )
+                      }
+                      <p class="mt-3 text-center text-xs leading-6 text-blue-100/70">
+                        رابط Google Form سيضاف هنا مباشرة بعد إنشاء النموذج وربطه بجدول Google Sheets.
+                      </p>
                     </div>
                   </div>
                 </div>

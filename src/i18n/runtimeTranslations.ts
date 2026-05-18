@@ -10,6 +10,11 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'العد التنازلي للنسخة الثانية من يوم الذكاء الاصطناعي': 'IA Day 2026 Edition 2 approche',
     'IA Day 2026 Edition 2 Countdown': 'Compte à rebours IA Day 2026',
     'الموعد الرسمي: 8 يونيو 2026': 'Date officielle : 8 juin 2026',
+    'التاريخ السابق:': 'Date précédente :',
+    'التاريخ الجديد:': 'Nouvelle date :',
+    '8 يونيو 2026': '8 juin 2026',
+    '12 يونيو 2026': '12 juin 2026',
+    'من 16:00 إلى 19:00': 'de 16:00 à 19:00',
     'وصل موعد IA Day 2026 Edition 2': 'IA Day 2026 Edition 2 est arrivé',
     'يوم': 'jour',
     'ساعة': 'heure',
@@ -89,8 +94,31 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'ما نوع المشاريع التي ينجزها النادي؟': 'Quels types de projets le club réalise-t-il ?',
     'كيف يمكن دعم النادي؟': 'Comment soutenir le club ?',
     'إعلان نسخة يوم الذكاء الاصطناعي لهذا الموسم': 'Annonce de l’édition IA Day de cette saison',
+    'عدد الأيام المتبقية ليوم الذكاء الاصطناعي 2026': 'Nombre de jours restants avant IA Day 2026',
+    'يستعد نادي الروبوتيك والذكاء الاصطناعي لتنظيم':
+      'Le Club de robotique et d’intelligence artificielle se prépare à organiser',
     'النسخة الثانية من يوم الذكاء الاصطناعي': 'Deuxième édition de la Journée de l’Intelligence Artificielle',
+    'في صيغة تربوية تفاعلية تجمع بين العروض، الورشات، المشاريع، والمسابقات.':
+      'dans un format éducatif interactif qui rassemble présentations, ateliers, projets et compétitions.',
     'العد التنازلي ليوم الذكاء الاصطناعي': 'Compte à rebours IA Day',
+    'باقي على النسخة الثانية إلى غاية': 'Temps restant avant la deuxième édition jusqu’au',
+    'Previous Date': 'Date précédente',
+    'New Official Date': 'Nouvelle date officielle',
+    'تم إلغاء هذا التاريخ واعتماد الموعد الجديد أسفله.': 'Cette date a été annulée et la nouvelle date ci-dessous a été adoptée.',
+    'التاريخ الرسمي الجديد': 'Nouvelle date officielle',
+    'إطلاق الدعوات': 'Lancement des invitations',
+    'طلب الدعوة لحضور IA Day 2026 Edition 2': 'Demander une invitation pour IA Day 2026 Edition 2',
+    'بدأ النادي باستقبال طلبات الدعوة لحضور':
+      'Le club a commencé à recevoir les demandes d’invitation pour',
+    'بدأ النادي باستقبال طلبات الدعوة لحضور النسخة الثانية من يوم الذكاء الاصطناعي.':
+      'Le club a commencé à recevoir les demandes d’invitation pour la deuxième édition de la Journée de l’Intelligence Artificielle.',
+    'سيتم التعامل مع الطلبات حسب عدد المقاعد المتوفرة، ولا يعتبر إرسال الطلب تأكيدا نهائيا للحضور.':
+      'Les demandes seront traitées selon le nombre de places disponibles ; l’envoi de la demande ne constitue pas une confirmation définitive de présence.',
+    'ينتظر أن يعرف الحدث حضور أساتذة جامعيين من داخل المغرب وخارجه، باحثين، وشخصيات بارزة في مجال الذكاء الاصطناعي، بما يمنح هذه النسخة قيمة علمية وتربوية خاصة.':
+      'L’événement devrait accueillir des professeurs universitaires du Maroc et de l’étranger, des chercheurs et des personnalités reconnues dans le domaine de l’intelligence artificielle, donnant à cette édition une valeur scientifique et éducative particulière.',
+    'طلب الدعوة للحضور': 'Demander une invitation',
+    'رابط Google Form سيضاف هنا مباشرة بعد إنشاء النموذج وربطه بجدول Google Sheets.':
+      'Le lien Google Form sera ajouté ici dès que le formulaire sera créé et relié à Google Sheets.',
     'التاريخ الرسمي': 'Date officielle',
     'الأيام': 'jours',
     'الساعات': 'heures',
@@ -155,6 +183,11 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'العد التنازلي للنسخة الثانية من يوم الذكاء الاصطناعي': 'IA Day 2026 Edition 2 is approaching',
     'IA Day 2026 Edition 2 Countdown': 'IA Day 2026 countdown',
     'الموعد الرسمي: 8 يونيو 2026': 'Official date: June 8, 2026',
+    'التاريخ السابق:': 'Previous date:',
+    'التاريخ الجديد:': 'New date:',
+    '8 يونيو 2026': 'June 8, 2026',
+    '12 يونيو 2026': 'June 12, 2026',
+    'من 16:00 إلى 19:00': 'from 4:00 PM to 7:00 PM',
     'وصل موعد IA Day 2026 Edition 2': 'IA Day 2026 Edition 2 has arrived',
     'يوم': 'day',
     'ساعة': 'hour',
@@ -230,8 +263,31 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'ما نوع المشاريع التي ينجزها النادي؟': 'What kinds of projects does the club build?',
     'كيف يمكن دعم النادي؟': 'How can the club be supported?',
     'إعلان نسخة يوم الذكاء الاصطناعي لهذا الموسم': 'Announcement of this season’s IA Day edition',
+    'عدد الأيام المتبقية ليوم الذكاء الاصطناعي 2026': 'Days remaining until IA Day 2026',
+    'يستعد نادي الروبوتيك والذكاء الاصطناعي لتنظيم':
+      'The Robotics and Artificial Intelligence Club is preparing to organize',
     'النسخة الثانية من يوم الذكاء الاصطناعي': 'Second edition of Artificial Intelligence Day',
+    'في صيغة تربوية تفاعلية تجمع بين العروض، الورشات، المشاريع، والمسابقات.':
+      'in an interactive educational format combining presentations, workshops, projects and competitions.',
     'العد التنازلي ليوم الذكاء الاصطناعي': 'IA Day countdown',
+    'باقي على النسخة الثانية إلى غاية': 'Time remaining until the second edition on',
+    'Previous Date': 'Previous date',
+    'New Official Date': 'New official date',
+    'تم إلغاء هذا التاريخ واعتماد الموعد الجديد أسفله.': 'This date has been cancelled and the new date below has been adopted.',
+    'التاريخ الرسمي الجديد': 'New official date',
+    'إطلاق الدعوات': 'Invitation launch',
+    'طلب الدعوة لحضور IA Day 2026 Edition 2': 'Request an invitation to IA Day 2026 Edition 2',
+    'بدأ النادي باستقبال طلبات الدعوة لحضور':
+      'The club has started receiving invitation requests for',
+    'بدأ النادي باستقبال طلبات الدعوة لحضور النسخة الثانية من يوم الذكاء الاصطناعي.':
+      'The club has started receiving invitation requests for the second edition of Artificial Intelligence Day.',
+    'سيتم التعامل مع الطلبات حسب عدد المقاعد المتوفرة، ولا يعتبر إرسال الطلب تأكيدا نهائيا للحضور.':
+      'Requests will be reviewed according to the number of available seats; submitting a request does not guarantee attendance.',
+    'ينتظر أن يعرف الحدث حضور أساتذة جامعيين من داخل المغرب وخارجه، باحثين، وشخصيات بارزة في مجال الذكاء الاصطناعي، بما يمنح هذه النسخة قيمة علمية وتربوية خاصة.':
+      'The event is expected to welcome university professors from Morocco and abroad, researchers, and prominent figures in artificial intelligence, giving this edition a strong scientific and educational value.',
+    'طلب الدعوة للحضور': 'Request an invitation',
+    'رابط Google Form سيضاف هنا مباشرة بعد إنشاء النموذج وربطه بجدول Google Sheets.':
+      'The Google Form link will be added here once the form is created and connected to Google Sheets.',
     'التاريخ الرسمي': 'Official date',
     'الأيام': 'days',
     'الساعات': 'hours',
