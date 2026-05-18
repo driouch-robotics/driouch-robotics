@@ -495,6 +495,43 @@ const resolveSiteHref = (href = '') =>
       </a>
 
       <div
+        id="iaday-2026-invite-home"
+        class="mx-auto mt-3 w-full max-w-3xl rounded-2xl border border-[#20A4F3]/25 bg-[#0B1C4B]/90 p-3 text-right text-white shadow-[0_18px_48px_-32px_rgba(11,28,75,0.65)] backdrop-blur-md dark:border-[#20A4F3]/35 dark:bg-slate-950/80 md:p-4"
+        dir="rtl"
+      >
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div class="min-w-0">
+            <span class="inline-flex rounded-full border border-[#20A4F3]/35 bg-[#20A4F3]/15 px-3 py-1 text-[11px] font-black text-[#7DD3FC]">
+              إطلاق الدعوات
+            </span>
+            <h2 class="mt-2 text-base font-black leading-7 md:text-lg">
+              طلب الدعوة لحضور IA Day 2026 Edition 2
+            </h2>
+            <p class="mt-1 text-xs font-semibold leading-6 text-blue-100/78 md:text-sm">
+              يمكن للراغبين في حضور IA Day 2026 Edition 2 تقديم طلب الدعوة، مع العلم أن القبول مرتبط بعدد المقاعد المتوفرة.
+            </p>
+          </div>
+
+          <div class="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+            <a
+              href={iaDay2026InvitationHref}
+              target={iaDay2026InvitationIsReady ? '_blank' : undefined}
+              rel={iaDay2026InvitationIsReady ? 'noopener noreferrer' : undefined}
+              class="inline-flex items-center justify-center rounded-xl bg-[#20A4F3] px-5 py-2.5 text-sm font-black text-[#0B1C4B] transition-colors hover:bg-white"
+            >
+              طلب الدعوة
+            </a>
+            <a
+              href="#iaday-2026"
+              class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-black text-white transition-colors hover:border-[#20A4F3]/45 hover:bg-white/15"
+            >
+              تفاصيل IA Day 2026
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
         class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center justify-center gap-2 relative z-10"
       >
         <span class="text-sm md:text-base text-[#20A4F3] dark:text-[#20A4F3] tracking-tight font-extrabold">
@@ -1945,6 +1982,30 @@ const resolveSiteHref = (href = '') =>
         updateCountdown();
         window.setInterval(updateCountdown, minuteMs);
       });
+
+      const revealHashTarget = () => {
+        const hash = window.location.hash ? window.location.hash.slice(1) : '';
+        if (!hash) return;
+
+        const target = document.getElementById(hash);
+        if (!target) return;
+
+        const parentDetails = target.closest('details');
+        if (parentDetails instanceof HTMLDetailsElement) {
+          parentDetails.open = true;
+        }
+
+        window.requestAnimationFrame(() => {
+          target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        });
+      };
+
+      if (document.documentElement.dataset.hashDetailsReady !== 'true') {
+        document.documentElement.dataset.hashDetailsReady = 'true';
+        window.addEventListener('hashchange', revealHashTarget);
+      }
+
+      revealHashTarget();
 
       const dialog = document.getElementById('institution-info-dialog');
 

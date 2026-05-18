@@ -108,6 +108,10 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'التاريخ الرسمي الجديد': 'Nouvelle date officielle',
     'إطلاق الدعوات': 'Lancement des invitations',
     'طلب الدعوة لحضور IA Day 2026 Edition 2': 'Demander une invitation pour IA Day 2026 Edition 2',
+    'يمكن للراغبين في حضور IA Day 2026 Edition 2 تقديم طلب الدعوة، مع العلم أن القبول مرتبط بعدد المقاعد المتوفرة.':
+      'Les personnes souhaitant assister à IA Day 2026 Edition 2 peuvent demander une invitation, sachant que l’acceptation dépend du nombre de places disponibles.',
+    'طلب الدعوة': 'Demander une invitation',
+    'تفاصيل IA Day 2026': 'Détails IA Day 2026',
     'بدأ النادي باستقبال طلبات الدعوة لحضور':
       'Le club a commencé à recevoir les demandes d’invitation pour',
     'بدأ النادي باستقبال طلبات الدعوة لحضور النسخة الثانية من يوم الذكاء الاصطناعي.':
@@ -277,6 +281,10 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'التاريخ الرسمي الجديد': 'New official date',
     'إطلاق الدعوات': 'Invitation launch',
     'طلب الدعوة لحضور IA Day 2026 Edition 2': 'Request an invitation to IA Day 2026 Edition 2',
+    'يمكن للراغبين في حضور IA Day 2026 Edition 2 تقديم طلب الدعوة، مع العلم أن القبول مرتبط بعدد المقاعد المتوفرة.':
+      'People who would like to attend IA Day 2026 Edition 2 can request an invitation, with acceptance depending on the number of available seats.',
+    'طلب الدعوة': 'Request an invitation',
+    'تفاصيل IA Day 2026': 'IA Day 2026 details',
     'بدأ النادي باستقبال طلبات الدعوة لحضور':
       'The club has started receiving invitation requests for',
     'بدأ النادي باستقبال طلبات الدعوة لحضور النسخة الثانية من يوم الذكاء الاصطناعي.':
