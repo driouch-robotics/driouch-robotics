@@ -47,6 +47,19 @@ const iaDay2026TimeLabel = 'من 16:00 إلى 19:00';
 const iaDay2026InvitationFormUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSfgwV_eGQeL8Ssl97mtw2HrLRQWwUMjboBVfmiwA8POb5MZ6A/viewform?usp=pp_url&entry.65871899=%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8%20%2F%20Morocco';
 const iaDay2026InvitationHref = iaDay2026InvitationFormUrl || '#iaday-2026-invitation';
+
+const institutionalSuccessPartners = [
+  {
+    name: 'المبادرة الوطنية للتنمية البشرية - الدريوش',
+    label: 'شريك نجاح مؤسساتي',
+    support: 'دعم لوجستي لفضاء IA Day 2026',
+  },
+  {
+    name: 'عمالة إقليم الدريوش',
+    label: 'شريك نجاح مؤسساتي',
+    support: 'دعم لوجستي لفضاء IA Day 2026',
+  },
+];
 const iaDay2026InvitationIsReady = Boolean(iaDay2026InvitationFormUrl);
 const iaDay2026RemainingMs = Math.max(0, new Date(iaDay2026TargetDate).getTime() - Date.now());
 const iaDay2026InitialDays = Math.floor(iaDay2026RemainingMs / 86400000);
@@ -820,10 +833,26 @@ const resolveSiteHref = (href = '') =>
                 alt="جمعية كرت المستقبل"
                 class="h-14 w-auto object-contain rounded-full shadow-sm group-hover:scale-110 transition-transform bg-white"
               />
-              
             </div>
 
-            <div class="flex flex-col items-center gap-2 mt-2 group"></div>
+            <div class="grid w-full gap-3">
+              {
+                institutionalSuccessPartners.map((partner) => (
+                  <div class="group relative overflow-hidden rounded-xl border border-[#20A4F3]/25 bg-gradient-to-br from-sky-50 via-white to-blue-50 px-3.5 py-3 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#20A4F3]/50 hover:shadow-[0_16px_36px_-28px_rgba(32,164,243,0.7)] dark:border-[#20A4F3]/20 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40">
+                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#0B1C4B] via-[#20A4F3] to-[#0B1C4B]"></div>
+                    <p class="text-[10px] font-black leading-4 text-[#20A4F3]">
+                      {partner.label}
+                    </p>
+                    <h4 class="mt-2 text-sm font-black leading-6 text-[#0B1C4B] dark:text-white">
+                      {partner.name}
+                    </h4>
+                    <p class="mt-1 text-[11px] font-bold leading-5 text-slate-500 dark:text-slate-400">
+                      {partner.support}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>
