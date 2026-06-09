@@ -23,6 +23,84 @@ const coverImage = {
 const featuredImages = images.slice(0, 6);
 const facebookReportUrl = iaDayEdition1.facebookReportUrl;
 const documentationImageCount = images.length;
+
+const propLocale = Astro.props.locale;
+const routeLocale = propLocale === 'fr' || propLocale === 'en' ? propLocale : 'ar';
+
+const pageText = {
+  ar: {
+    dir: 'rtl',
+    badge: 'ذاكرة التأسيس',
+    headingPrefix: 'النسخة الأولى من',
+    headingHighlight: 'يوم الذكاء الاصطناعي',
+    intro:
+      'محطة توثيقية من تاريخ نادي الروبوتيك والذكاء الاصطناعي بالدريوش، تجمع صورا من العروض، الورشات، لحظات التفاعل، وبدايات بناء ثقافة مدرسية مرتبطة بالذكاء الاصطناعي والابتكار.',
+    groupPhoto: 'صورة جماعية للطاقم والمشرفين',
+    photoCountLabel: 'صورة توثيقية',
+    viewGallery: 'عرض الصور التوثيقية',
+    report: 'تقرير الحدث على Facebook',
+    reportSoon: 'تقرير Facebook سيضاف قريبا',
+    archiveHeading: 'أرشيف بصري يحفظ البداية',
+    archiveDescription:
+      'هذه الصفحة مخصصة لتوثيق النسخة الأولى من يوم الذكاء الاصطناعي كجزء من ذاكرة النادي. الهدف منها أن يجد الزوار، التلاميذ، الشركاء، وأطر المؤسسة أثرا واضحا للانطلاقة الأولى وما صنعته من قيمة تربوية داخل المؤسسة.',
+    documentedPhoto: 'صورة موثقة',
+    firstEdition: 'النسخة الأولى',
+    digitalCulture: 'ثقافة رقمية',
+    galleryEyebrow: 'المعرض التوثيقي',
+    galleryHeading: 'صور من يوم الذكاء الاصطناعي',
+    backHome: 'الرجوع إلى الرئيسية',
+    photoLabel: 'صورة',
+  },
+  fr: {
+    dir: 'ltr',
+    badge: 'Mémoire fondatrice',
+    headingPrefix: 'La première édition de',
+    headingHighlight: 'la Journée de l’Intelligence Artificielle',
+    intro:
+      'Une étape documentaire de l’histoire du Club de robotique et d’intelligence artificielle de Driouch, avec des photos des présentations, ateliers, moments d’échange et débuts d’une culture scolaire liée à l’IA et à l’innovation.',
+    groupPhoto: 'Photo collective de l’équipe et des encadrants',
+    photoCountLabel: 'photos documentaires',
+    viewGallery: 'Voir les photos documentaires',
+    report: 'Rapport de l’événement sur Facebook',
+    reportSoon: 'Rapport Facebook bientôt ajouté',
+    archiveHeading: 'Une archive visuelle qui préserve le départ',
+    archiveDescription:
+      'Cette page documente la première édition de la Journée de l’Intelligence Artificielle comme partie de la mémoire du club. Elle permet aux visiteurs, élèves, partenaires et cadres de l’établissement de retrouver une trace claire de cette première étape et de sa valeur éducative.',
+    documentedPhoto: 'photos documentées',
+    firstEdition: 'première édition',
+    digitalCulture: 'culture numérique',
+    galleryEyebrow: 'Galerie documentaire',
+    galleryHeading: 'Photos de la Journée de l’Intelligence Artificielle',
+    backHome: 'Retour à l’accueil',
+    photoLabel: 'Photo',
+  },
+  en: {
+    dir: 'ltr',
+    badge: 'Founding memory',
+    headingPrefix: 'The first edition of',
+    headingHighlight: 'Artificial Intelligence Day',
+    intro:
+      'A documentary milestone in the history of IA & Robotics Club Driouch, bringing together photos from presentations, workshops, moments of interaction and the first steps toward a school culture connected to AI and innovation.',
+    groupPhoto: 'Group photo of the team and supervisors',
+    photoCountLabel: 'documentary photos',
+    viewGallery: 'View documentary photos',
+    report: 'Event report on Facebook',
+    reportSoon: 'Facebook report coming soon',
+    archiveHeading: 'A visual archive preserving the beginning',
+    archiveDescription:
+      'This page documents the first edition of Artificial Intelligence Day as part of the club memory. It gives visitors, students, partners and school staff a clear record of the first launch and the educational value it created within the school.',
+    documentedPhoto: 'documented photos',
+    firstEdition: 'first edition',
+    digitalCulture: 'digital culture',
+    galleryEyebrow: 'Documentary gallery',
+    galleryHeading: 'Photos from Artificial Intelligence Day',
+    backHome: 'Back to home',
+    photoLabel: 'Photo',
+  },
+} as const;
+
+const text = pageText[routeLocale];
+const homeHref = routeLocale === 'ar' ? getPermalink('/') : getPermalink(`/${routeLocale}`);
 ---
 
 <Layout metadata={metadata}>
@@ -36,29 +114,29 @@ const documentationImageCount = images.length;
     <div class="absolute inset-0 bg-gradient-to-l from-slate-950/88 via-slate-950/58 to-slate-950/28"></div>
     <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
 
-    <div class="container relative z-10 mx-auto flex min-h-[680px] items-end px-4 py-20 sm:px-6" dir="rtl">
+    <div class="container relative z-10 mx-auto flex min-h-[680px] items-end px-4 py-20 sm:px-6" dir={text.dir}>
       <div class="max-w-4xl rounded-none">
         <span class="inline-flex items-center gap-2 rounded-full border border-[#20A4F3]/50 bg-[#20A4F3]/15 px-4 py-2 text-sm font-black text-[#7DD3FC]">
           <Icon name="tabler:sparkles" class="h-4 w-4" />
-          ذاكرة التأسيس
+          {text.badge}
         </span>
 
         <h1 class="mt-6 text-4xl font-black leading-tight md:text-6xl">
-          النسخة الأولى من <span class="text-[#20A4F3]">يوم الذكاء الاصطناعي</span>
+          {text.headingPrefix} <span class="text-[#20A4F3]">{text.headingHighlight}</span>
         </h1>
 
         <p class="mt-6 max-w-3xl text-lg leading-9 text-blue-50/85 md:text-xl">
-          محطة توثيقية من تاريخ نادي الروبوتيك والذكاء الاصطناعي بالدريوش، تجمع صورا من العروض، الورشات، لحظات التفاعل، وبدايات بناء ثقافة مدرسية مرتبطة بالذكاء الاصطناعي والابتكار.
+          {text.intro}
         </p>
 
         <div class="mt-7 flex flex-wrap gap-3 text-sm font-bold text-blue-50/85">
           <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md">
             <Icon name="tabler:users-group" class="h-4 w-4 text-[#20A4F3]" />
-            صورة جماعية للطاقم والمشرفين
+            {text.groupPhoto}
           </span>
           <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md">
             <Icon name="tabler:photo" class="h-4 w-4 text-[#20A4F3]" />
-            {documentationImageCount} صورة توثيقية
+            {documentationImageCount} {text.photoCountLabel}
           </span>
         </div>
 
@@ -68,7 +146,7 @@ const documentationImageCount = images.length;
             class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#20A4F3] px-5 py-3 text-sm font-black text-[#0B1C4B] transition-colors hover:bg-white"
           >
             <Icon name="tabler:photo-spark" class="h-5 w-5" />
-            عرض الصور التوثيقية
+            {text.viewGallery}
           </a>
 
           {
@@ -80,12 +158,12 @@ const documentationImageCount = images.length;
                 class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 px-5 py-3 text-sm font-bold text-white transition-colors hover:border-[#20A4F3] hover:text-[#20A4F3]"
               >
                 <Icon name="tabler:brand-facebook" class="h-5 w-5" />
-                تقرير الحدث على Facebook
+                {text.report}
               </a>
             ) : (
               <span class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3 text-sm font-bold text-white/65">
                 <Icon name="tabler:brand-facebook" class="h-5 w-5" />
-                تقرير Facebook سيضاف قريبا
+                {text.reportSoon}
               </span>
             )
           }
@@ -95,29 +173,29 @@ const documentationImageCount = images.length;
   </section>
 
   <section class="bg-white py-16 dark:bg-slate-900">
-    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+    <div class="container mx-auto px-4 sm:px-6" dir={text.dir}>
       <div class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:items-center">
         <div class="lg:col-span-2">
           <span class="text-lg font-extrabold text-[#20A4F3]">IA Day 2025 Edition 1</span>
           <h2 class="mt-3 text-3xl font-black text-gray-900 dark:text-white md:text-4xl">
-            أرشيف بصري يحفظ البداية
+            {text.archiveHeading}
           </h2>
           <p class="mt-5 text-lg leading-9 text-gray-600 dark:text-slate-400">
-            هذه الصفحة مخصصة لتوثيق النسخة الأولى من يوم الذكاء الاصطناعي كجزء من ذاكرة النادي. الهدف منها أن يجد الزوار، التلاميذ، الشركاء، وأطر المؤسسة أثرا واضحا للانطلاقة الأولى وما صنعته من قيمة تربوية داخل المؤسسة.
+            {text.archiveDescription}
           </p>
 
           <div class="mt-8 grid grid-cols-3 gap-3">
             <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
               <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">{documentationImageCount}</div>
-              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">صورة موثقة</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">{text.documentedPhoto}</div>
             </div>
             <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
               <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">01</div>
-              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">النسخة الأولى</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">{text.firstEdition}</div>
             </div>
             <div class="rounded-2xl border border-gray-100 bg-slate-50 p-4 text-center dark:border-slate-700 dark:bg-slate-800">
               <div class="text-3xl font-black text-[#0B1C4B] dark:text-[#20A4F3]">AI</div>
-              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">ثقافة رقمية</div>
+              <div class="mt-1 text-xs font-bold text-gray-500 dark:text-slate-400">{text.digitalCulture}</div>
             </div>
           </div>
         </div>
@@ -141,20 +219,20 @@ const documentationImageCount = images.length;
   </section>
 
   <section id="gallery" class="bg-slate-50 py-16 dark:bg-slate-950 scroll-mt-24">
-    <div class="container mx-auto px-4 sm:px-6" dir="rtl">
+    <div class="container mx-auto px-4 sm:px-6" dir={text.dir}>
       <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <span class="text-lg font-extrabold text-[#20A4F3]">المعرض التوثيقي</span>
+          <span class="text-lg font-extrabold text-[#20A4F3]">{text.galleryEyebrow}</span>
           <h2 class="mt-2 text-3xl font-black text-gray-900 dark:text-white md:text-4xl">
-            صور من يوم الذكاء الاصطناعي
+            {text.galleryHeading}
           </h2>
         </div>
         <a
-          href={getPermalink('/')}
+          href={homeHref}
           class="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3 text-sm font-bold text-gray-900 transition-colors hover:border-[#20A4F3] hover:text-[#20A4F3] dark:border-slate-700 dark:text-white"
         >
           <Icon name="tabler:arrow-right" class="h-5 w-5" />
-          الرجوع إلى الرئيسية
+          {text.backHome}
         </a>
       </div>
 
@@ -170,7 +248,7 @@ const documentationImageCount = images.length;
                   loading="lazy"
                 />
                 <figcaption class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-[#0B1C4B] shadow-sm dark:bg-slate-900/90 dark:text-[#20A4F3]">
-                  صورة {image.number}
+                  {text.photoLabel} {image.number}
                 </figcaption>
               </div>
             </figure>

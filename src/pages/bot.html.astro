@@ -1,29 +1,68 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const propLocale = Astro.props.locale;
+const routeLocale = propLocale === 'fr' || propLocale === 'en' ? propLocale : 'ar';
+
+const pageText = {
+  ar: {
+    dir: 'rtl',
+    title: 'المساعد الذكي',
+    eyebrow: 'المساعد الذكي',
+    heading: 'واجهة المساعد ستضاف قريبًا',
+    description:
+      'هذه الصفحة موجودة حتى لا يظهر رابط مكسور في النسخة المنشورة. يمكننا لاحقًا إدماج واجهة الدردشة الفعلية هنا أو ربطها بخدمة خارجية.',
+    projectDetails: 'الرجوع إلى تفاصيل المشروع',
+  },
+  fr: {
+    dir: 'ltr',
+    title: 'Assistant intelligent',
+    eyebrow: 'Assistant intelligent',
+    heading: 'L’interface de l’assistant sera bientôt ajoutée',
+    description:
+      'Cette page existe afin d’éviter un lien cassé dans la version publiée. Nous pourrons y intégrer plus tard l’interface de discussion réelle ou la relier à un service externe.',
+    projectDetails: 'Retour aux détails du projet',
+  },
+  en: {
+    dir: 'ltr',
+    title: 'Smart Assistant',
+    eyebrow: 'Smart Assistant',
+    heading: 'The assistant interface will be added soon',
+    description:
+      'This page exists to avoid a broken link in the published version. Later, we can integrate the actual chat interface here or connect it to an external service.',
+    projectDetails: 'Back to project details',
+  },
+} as const;
+
+const text = pageText[routeLocale];
+const projectHref =
+  routeLocale === 'ar'
+    ? getPermalink('/projects/smart-assistant')
+    : getPermalink(`/${routeLocale}/projects/smart-assistant`);
 
 const metadata = {
-  title: 'المساعد الذكي',
+  title: text.title,
 };
 ---
 
 <Layout metadata={metadata}>
-  <main class="min-h-[70vh] bg-slate-50 dark:bg-slate-950 py-16 md:py-24" dir="rtl">
+  <main class="min-h-[70vh] bg-slate-50 dark:bg-slate-950 py-16 md:py-24" dir={text.dir}>
     <section class="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-      <span class="text-[#20A4F3] font-extrabold text-lg">المساعد الذكي</span>
+      <span class="text-[#20A4F3] font-extrabold text-lg">{text.eyebrow}</span>
       <h1 class="mt-3 text-3xl md:text-5xl font-black text-slate-900 dark:text-white">
-        واجهة المساعد ستضاف قريبًا
+        {text.heading}
       </h1>
       <p class="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
-        هذه الصفحة موجودة حتى لا يظهر رابط مكسور في النسخة المنشورة. يمكننا لاحقًا إدماج واجهة
-        الدردشة الفعلية هنا أو ربطها بخدمة خارجية.
+        {text.description}
       </p>
 
       <div class="mt-8">
         <a
-          href="./projects/smart-assistant"
+          href={projectHref}
           class="inline-flex items-center justify-center rounded-xl bg-[#20A4F3] px-6 py-3 font-black text-[#0B1C4B] hover:bg-[#0B1C4B] hover:text-white transition-colors"
         >
-          الرجوع إلى تفاصيل المشروع
+          {text.projectDetails}
         </a>
       </div>
     </section>

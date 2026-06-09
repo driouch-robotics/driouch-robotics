@@ -20,7 +20,14 @@ const metadata = {
   ignoreTitleTemplate: true,
 };
 
-const routeLocale = Astro.params.locale === 'fr' || Astro.params.locale === 'en' ? Astro.params.locale : 'ar';
+const propLocale = Astro.props.locale;
+const paramLocale = Astro.params.locale;
+const routeLocale =
+  propLocale === 'fr' || propLocale === 'en'
+    ? propLocale
+    : paramLocale === 'fr' || paramLocale === 'en'
+      ? paramLocale
+      : 'ar';
 
 const clubLocationQuery = encodeURIComponent(
   'ثانوية الوحدة الإعدادية الرائدة جماعة امطالسة مديرية الدريوش جهة الشرق المغرب'
@@ -66,6 +73,219 @@ const mediaSuccessPartner = {
   label: 'شريك التنظيم والإعلام الرقمي',
   support: 'التنظيم والتغطية الإعلامية وتعزيز الحضور الرقمي',
 };
+
+const homeProjectCategoryText = {
+  fr: {
+    robotics: {
+      title: 'Systèmes embarqués et robotique',
+      description:
+        'Des projets d’ingénierie qui associent intelligence artificielle et systèmes embarqués pour créer des solutions concrètes.',
+    },
+    'ai-digital': {
+      title: 'Intelligence artificielle et numérisation',
+      description:
+        'Des logiciels et solutions numériques pour faciliter la gestion scolaire et accompagner la transformation digitale.',
+    },
+    awareness: {
+      title: 'Sensibilisation et compétitions',
+      description:
+        'Des activités de sensibilisation et des compétitions qui développent la culture numérique et l’esprit d’analyse.',
+    },
+  },
+  en: {
+    robotics: {
+      title: 'Embedded systems and robotics',
+      description:
+        'Engineering projects that combine artificial intelligence and embedded systems to create real-world solutions.',
+    },
+    'ai-digital': {
+      title: 'Artificial intelligence and digitalization',
+      description:
+        'Software and digital solutions that simplify school management and support digital transformation.',
+    },
+    awareness: {
+      title: 'Awareness and competitions',
+      description:
+        'Awareness activities and competitions that build digital culture and analytical thinking.',
+    },
+  },
+} as const;
+
+const homeProjectCardText = {
+  fr: {
+    'smart-driouch': {
+      name: 'Projet Ville intelligente de Driouch',
+      description:
+        'Un système embarqué de gestion des crises et de l’espace urbain, avec alerte précoce aux inondations et gestion intelligente du trafic.',
+    },
+    'robotic-arm': {
+      name: 'Projet Bras robotique et tri intelligent',
+      description:
+        'Un bras robotique capable de reconnaître et de trier des objets avec précision grâce à la vision par ordinateur et à une plateforme rotative.',
+    },
+    'explorer-car': {
+      name: 'Projet Voiture exploratrice intelligente',
+      description:
+        'Une voiture dotée d’un châssis robuste, de systèmes de mouvement et de vision avancés pour explorer son environnement et franchir les obstacles.',
+    },
+    'autonomous-vehicle': {
+      name: 'Projet Véhicule autonome et suivi de ligne',
+      description:
+        'Un véhicule 4WD utilisant l’intelligence de navigation et des capteurs infrarouges pour suivre avec précision des parcours prédéfinis.',
+    },
+    'smart-bell': {
+      name: 'Cloche intelligente et gardien de sécurité',
+      description:
+        'Un système de cloche scolaire intelligent et automatisé, intégré à des capteurs et protocoles d’alerte pour renforcer la sécurité.',
+    },
+    'smart-farm': {
+      name: 'Ferme intelligente et protection des cultures',
+      description:
+        'Une maquette de ferme du futur avec irrigation automatique par eau de pluie et protections intelligentes contre les intrusions.',
+    },
+    'smart-helmet': {
+      name: 'Casque intelligent pour la sécurité routière',
+      description:
+        'Un système de sécurité qui empêche le démarrage d’une moto sans port du casque et contribue à réduire les accidents.',
+    },
+    'smart-assistant': {
+      name: 'Assistant intelligent et chatbot scolaire',
+      description:
+        'Un assistant intelligent basé sur n8n pour répondre instantanément aux questions des élèves et des parents.',
+    },
+    'digital-absence-management': {
+      name: 'Gestion numérique des absences',
+      description:
+        'Une application web qui relie la vie scolaire au tableau de bord du directeur et notifie automatiquement les parents via WhatsApp.',
+    },
+    'digital-textbook': {
+      name: 'Manuel numérique interactif',
+      description:
+        'Une plateforme éducative avec des cours d’informatique, des exercices et des évaluations interactives.',
+    },
+    'ai-content-creation': {
+      name: 'Création de contenu et de films par IA',
+      description:
+        'Un projet de création audiovisuelle utilisant l’intelligence artificielle, les prompts et les outils génératifs.',
+    },
+    'informatics-olympiad': {
+      name: 'Olympiade de la culture informatique',
+      description:
+        'Une compétition éducative pour renforcer la culture numérique, la logique et les bases de l’informatique.',
+    },
+    'video-games-awareness': {
+      name: 'La face cachée des jeux vidéo',
+      description:
+        'Une table ronde interactive pour analyser les impacts des jeux vidéo et encourager un usage numérique responsable.',
+    },
+    'typing-speed-challenge': {
+      name: 'Défi de vitesse numérique',
+      description:
+        'Une compétition utilisant RapidTyping pour mesurer la vitesse, la précision et les compétences numériques des élèves.',
+    },
+  },
+  en: {
+    'smart-driouch': {
+      name: 'Driouch Smart City Project',
+      description:
+        'An embedded system for crisis and urban management, including early flood alerts and AI-based traffic management.',
+    },
+    'robotic-arm': {
+      name: 'Robotic Arm and Smart Sorting Project',
+      description:
+        'A robotic arm capable of accurately recognizing and sorting objects using computer vision and a rotating platform.',
+    },
+    'explorer-car': {
+      name: 'Smart Explorer Car Project',
+      description:
+        'A car equipped with a sturdy chassis, movement systems and advanced vision to explore environments and overcome obstacles.',
+    },
+    'autonomous-vehicle': {
+      name: 'Autonomous Vehicle and Line Tracking Project',
+      description:
+        'A 4WD vehicle using navigation intelligence and infrared sensors to follow predefined paths with high precision.',
+    },
+    'smart-bell': {
+      name: 'Smart School Bell and Safety Guard',
+      description:
+        'An intelligent automated school bell system integrated with sensors and alert protocols to strengthen school safety.',
+    },
+    'smart-farm': {
+      name: 'Smart Farm and Crop Protection Project',
+      description:
+        'A future-farm model with automatic rainwater irrigation and smart protection against birds and unwanted animals.',
+    },
+    'smart-helmet': {
+      name: 'Smart Helmet for Road Safety',
+      description:
+        'A safety system that prevents a motorcycle from starting unless the helmet is worn and helps reduce road accidents.',
+    },
+    'smart-assistant': {
+      name: 'School Smart Assistant and Chatbot',
+      description:
+        'An n8n-based smart assistant that instantly answers questions from students and parents.',
+    },
+    'digital-absence-management': {
+      name: 'Digital Absence Management System',
+      description:
+        'A web application linking student affairs with the principal dashboard and automatically notifying parents via WhatsApp.',
+    },
+    'digital-textbook': {
+      name: 'Interactive Digital Textbook',
+      description:
+        'An educational platform with informatics lessons, exercises and interactive assessments.',
+    },
+    'ai-content-creation': {
+      name: 'AI Content and Film Creation',
+      description:
+        'A creative audiovisual project using artificial intelligence, prompting and generative tools.',
+    },
+    'informatics-olympiad': {
+      name: 'Informatics Knowledge Olympiad',
+      description:
+        'An educational competition that strengthens digital culture, logic and basic informatics knowledge.',
+    },
+    'video-games-awareness': {
+      name: 'The Hidden Side of Video Games',
+      description:
+        'An interactive panel discussion that analyzes the impact of video games and encourages responsible digital use.',
+    },
+    'typing-speed-challenge': {
+      name: 'Digital Typing Speed Challenge',
+      description:
+        'A RapidTyping-based competition measuring students’ speed, accuracy and digital skills.',
+    },
+  },
+} as const;
+
+const getProjectSlugFromLink = (link = '') => link.split('/').filter(Boolean).pop() || '';
+const localizedProjectCategories = projectsData.categories.map((category) => {
+  const categoryText = routeLocale === 'ar' ? undefined : homeProjectCategoryText[routeLocale]?.[category.id];
+
+  return {
+    ...category,
+    title: categoryText?.title ?? category.title,
+    description: categoryText?.description ?? category.description,
+    items: category.items.map((project) => {
+      const slug = getProjectSlugFromLink(project.link);
+      const projectText = routeLocale === 'ar' ? undefined : homeProjectCardText[routeLocale]?.[slug];
+
+      return {
+        ...project,
+        name: projectText?.name ?? project.name,
+        description: projectText?.description ?? project.description,
+      };
+    }),
+  };
+});
+
+const localizedTeamStudents = teamData.students.map((student) => ({
+  ...student,
+  name: student.name[routeLocale] ?? student.name.ar,
+  project: student.project[routeLocale] ?? student.project.ar,
+  role: student.role[routeLocale] ?? student.role.ar,
+  description: student.description[routeLocale] ?? student.description.ar,
+}));
 const iaDay2026InvitationIsReady = Boolean(iaDay2026InvitationFormUrl);
 const iaDay2026RemainingMs = Math.max(0, new Date(iaDay2026TargetDate).getTime() - Date.now());
 const iaDay2026InitialDays = Math.floor(iaDay2026RemainingMs / 86400000);
@@ -1673,7 +1893,7 @@ const resolveSiteHref = (href = '') =>
 
       <div class="space-y-20">
         {
-          projectsData.categories.map((category) => (
+          localizedProjectCategories.map((category) => (
             <div class="category-section" dir="rtl">
               <div class="flex items-center gap-4 mb-8 pb-4 border-b border-gray-200 dark:border-slate-700">
                 <div
@@ -1930,7 +2150,7 @@ const resolveSiteHref = (href = '') =>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" dir="rtl">
         {
-          teamData.students.map((student) => (
+          localizedTeamStudents.map((student) => (
             <div
               class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700 flex flex-col group overflow-hidden"
             >
@@ -1943,31 +2163,31 @@ const resolveSiteHref = (href = '') =>
                   >
                     <img
                       src={getAsset(student.profile_pic)}
-                      alt={student.name.ar}
+                      alt={student.name}
                       class="w-full h-full object-cover z-10"
                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                     />
                     <span class="absolute inset-0 flex items-center justify-center hidden z-0">
-                      {student.name.ar.charAt(0)}
+                      {student.name.charAt(0)}
                     </span>
                   </div>
 
                   <div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white leading-tight mb-1">
-                      {student.name.ar}
+                      {student.name}
                     </h3>
-                    <p class="text-sm font-semibold text-[#20A4F3]">{student.role.ar}</p>
+                    <p class="text-sm font-semibold text-[#20A4F3]">{student.role}</p>
                   </div>
                 </div>
 
                 <div
                   class="mb-4 inline-block px-3 py-1.5 bg-gray-50 dark:bg-slate-700/50 rounded-lg text-xs font-bold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-600 self-start"
                 >
-                  <span class="mr-1">🤖</span> {student.project.ar}
+                  <span class="mr-1">🤖</span> {student.project}
                 </div>
 
                 <p class="text-sm text-gray-600 dark:text-slate-400 leading-relaxed flex-grow">
-                  {student.description.ar}
+                  {student.description}
                 </p>
 
                 <div class="mt-6 pt-5 border-t border-gray-100 dark:border-slate-700/50">

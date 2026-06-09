@@ -25,6 +25,7 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'جماعة امطالسة': 'Commune d’Amtalssa',
     'إقليم الدريوش': 'Province de Driouch',
     'جهة الشرق': 'Région de l’Oriental',
+    'الشرق': 'Oriental',
     'ثانوية الوحدة الإعدادية الرائدة': 'Collège pionnier Al Wahda',
     'مؤسسة تربوية تعليمية للتعليم العمومي، تأسست سنة 2023، وتقع بجماعة امطالسة التابعة': 'Établissement public d’enseignement fondé en 2023, situé dans la commune d’Amtalssa, relevant',
     'لإقليم الدريوش بجهة الشرق، وتندرج ضمن المديرية الإقليمية للدريوش، ويشرف على إدارتها': 'de la province de Driouch dans la région de l’Oriental, au sein de la direction provinciale de Driouch, et dirigé par',
@@ -98,10 +99,16 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'الأسئلة الشائعة': 'Questions fréquentes',
     'أجوبة سريعة للزوار والتلاميذ': 'Réponses rapides pour les visiteurs et les élèves',
     'من يمكنه الانضمام إلى النادي؟': 'Qui peut rejoindre le club ?',
+    'النادي مفتوح لتلاميذ المؤسسة المهتمين بالبرمجة، الروبوتيك، التصميم، الذكاء الاصطناعي، والعمل الجماعي.':
+      'Le club est ouvert aux élèves de l’établissement intéressés par la programmation, la robotique, le design, l’intelligence artificielle et le travail d’équipe.',
     'هل أحتاج معرفة مسبقة بالبرمجة؟': 'Faut-il avoir des bases en programmation ?',
     'لا. النادي يعتمد التدرج والتعلم بالممارسة، من الأساسيات إلى إنجاز مشاريع حقيقية.': 'Non. Le club progresse étape par étape, des bases jusqu’à la réalisation de projets concrets.',
     'ما نوع المشاريع التي ينجزها النادي؟': 'Quels types de projets le club réalise-t-il ?',
+    'مشاريع روبوتيك، تطبيقات رقمية، أنظمة ذكية، مسابقات، وعروض توعوية حول التكنولوجيا والاستخدام المسؤول لها.':
+      'Des projets de robotique, des applications numériques, des systèmes intelligents, des compétitions et des présentations de sensibilisation autour de la technologie et de son usage responsable.',
     'كيف يمكن دعم النادي؟': 'Comment soutenir le club ?',
+    'يمكن دعم النادي عبر الشراكات، توفير أدوات تقنية، مواكبة المشاريع، أو المساهمة في أنشطة التأطير والتوجيه.':
+      'Le club peut être soutenu par des partenariats, la mise à disposition d’outils techniques, l’accompagnement des projets ou la contribution aux activités d’encadrement et d’orientation.',
     'إعلان نسخة يوم الذكاء الاصطناعي لهذا الموسم': 'Annonce de l’édition IA Day de cette saison',
     'عدد الأيام المتبقية ليوم الذكاء الاصطناعي 2026': 'Nombre de jours restants avant IA Day 2026',
     'يستعد نادي الروبوتيك والذكاء الاصطناعي لتنظيم':
@@ -166,18 +173,30 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'إنجازاتنا ومشاريعنا': 'Nos réalisations et projets',
     'تكنولوجيا': 'Une technologie',
     'تصنع الفارق': 'qui fait la différence',
+    'من الأنظمة المدمجة والروبوتات إلى الحلول الرقمية وبرامج التوعية، نبتكر أدوات تخدم مؤسستنا وتطور مهارات مجتمعنا.':
+      'Des systèmes embarqués et robots aux solutions numériques et programmes de sensibilisation, nous concevons des outils utiles à notre établissement et au développement des compétences de notre communauté.',
     'البطاقة التقنية والتفاصيل': 'Fiche technique et détails',
     'بناء العقول الرقمية': 'Construire les esprits numériques',
     'التوعية': 'Sensibilisation',
     'والمسابقات': 'et compétitions',
+    'نسعى لتطوير ثقافة رقمية واعية من خلال منافسات وندوات تدمج بين التحدي، التعلم، والتحليل النفسي العميق للتكنولوجيا.':
+      'Nous développons une culture numérique consciente à travers des compétitions et des rencontres qui associent défi, apprentissage et analyse approfondie des usages technologiques.',
     'أولمبياد المعرفة': 'Olympiade de la connaissance',
+    'تحدي رقمي متكامل لاختبار قدرات تلاميذ المؤسسة في مجالات البرمجة، وتاريخ الذكاء الاصطناعي عبر منصة رقمية تفاعلية.':
+      'Un défi numérique complet pour évaluer les capacités des élèves en programmation et en histoire de l’intelligence artificielle à travers une plateforme interactive.',
     'دخول المنصة': 'Accéder à la plateforme',
     'الوجه الخفي للألعاب': 'La face cachée des jeux',
+    'حلقة نقاشية تفاعلية تعتمد على بطاقات الحقيقة لتحليل التأثير النفسي لألعاب الفيديو على التحصيل الدراسي.':
+      'Une table ronde interactive fondée sur des cartes de vérité pour analyser l’impact psychologique des jeux vidéo sur les résultats scolaires.',
     'العرض التفاعلي': 'Présentation interactive',
     'تحدي السرعة الرقمي': 'Défi de vitesse numérique',
+    'مسابقة دورية باستخدام برنامج RapidTyping يتنافس فيها نخبة من تلاميذ الأقسام لتحديد أسرع تلميذ.':
+      'Une compétition périodique utilisant RapidTyping, où une sélection d’élèves concourent pour identifier l’élève le plus rapide au clavier.',
     'تفاصيل التحدي': 'Détails du défi',
     'مهندسو': 'Ingénieurs du',
     'المستقبل': 'futur',
+    'تعرف على العقول المبدعة والطاقات الشابة التي تقود مشاريع نادي الروبوتيك والذكاء الاصطناعي للموسم الحالي.':
+      'Découvrez les esprits créatifs et les jeunes talents qui portent les projets du Club de robotique et d’intelligence artificielle pour cette saison.',
     'عرض الشارة الرقمية': 'Voir le badge numérique',
     'سياق المشروع والإشكالية المطروحة': 'Contexte du projet et problématique',
     'المكونات التقنية والتصميم الهندسي': 'Composants techniques et conception d’ingénierie',
@@ -211,6 +230,7 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'جماعة امطالسة': 'Amtalssa commune',
     'إقليم الدريوش': 'Driouch province',
     'جهة الشرق': 'Oriental region',
+    'الشرق': 'Oriental',
     'ثانوية الوحدة الإعدادية الرائدة': 'Al Wahda Pioneer Middle School',
     'مؤسسة تربوية تعليمية للتعليم العمومي، تأسست سنة 2023، وتقع بجماعة امطالسة التابعة': 'A public educational institution founded in 2023, located in Amtalssa commune, within',
     'لإقليم الدريوش بجهة الشرق، وتندرج ضمن المديرية الإقليمية للدريوش، ويشرف على إدارتها': 'Driouch province in the Oriental region, under the provincial directorate of Driouch, and managed by',
@@ -280,10 +300,16 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'الأسئلة الشائعة': 'FAQ',
     'أجوبة سريعة للزوار والتلاميذ': 'Quick answers for visitors and students',
     'من يمكنه الانضمام إلى النادي؟': 'Who can join the club?',
+    'النادي مفتوح لتلاميذ المؤسسة المهتمين بالبرمجة، الروبوتيك، التصميم، الذكاء الاصطناعي، والعمل الجماعي.':
+      'The club is open to school students interested in programming, robotics, design, artificial intelligence and teamwork.',
     'هل أحتاج معرفة مسبقة بالبرمجة؟': 'Do I need previous programming knowledge?',
     'لا. النادي يعتمد التدرج والتعلم بالممارسة، من الأساسيات إلى إنجاز مشاريع حقيقية.': 'No. The club uses gradual learning by doing, from basics to real projects.',
     'ما نوع المشاريع التي ينجزها النادي؟': 'What kinds of projects does the club build?',
+    'مشاريع روبوتيك، تطبيقات رقمية، أنظمة ذكية، مسابقات، وعروض توعوية حول التكنولوجيا والاستخدام المسؤول لها.':
+      'Robotics projects, digital applications, smart systems, competitions, and awareness presentations about technology and its responsible use.',
     'كيف يمكن دعم النادي؟': 'How can the club be supported?',
+    'يمكن دعم النادي عبر الشراكات، توفير أدوات تقنية، مواكبة المشاريع، أو المساهمة في أنشطة التأطير والتوجيه.':
+      'The club can be supported through partnerships, technical tools, project mentoring, or contributions to guidance and coaching activities.',
     'إعلان نسخة يوم الذكاء الاصطناعي لهذا الموسم': 'Announcement of this season’s IA Day edition',
     'عدد الأيام المتبقية ليوم الذكاء الاصطناعي 2026': 'Days remaining until IA Day 2026',
     'يستعد نادي الروبوتيك والذكاء الاصطناعي لتنظيم':
@@ -348,18 +374,30 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'إنجازاتنا ومشاريعنا': 'Our achievements and projects',
     'تكنولوجيا': 'Technology',
     'تصنع الفارق': 'that makes a difference',
+    'من الأنظمة المدمجة والروبوتات إلى الحلول الرقمية وبرامج التوعية، نبتكر أدوات تخدم مؤسستنا وتطور مهارات مجتمعنا.':
+      'From embedded systems and robots to digital solutions and awareness programs, we create tools that serve our school and develop our community’s skills.',
     'البطاقة التقنية والتفاصيل': 'Technical sheet and details',
     'بناء العقول الرقمية': 'Building digital minds',
     'التوعية': 'Awareness',
     'والمسابقات': 'and competitions',
+    'نسعى لتطوير ثقافة رقمية واعية من خلال منافسات وندوات تدمج بين التحدي، التعلم، والتحليل النفسي العميق للتكنولوجيا.':
+      'We develop conscious digital culture through competitions and talks that combine challenge, learning, and thoughtful analysis of technology use.',
     'أولمبياد المعرفة': 'Knowledge Olympiad',
+    'تحدي رقمي متكامل لاختبار قدرات تلاميذ المؤسسة في مجالات البرمجة، وتاريخ الذكاء الاصطناعي عبر منصة رقمية تفاعلية.':
+      'A complete digital challenge that tests students’ abilities in programming and the history of artificial intelligence through an interactive platform.',
     'دخول المنصة': 'Enter the platform',
     'الوجه الخفي للألعاب': 'The hidden side of games',
+    'حلقة نقاشية تفاعلية تعتمد على بطاقات الحقيقة لتحليل التأثير النفسي لألعاب الفيديو على التحصيل الدراسي.':
+      'An interactive panel based on truth cards to analyze the psychological impact of video games on academic achievement.',
     'العرض التفاعلي': 'Interactive presentation',
     'تحدي السرعة الرقمي': 'Digital speed challenge',
+    'مسابقة دورية باستخدام برنامج RapidTyping يتنافس فيها نخبة من تلاميذ الأقسام لتحديد أسرع تلميذ.':
+      'A periodic RapidTyping competition where selected students compete to identify the fastest typist.',
     'تفاصيل التحدي': 'Challenge details',
     'مهندسو': 'Engineers of the',
     'المستقبل': 'future',
+    'تعرف على العقول المبدعة والطاقات الشابة التي تقود مشاريع نادي الروبوتيك والذكاء الاصطناعي للموسم الحالي.':
+      'Meet the creative minds and young talents leading the Robotics and Artificial Intelligence Club projects this season.',
     'عرض الشارة الرقمية': 'View digital badge',
     'سياق المشروع والإشكالية المطروحة': 'Project context and problem statement',
     'المكونات التقنية والتصميم الهندسي': 'Technical components and engineering design',

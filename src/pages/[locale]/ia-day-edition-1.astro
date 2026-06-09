@@ -9,6 +9,8 @@ export function getStaticPaths() {
       params: { locale },
     }));
 }
+
+const { locale } = Astro.params;
 ---
 
-<IaDayEdition1Page />
+<IaDayEdition1Page locale={locale} />

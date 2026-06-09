@@ -19,9 +19,27 @@ const headerData = getHeaderData(locale);
 const footerData = getFooterData(locale);
 const languageLinks = getLanguageLinks(Astro.url.pathname);
 const { htmlLang, dir } = localeMeta[locale];
+const localizedDescriptions = {
+  ar: 'الموقع الرسمي لنادي الروبوتيك والذكاء الاصطناعي بثانوية الوحدة الإعدادية الرائدة بجماعة امطالسة، إقليم الدريوش، جهة الشرق.',
+  fr: 'Site officiel du Club de robotique et d’intelligence artificielle du Collège pionnier Al Wahda, commune d’Amtalssa, province de Driouch, région de l’Oriental.',
+  en: 'Official website of the Robotics and Artificial Intelligence Club at Al Wahda Pioneer Middle School, Amtalssa commune, Driouch province, Oriental region.',
+} as const;
+const localizedOpenGraphLocales = {
+  ar: 'ar_MA',
+  fr: 'fr_MA',
+  en: 'en_US',
+} as const;
+const localizedMetadata = {
+  ...(metadata ?? {}),
+  description: metadata?.description ?? localizedDescriptions[locale],
+  openGraph: {
+    ...(metadata?.openGraph ?? {}),
+    locale: localizedOpenGraphLocales[locale],
+  },
+};
 ---
 
-<Layout metadata={metadata} language={htmlLang} textDirection={dir}>
+<Layout metadata={localizedMetadata} language={htmlLang} textDirection={dir}>
   <slot name="announcement">
     <Announcement />
   </slot>

@@ -291,6 +291,39 @@ const getHeaderActionClass = (className?: string) =>
           ))
         }
       </ul>
+
+      {
+        hasLanguageLinks ? (
+          <div class="mt-4 w-full border-t border-slate-200/80 px-3 pt-4 dark:border-slate-700 xl:hidden">
+            <div
+              class:list={[
+                'mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-slate-400',
+                menuTextAlignClass,
+              ]}
+            >
+              {languageSwitcherLabel}
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              {languageLinks.map((language) => (
+                <a
+                  href={resolveHref(language.href)}
+                  data-site-locale={language.locale}
+                  class:list={[
+                    'flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm font-black transition-colors',
+                    language.active
+                      ? 'border-[#20A4F3] bg-[#20A4F3] text-white shadow-sm'
+                      : 'border-slate-200 bg-white/85 text-[#0B1C4B] hover:border-[#20A4F3]/55 hover:bg-blue-50 hover:text-[#20A4F3] dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800',
+                  ]}
+                >
+                  <span>{language.shortLabel}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ''
+        )
+      }
     </nav>
 
     <div

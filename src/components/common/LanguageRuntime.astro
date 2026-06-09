@@ -74,6 +74,8 @@ const translations = runtimeTranslations;
       if (locale === 'ar') return;
 
       document.querySelectorAll('a[href]').forEach((link) => {
+        if (link.hasAttribute('data-site-locale')) return;
+
         const href = link.getAttribute('href');
         if (
           !href ||
@@ -150,19 +152,10 @@ const translations = runtimeTranslations;
     };
 
     const localeFromPath = getPathLocale();
-    const storedLocale = localStorage.getItem(storageKey);
 
     if (localeFromPath !== 'ar') {
       localStorage.setItem(storageKey, localeFromPath);
       applyLocaleEnhancements(localeFromPath);
-    } else if (storedLocale && storedLocale !== 'ar') {
-      const nextPath = localizePath(getPathWithoutBase(), storedLocale);
-      const nextUrl = `${base}${nextPath}${window.location.search}${window.location.hash}`;
-      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-      if (nextUrl !== currentUrl) {
-        window.location.replace(nextUrl);
-        return;
-      }
     }
 
     rememberExplicitChoice();

@@ -1,21 +1,60 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const propLocale = Astro.props.locale;
+const routeLocale = propLocale === 'fr' || propLocale === 'en' ? propLocale : 'ar';
+
+const pageText = {
+  ar: {
+    dir: 'rtl',
+    title: 'منصة أولمبياد المعرفة المعلوماتية',
+    eyebrow: 'أولمبياد المعرفة',
+    heading: 'منصة الأولمبياد الرقمية',
+    description:
+      'منصة الأولمبياد موجودة في مشروع مستقل حتى تبقى المسابقة قابلة للتطوير والتحديث بشكل منفصل عن موقع النادي.',
+    openPlatform: 'فتح منصة الأولمبياد',
+    backHome: 'الرجوع إلى الموقع',
+  },
+  fr: {
+    dir: 'ltr',
+    title: 'Plateforme de l’Olympiade de culture informatique',
+    eyebrow: 'Olympiade de la connaissance',
+    heading: 'Plateforme numérique de l’Olympiade',
+    description:
+      'La plateforme de l’Olympiade est hébergée dans un projet indépendant afin que la compétition puisse évoluer et être mise à jour séparément du site du club.',
+    openPlatform: 'Ouvrir la plateforme',
+    backHome: 'Retour au site',
+  },
+  en: {
+    dir: 'ltr',
+    title: 'Informatics Knowledge Olympiad Platform',
+    eyebrow: 'Knowledge Olympiad',
+    heading: 'Digital Olympiad Platform',
+    description:
+      'The Olympiad platform is hosted in a separate project so the competition can be developed and updated independently from the club website.',
+    openPlatform: 'Open the Olympiad platform',
+    backHome: 'Back to the website',
+  },
+} as const;
+
+const text = pageText[routeLocale];
+const homeHref = routeLocale === 'ar' ? getPermalink('/') : getPermalink(`/${routeLocale}`);
 
 const metadata = {
-  title: 'منصة أولمبياد المعرفة المعلوماتية',
+  title: text.title,
 };
 ---
 
 <Layout metadata={metadata}>
-  <main class="min-h-[70vh] bg-slate-50 dark:bg-slate-950 py-16 md:py-24" dir="rtl">
+  <main class="min-h-[70vh] bg-slate-50 dark:bg-slate-950 py-16 md:py-24" dir={text.dir}>
     <section class="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-      <span class="text-[#20A4F3] font-extrabold text-lg">أولمبياد المعرفة</span>
+      <span class="text-[#20A4F3] font-extrabold text-lg">{text.eyebrow}</span>
       <h1 class="mt-3 text-3xl md:text-5xl font-black text-slate-900 dark:text-white">
-        منصة الأولمبياد الرقمية
+        {text.heading}
       </h1>
       <p class="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
-        منصة الأولمبياد موجودة في مشروع مستقل حتى تبقى المسابقة قابلة للتطوير والتحديث بشكل منفصل عن
-        موقع النادي.
+        {text.description}
       </p>
 
       <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3">
@@ -25,13 +64,13 @@ const metadata = {
           rel="noopener noreferrer"
           class="inline-flex items-center justify-center rounded-xl bg-[#20A4F3] px-6 py-3 font-black text-[#0B1C4B] hover:bg-[#0B1C4B] hover:text-white transition-colors"
         >
-          فتح منصة الأولمبياد
+          {text.openPlatform}
         </a>
         <a
-          href="./"
+          href={homeHref}
           class="inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 px-6 py-3 font-bold text-slate-900 dark:text-white hover:border-[#20A4F3] hover:text-[#20A4F3] transition-colors"
         >
-          الرجوع إلى الموقع
+          {text.backHome}
         </a>
       </div>
     </section>
