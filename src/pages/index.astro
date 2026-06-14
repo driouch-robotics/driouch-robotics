@@ -10,6 +10,7 @@ import schoolLogo from '~/assets/images/school-logo.png';
 import kartFutureLogo from '~/assets/images/kart-future-logo.png';
 import elAmalYayaDayLogo from '~/assets/images/sponsors/gold/elamal-yaya-day-logo.jpg';
 import elAmalYayaNightLogo from '~/assets/images/sponsors/gold/elamal-yaya-night-logo.jpg';
+import bricoMimLogo from '~/assets/images/sponsors/silver/brico-mim-logo.jpg';
 // import provinceLogo from '~/assets/images/province-logo.png';
 
 import teamData from '~/data/team.json';
@@ -426,10 +427,12 @@ const resolveSiteHref = (href = '') =>
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.45rem 0.9rem;
-      border-radius: 1.5rem;
-      border: 1px solid transparent;
-      background: transparent;
+      padding: 0.55rem 0.95rem;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(32, 164, 243, 0.18);
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 18px 44px -32px rgba(11, 28, 75, 0.5);
+      backdrop-filter: blur(10px);
       transition:
         transform 0.3s ease,
         border-color 0.3s ease,
@@ -437,16 +440,84 @@ const resolveSiteHref = (href = '') =>
         box-shadow 0.3s ease;
     }
 
-    .institution-logo-trigger:hover {
-      transform: translateY(-2px);
-      border-color: rgba(32, 164, 243, 0.22);
-      background: rgba(255, 255, 255, 0.65);
-      box-shadow: 0 18px 40px -28px rgba(11, 28, 75, 0.35);
+    .institution-logo-trigger img {
+      filter: drop-shadow(0 10px 14px rgba(11, 28, 75, 0.16));
     }
 
-    .dark .institution-logo-trigger:hover {
-      background: rgba(15, 23, 42, 0.35);
-      border-color: rgba(32, 164, 243, 0.32);
+    .institution-logo-trigger:hover {
+      transform: translateY(-2px);
+      border-color: rgba(32, 164, 243, 0.42);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 20px 54px -32px rgba(32, 164, 243, 0.38);
+    }
+
+    :global(.dark) .institution-logo-trigger {
+      border-color: rgba(32, 164, 243, 0.36);
+      background: linear-gradient(135deg, rgba(8, 17, 42, 0.78), rgba(15, 23, 42, 0.6));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 20px 58px -34px rgba(32, 164, 243, 0.55);
+    }
+
+    :global(.dark) .institution-logo-trigger img {
+      filter:
+        drop-shadow(0 0 10px rgba(32, 164, 243, 0.3))
+        drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35));
+    }
+
+    :global(.dark) .institution-logo-trigger:hover {
+      background: linear-gradient(135deg, rgba(11, 28, 75, 0.82), rgba(15, 23, 42, 0.7));
+      border-color: rgba(32, 164, 243, 0.58);
+    }
+
+    .stakeholder-panel {
+      isolation: isolate;
+    }
+
+    :global(.dark) .stakeholder-panel {
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(8, 17, 42, 0.96)),
+        radial-gradient(circle at top, rgba(32, 164, 243, 0.14), transparent 38%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 24px 78px -62px rgba(32, 164, 243, 0.65);
+    }
+
+    :global(.dark) .stakeholder-panel-gold {
+      background:
+        linear-gradient(145deg, rgba(24, 20, 10, 0.9), rgba(15, 23, 42, 0.94)),
+        radial-gradient(circle at top, rgba(250, 204, 21, 0.12), transparent 40%);
+      box-shadow:
+        inset 0 1px 0 rgba(250, 204, 21, 0.12),
+        0 24px 78px -62px rgba(250, 204, 21, 0.55);
+    }
+
+    .stakeholder-logo-stage {
+      position: relative;
+    }
+
+    .stakeholder-logo-stage::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    :global(.dark) .stakeholder-logo-stage {
+      box-shadow:
+        inset 0 1px 16px rgba(255, 255, 255, 0.08),
+        0 16px 42px -32px rgba(32, 164, 243, 0.6);
+    }
+
+    .institutional-tag {
+      background: linear-gradient(135deg, rgba(32, 164, 243, 0.16), rgba(255, 255, 255, 0.72));
+    }
+
+    :global(.dark) .institutional-tag {
+      background: linear-gradient(135deg, rgba(32, 164, 243, 0.16), rgba(15, 23, 42, 0.75));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
 
     .institution-dialog {
@@ -753,7 +824,7 @@ const resolveSiteHref = (href = '') =>
               <Image
                 src={schoolLogo}
                 alt="ثانوية الوحدة الإعدادية الرائدة"
-                class="h-11 md:h-14 lg:h-16 xl:h-20 w-auto object-contain transition-all duration-300 ease-out group-hover:scale-105 group-hover:-translate-y-0.5 drop-shadow-md group-hover:drop-shadow-xl"
+                class="h-14 max-w-[230px] md:h-16 md:max-w-[300px] lg:h-20 xl:h-24 w-auto object-contain transition-all duration-300 ease-out group-hover:scale-105 group-hover:-translate-y-0.5 drop-shadow-md group-hover:drop-shadow-xl"
               />
             </button>
 
@@ -987,7 +1058,7 @@ const resolveSiteHref = (href = '') =>
     <div class="container mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center" dir="rtl">
         <div
-          class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-yellow-400/30 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+          class="stakeholder-panel stakeholder-panel-gold flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-yellow-400/30 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
         >
           <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-300 to-yellow-500"></div>
           <h3
@@ -1006,7 +1077,7 @@ const resolveSiteHref = (href = '') =>
                   داعم ذهبي
                 </span>
 
-                <div class="flex min-h-[72px] items-center justify-center rounded-lg bg-white p-2.5 shadow-inner ring-1 ring-yellow-200/60 dark:bg-black dark:ring-yellow-400/15">
+                <div class="stakeholder-logo-stage flex min-h-[72px] items-center justify-center rounded-lg bg-white p-2.5 shadow-inner ring-1 ring-yellow-200/60 dark:bg-[#020617] dark:ring-yellow-400/25">
                   <Image
                     src={elAmalYayaDayLogo}
                     alt="مكتبة الأمل يايا"
@@ -1027,7 +1098,7 @@ const resolveSiteHref = (href = '') =>
         </div>
 
         <div
-          class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-300 dark:border-slate-600 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+          class="stakeholder-panel flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-300 dark:border-slate-600 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
         >
           <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-300 to-slate-400"></div>
           <h3
@@ -1037,11 +1108,32 @@ const resolveSiteHref = (href = '') =>
             Silver Sponsors
           </h3>
           <span class="text-xs font-bold text-gray-400 dark:text-gray-500 mb-6">الرعاة الفضيون</span>
-          <div class="flex-grow flex flex-wrap items-center justify-center gap-4 w-full"></div>
+          <div class="flex-grow flex flex-wrap items-center justify-center gap-4 w-full">
+            <div class="group w-full max-w-[215px]">
+              <div class="relative overflow-hidden rounded-xl border border-slate-300/70 bg-gradient-to-br from-white via-slate-50 to-slate-100 p-3.5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-400 hover:shadow-[0_18px_42px_-30px_rgba(15,23,42,0.55)] dark:border-slate-500/35 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800/80">
+                <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-slate-300 via-slate-500 to-slate-300"></div>
+
+                <span class="mb-2 inline-flex items-center rounded-full border border-slate-300/70 bg-slate-100/85 px-2.5 py-1 text-[10px] font-black text-slate-700 dark:border-slate-500/40 dark:bg-white/10 dark:text-slate-200">
+                  داعم فضي
+                </span>
+
+                <div class="stakeholder-logo-stage flex min-h-[82px] items-center justify-center rounded-xl bg-white p-2.5 shadow-inner ring-1 ring-slate-200/80 dark:bg-white dark:ring-slate-400/30">
+                  <Image
+                    src={bricoMimLogo}
+                    alt="Brico MIM"
+                    class="h-20 w-auto max-w-full rounded-md object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+
+                <p class="mt-3 text-sm font-black text-[#0B1C4B] dark:text-white">Brico MIM</p>
+                <p class="mt-0.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">Droguerie & Bricolage</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div
-          class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-[#20A4F3]/30 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+          class="stakeholder-panel flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-[#20A4F3]/30 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
         >
           <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0B1C4B] to-[#20A4F3]"></div>
           <h3
@@ -1059,7 +1151,7 @@ const resolveSiteHref = (href = '') =>
                 <p class="text-[10px] font-black leading-4 text-[#20A4F3]">
                   {mediaSuccessPartner.label}
                 </p>
-                <div class="mt-3 flex min-h-[70px] items-center justify-center rounded-xl bg-white p-3 shadow-inner ring-1 ring-sky-100 dark:bg-white dark:ring-[#20A4F3]/20">
+                <div class="stakeholder-logo-stage mt-3 flex min-h-[70px] items-center justify-center rounded-xl bg-white p-3 shadow-inner ring-1 ring-sky-100 dark:bg-white dark:ring-[#20A4F3]/30">
                   <Image
                     src={kartFutureLogo}
                     alt={mediaSuccessPartner.name}
@@ -1077,9 +1169,12 @@ const resolveSiteHref = (href = '') =>
 
             <div class="grid w-full gap-3">
               {
-                institutionalSuccessPartners.map((partner) => (
+                institutionalSuccessPartners.map((partner, index) => (
                   <div class="group relative overflow-hidden rounded-xl border border-[#20A4F3]/25 bg-gradient-to-br from-sky-50 via-white to-blue-50 px-3.5 py-3 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#20A4F3]/50 hover:shadow-[0_16px_36px_-28px_rgba(32,164,243,0.7)] dark:border-[#20A4F3]/20 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40">
                     <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#0B1C4B] via-[#20A4F3] to-[#0B1C4B]"></div>
+                    <span class="institutional-tag mx-auto mb-2 inline-flex min-w-[120px] items-center justify-center rounded-full border border-[#20A4F3]/25 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#0B1C4B] dark:text-[#7DD3FC]">
+                      {index === 0 ? 'INDH Driouch' : 'Province de Driouch'}
+                    </span>
                     <p class="text-[10px] font-black leading-4 text-[#20A4F3]">
                       {partner.label}
                     </p>
