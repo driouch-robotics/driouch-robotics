@@ -54,6 +54,7 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'شريك نجاح مؤسساتي': 'Partenaire institutionnel de réussite',
     'شريك التنظيم والإعلام الرقمي': 'Partenaire organisation et média numérique',
     'مكتبة الأمل يايا': 'Librairie El Amal Yaya',
+    'مطعم البهجة': 'Restaurant El Bahja',
     'جمعية كرت المستقبل': 'Association Kart Future',
     'التنظيم والتغطية الإعلامية وتعزيز الحضور الرقمي':
       'Organisation, couverture médiatique et renforcement de la présence numérique',
@@ -260,6 +261,7 @@ export const runtimeTranslations: Record<Exclude<Locale, 'ar'>, Record<string, s
     'شريك نجاح مؤسساتي': 'Institutional success partner',
     'شريك التنظيم والإعلام الرقمي': 'Organization and digital media partner',
     'مكتبة الأمل يايا': 'El Amal Yaya Library',
+    'مطعم البهجة': 'Restaurant El Bahja',
     'جمعية كرت المستقبل': 'Kart Future Association',
     'التنظيم والتغطية الإعلامية وتعزيز الحضور الرقمي':
       'Organization, media coverage, and digital presence enhancement',
